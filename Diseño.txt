@@ -1,0 +1,36 @@
+Para tu TP de Red Social, te recomiendo pedirle a la IA que genere un diseño UI/UX de alta fidelidad (High-Fidelity UI Design) para Figma, con una estética de producto real, componentes reutilizables y todas las pantallas necesarias para cumplir con los sprints del enunciado. El proyecto requiere publicaciones, comentarios, perfiles, autenticación y, más adelante, un panel de administración con estadísticas, publicaciones guardadas y compartidas. Texto pegado.txt
+
+
+Lo ideal es pedir un diseño que no parezca un trabajo práctico básico, sino una red social profesional, moderna y lista para usar como referencia al desarrollar en Angular.
+
+
+Estilo: SaaS moderno + red social premium
+
+Mi recomendación principal
+- Fondo gris muy claro y tarjetas blancas.
+- Azul índigo como color principal.
+- Tipografía Inter.
+- Bordes suaves, sombras sutiles y espacios amplios.
+- Avatares, publicaciones visuales y botones bien definidos.
+
+01 — Autenticación
+
+Login y registro con validaciones y diseño consistente.
+Sprint 1
+
+02 — Feed y publicaciones
+
+Tarjetas, likes, imágenes, comentarios y ordenamiento.
+Sprints 1–3
+
+
+03 — Perfiles
+
+Perfil propio, edición de datos y perfiles de otros usuarios.
+Sprints 1–5
+
+
+04 — Administración
+
+Usuarios, permisos, métricas y gráficos.
+Sprint 4 en adelante

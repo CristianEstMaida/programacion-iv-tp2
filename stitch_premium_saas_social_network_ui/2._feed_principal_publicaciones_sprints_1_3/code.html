@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+
+<html lang="es"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{"colors":{"surface":"#f8f9ff","on-secondary-fixed-variant":"#2d3c9c","on-surface-variant":"#454652","on-secondary":"#ffffff","secondary":"#4755b6","surface-variant":"#d3e4fe","on-secondary-container":"#1b2b8c","on-primary":"#ffffff","tertiary-container":"#575a64","surface-container-lowest":"#ffffff","on-primary-container":"#cacfff","on-tertiary-fixed":"#181b24","error-container":"#ffdad6","secondary-container":"#8a99fe","primary-fixed":"#dee0ff","on-primary-fixed-variant":"#293ca0","surface-tint":"#4355b9","inverse-on-surface":"#eaf1ff","on-tertiary":"#ffffff","inverse-surface":"#213145","surface-container-low":"#eff4ff","on-error-container":"#93000a","on-error":"#ffffff","surface-bright":"#f8f9ff","on-surface":"#0b1c30","primary-container":"#3f51b5","surface-container":"#e5eeff","secondary-fixed-dim":"#bbc3ff","on-tertiary-container":"#cfd2dd","on-secondary-fixed":"#000d5f","error":"#ba1a1a","on-primary-fixed":"#00105c","tertiary-fixed-dim":"#c4c6d2","outline":"#757684","on-background":"#0b1c30","surface-container-high":"#dce9ff","outline-variant":"#c5c5d4","primary":"#24389c","tertiary-fixed":"#e0e2ee","on-tertiary-fixed-variant":"#434750","surface-container-highest":"#d3e4fe","background":"#f8f9ff","tertiary":"#3f434c","secondary-fixed":"#dfe0ff","surface-dim":"#cbdbf5","inverse-primary":"#bac3ff","primary-fixed-dim":"#bac3ff"},"borderRadius":{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},"spacing":{"margin":"2rem","margin-mobile":"1rem","space-lg":"1.5rem","space-sm":"0.5rem","gutter-mobile":"1rem","gutter":"1.5rem","space-md":"1rem","space-xs":"0.25rem","space-xl":"2rem"},"fontFamily":{"body-lg":["Inter"],"headline-xl-mobile":["Inter"],"body-sm":["Inter"],"label-lg":["Inter"],"headline-xl":["Inter"],"label-md":["Inter"],"label-sm":["Inter"],"headline-lg-mobile":["Inter"],"headline-md":["Inter"],"headline-lg":["Inter"],"body-md":["Inter"],"headline-sm":["Inter"]},"fontSize":{"body-lg":["16px",{"lineHeight":"26px","letterSpacing":"-0.005em","fontWeight":"400"}],"headline-xl-mobile":["30px",{"lineHeight":"38px","letterSpacing":"-0.02em","fontWeight":"700"}],"body-sm":["13px",{"lineHeight":"18px","letterSpacing":"0.005em","fontWeight":"400"}],"label-lg":["14px",{"lineHeight":"20px","letterSpacing":"0.01em","fontWeight":"600"}],"headline-xl":["40px",{"lineHeight":"48px","letterSpacing":"-0.025em","fontWeight":"700"}],"label-md":["12px",{"lineHeight":"16px","letterSpacing":"0.02em","fontWeight":"500"}],"label-sm":["11px",{"lineHeight":"14px","letterSpacing":"0.04em","fontWeight":"600"}],"headline-lg-mobile":["24px",{"lineHeight":"32px","letterSpacing":"-0.015em","fontWeight":"600"}],"headline-md":["24px",{"lineHeight":"32px","letterSpacing":"-0.015em","fontWeight":"600"}],"headline-lg":["32px",{"lineHeight":"40px","letterSpacing":"-0.02em","fontWeight":"600"}],"body-md":["14px",{"lineHeight":"22px","letterSpacing":"0em","fontWeight":"400"}],"headline-sm":["20px",{"lineHeight":"28px","letterSpacing":"-0.01em","fontWeight":"600"}]}}}};</script></head><body class="bg-surface font-body-md text-body-md text-on-surface antialiased"><header class="fixed top-0 left-0 w-full h-16 bg-surface-container-lowest z-50 shadow-[0_1px_8px_rgba(0,0,0,0.04)] px-space-lg flex items-center justify-between"><div class="flex items-center gap-space-md"><img alt="PulseNet Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1VvVVq8-UUPuvZvnPrU-qC7cE_k-Ob7knYYoHVrxehAIWJdBfSjNR5GxmTbeBSP7Xrl7x79bLVUFkjdpIFpKxLTpCvN1VetXmLVS0aJaxuoxhyIblcLkbZPPn3f74IM3cSP-47wpOSxbcD4I8FUp5vZHizoO7TAJX7YQsoUYe8v01SlQ4hJFzsUAOprt4Rwocp59tuPgMVkj2Q1XRwqWajMi3_Wff4Na1CWlRffLk_ZMHxp4wGZJWhI3A"/><div class="flex items-center gap-space-xs"><span class="font-headline-sm text-headline-sm text-on-surface font-bold tracking-tight">PulseNet</span><span class="bg-primary-fixed text-on-primary-fixed-variant font-label-sm text-label-sm px-space-xs py-0.5 rounded-full">PRO</span></div></div><div class="flex-1 max-w-lg mx-space-xl hidden md:block"><div class="relative flex items-center w-full"><span class="material-symbols-outlined absolute left-space-md text-outline pointer-events-none text-xl">search</span><input class="w-full bg-surface-container-low text-on-surface placeholder:text-outline font-body-sm text-body-sm pl-11 pr-20 py-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-container transition-all" placeholder="Buscar profesionales, empresas, debates..." type="text"/><div class="absolute right-space-sm flex items-center"><kbd class="bg-surface-container-lowest text-on-surface-variant font-label-sm text-label-sm px-1.5 py-0.5 rounded shadow-[0_1px_2px_rgba(0,0,0,0.05)]">⌘ K</kbd></div></div></div><div class="flex items-center gap-space-md"><button class="hidden sm:inline-flex items-center gap-space-xs bg-primary-container text-on-primary font-label-lg text-label-lg px-space-md py-2 rounded-xl hover:opacity-95 shadow-sm transition-all" type="button"><span class="material-symbols-outlined text-lg">add</span><span>Nueva Publicación</span></button><div class="flex items-center gap-space-xs"><button class="p-2 rounded-xl text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors relative" type="button"><span class="material-symbols-outlined text-xl">chat_bubble</span><span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-primary-container"></span></button><button class="p-2 rounded-xl text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors relative" type="button"><span class="material-symbols-outlined text-xl">notifications</span><span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-error"></span></button></div><div class="relative flex items-center pl-space-xs"><div class="relative cursor-pointer"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBcPEPH8Ag9En5YonvIoNHtdnDGKqqlEGXiY7ZcYCajqh2QmiJKq8J9JeeEkKzPQB0g-rhxPvax0WPGeFS52pUX2LRgNhEtZK7JrKuHtexnsRiyfQpu9BFHnttvaKimniFsxJ1dKRkbDSzvakohv4XkmXzh3qYElBA1R8wMl7nRfHpdl252Uli3Hi6DX3dmVH_SmS_Df7Trk-w7Fh1E_iKWXPbLPDrqKFYa1MYUoHoKF3kKmYi3EI4t"/><span class="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-emerald-500 ring-2 ring-surface-container-lowest"></span></div><span class="material-symbols-outlined text-outline cursor-pointer ml-1 text-sm">keyboard_arrow_down</span></div></div></header><aside class="fixed left-0 top-16 bottom-0 w-64 bg-surface-container-lowest z-40 flex flex-col justify-between py-space-md shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="flex-1 overflow-y-auto px-space-sm"><nav class="space-y-1" data-active-classes="bg-primary-fixed text-primary font-semibold"><a aria-current="page" class="flex items-center justify-between px-space-md py-2.5 rounded-xl transition-colors bg-primary-fixed text-primary font-semibold" data-path="feed-principal" href="#"><div class="flex items-center gap-space-md"><span class="material-symbols-outlined text-xl">feed</span><span class="font-label-lg text-label-lg">Feed Principal</span></div></a><a class="flex items-center justify-between px-space-md py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="mi-perfil-y-red" href="#"><div class="flex items-center gap-space-md"><span class="material-symbols-outlined text-xl">badge</span><span class="font-label-lg text-label-lg">Mi Perfil &amp; Red</span></div></a><a class="flex items-center justify-between px-space-md py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="descubrir-y-explorar" href="#"><div class="flex items-center gap-space-md"><span class="material-symbols-outlined text-xl">explore</span><span class="font-label-lg text-label-lg">Descubrir &amp; Explorar</span></div></a><a class="flex items-center justify-between px-space-md py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="mensajes" href="#"><div class="flex items-center gap-space-md"><span class="material-symbols-outlined text-xl">forum</span><span class="font-label-lg text-label-lg">Mensajes</span></div><span class="bg-secondary-fixed text-on-secondary-fixed-variant font-label-sm text-label-sm px-2 py-0.5 rounded-full">4</span></a><a class="flex items-center justify-between px-space-md py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="guardados" href="#"><div class="flex items-center gap-space-md"><span class="material-symbols-outlined text-xl">bookmark</span><span class="font-label-lg text-label-lg">Guardados</span></div></a><a class="flex items-center justify-between px-space-md py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="panel-de-administracion-y-metricas" href="#"><div class="flex items-center gap-space-md"><span class="material-symbols-outlined text-xl">insights</span><span class="font-label-lg text-label-lg">Panel &amp; Métricas</span></div></a></nav></div><div class="px-space-sm pt-space-sm"><div class="h-px bg-surface-container-high mx-space-sm mb-space-sm"></div><nav class="space-y-1" data-active-classes="bg-primary-fixed text-primary font-semibold"><a class="flex items-center gap-space-md px-space-md py-2 rounded-xl text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="configuracion-y-preferencias" href="#"><span class="material-symbols-outlined text-xl">settings</span><span class="font-label-lg text-label-lg">Configuración</span></a><a class="flex items-center gap-space-md px-space-md py-2 rounded-xl text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="soporte" href="#"><span class="material-symbols-outlined text-xl">help</span><span class="font-label-lg text-label-lg">Soporte</span></a><a class="flex items-center gap-space-md px-space-md py-2 rounded-xl text-error hover:bg-error-container hover:text-on-error-container transition-colors" data-path="cerrar-sesion" href="#"><span class="material-symbols-outlined text-xl">logout</span><span class="font-label-lg text-label-lg">Cerrar Sesión</span></a></nav></div></aside><div class="pl-64"><main class="relative pt-16 min-h-screen bg-surface px-gutter"><div class="flex flex-col w-full py-space-md">
+<!-- Layout Wrapper: 2 Columns within Main Slot (Center Feed + Right Context Rail) -->
+<div class="grid grid-cols-1 xl:grid-cols-12 gap-space-lg w-full max-w-7xl mx-auto items-start">
+<!-- CENTER COLUMN: Feed Stream (Col span 8 on xl) -->
+<div class="xl:col-span-8 flex flex-col space-y-space-md min-w-0">
+<!-- Top Filter & Segments Bar -->
+<div class="bg-surface-container-lowest rounded-2xl shadow-sm p-space-sm flex flex-wrap items-center justify-between gap-space-sm">
+<div class="flex items-center gap-1.5 overflow-x-auto py-1">
+<button class="bg-primary-container text-on-primary font-label-md text-label-md px-3.5 py-1.5 rounded-full transition-all shadow-sm" type="button">
+            Relevantes para ti
+          </button>
+<button class="bg-surface text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface font-label-md text-label-md px-3.5 py-1.5 rounded-full transition-all" type="button">
+            Más Recientes
+          </button>
+<button class="bg-surface text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface font-label-md text-label-md px-3.5 py-1.5 rounded-full transition-all" type="button">
+            Siguiendo
+          </button>
+<button class="bg-surface text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface font-label-md text-label-md px-3.5 py-1.5 rounded-full transition-all flex items-center gap-1" type="button">
+<span class="material-symbols-outlined text-sm">auto_graph</span>
+            Casos de Estudio
+          </button>
+</div>
+<button class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-surface-container-low hover:bg-surface-container text-on-surface-variant text-label-sm font-label-sm transition-colors ml-auto" type="button">
+<span class="material-symbols-outlined text-base text-primary">tune</span>
+<span class="hidden sm:inline">Filtros avanzados</span>
+<span class="material-symbols-outlined text-sm">keyboard_arrow_down</span>
+</button>
+</div>
+<!-- Post Creation Card -->
+<div class="bg-surface-container-lowest rounded-2xl shadow-sm p-space-md relative overflow-hidden transition-all duration-200">
+<div class="flex items-start gap-space-md">
+<img alt="Avatar" class="w-10 h-10 rounded-full object-cover shadow-sm" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBcPEPH8Ag9En5YonvIoNHtdnDGKqqlEGXiY7ZcYCajqh2QmiJKq8J9JeeEkKzPQB0g-rhxPvax0WPGeFS52pUX2LRgNhEtZK7JrKuHtexnsRiyfQpu9BFHnttvaKimniFsxJ1dKRkbDSzvakohv4XkmXzh3qYElBA1R8wMl7nRfHpdl252Uli3Hi6DX3dmVH_SmS_Df7Trk-w7Fh1E_iKWXPbLPDrqKFYa1MYUoHoKF3kKmYi3EI4t"/>
+<div class="flex-1 min-w-0">
+<div class="bg-surface-container-low rounded-xl px-4 py-3 cursor-text text-outline hover:text-on-surface-variant transition-colors flex items-center justify-between">
+<span class="font-body-md text-body-md truncate">Comparte una actualización, caso de éxito o discusión técnica...</span>
+<span class="bg-surface-container text-primary font-label-sm text-label-sm px-2 py-0.5 rounded-full hidden sm:inline-block">Ctrl + Enter</span>
+</div>
+</div>
+</div>
+<div class="mt-space-md pt-space-sm flex items-center justify-between flex-wrap gap-2">
+<div class="flex items-center gap-1 text-on-surface-variant">
+<button class="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg hover:bg-surface-container-low hover:text-primary transition-colors text-label-sm font-label-sm" type="button">
+<span class="material-symbols-outlined text-primary text-lg">image</span>
+<span class="hidden md:inline">Multimedia</span>
+</button>
+<button class="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg hover:bg-surface-container-low hover:text-primary transition-colors text-label-sm font-label-sm" type="button">
+<span class="material-symbols-outlined text-secondary text-lg">code</span>
+<span class="hidden md:inline">Código</span>
+</button>
+<button class="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg hover:bg-surface-container-low hover:text-primary transition-colors text-label-sm font-label-sm" type="button">
+<span class="material-symbols-outlined text-emerald-600 text-lg">poll</span>
+<span class="hidden md:inline">Encuesta</span>
+</button>
+<button class="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg hover:bg-surface-container-low hover:text-primary transition-colors text-label-sm font-label-sm" type="button">
+<span class="material-symbols-outlined text-amber-600 text-lg">description</span>
+<span class="hidden md:inline">Artículo</span>
+</button>
+</div>
+<button class="inline-flex items-center gap-1.5 bg-primary-container text-on-primary font-label-md text-label-md px-4 py-2 rounded-xl shadow-sm hover:opacity-95 active:scale-[0.98] transition-all" type="button">
+<span class="material-symbols-outlined text-base">add</span>
+<span>Publicar</span>
+</button>
+</div>
+</div>
+<!-- Feed Item 1: Rich Media Post -->
+<article class="bg-surface-container-lowest rounded-2xl shadow-sm p-space-lg flex flex-col space-y-space-md transition-shadow hover:shadow-md">
+<!-- Post Header -->
+<div class="flex items-start justify-between gap-space-md">
+<div class="flex items-center gap-space-md min-w-0">
+<div class="relative shrink-0">
+<img class="w-12 h-12 rounded-full object-cover ring-2 ring-primary-fixed" data-alt="Corporate headshot portrait of Carlos Mendez, mid-thirties Hispanic VP of Engineering wearing a navy blazer in a modern high-tech office with soft blue ambient bokeh lighting, sharp editorial photo." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDjEec4mEHq5yGGNX8xbcLy9LEibo5qELYr5Z7mbO9AqAWtlAqLBMY9yI6igoUJCC_jhbavnwFk1Xno0IEStZPw4JWL3NfPBdf2ndLs3xOaUs3yapZK6ah4QMJsgVgRX1OBNUvlHFWRu5hyn2VTo2flTihlfOaxaF_Kh2N9nIIxPf8xWUQgfcmFkMDjn18zW1N_o2gw4HAaWSwDnAyVRl6BGv-pBGWYFY8LtM0Cw-BeFCaA8Td_EZ99"/>
+<span class="absolute -bottom-1 -right-1 bg-primary text-on-primary w-4 h-4 rounded-full flex items-center justify-center text-[10px]">
+<span class="material-symbols-outlined text-[11px]" style="font-variation-settings: 'FILL' 1;">verified</span>
+</span>
+</div>
+<div class="min-w-0">
+<div class="flex items-center gap-2">
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold truncate leading-tight">Carlos Méndez</h3>
+<span class="bg-primary-fixed text-on-primary-fixed-variant font-label-sm text-label-sm px-2 py-0.5 rounded-full shrink-0">Destacado</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">VP of Engineering @ FinTech Cloud</p>
+<div class="flex items-center gap-1.5 text-on-surface-variant font-label-sm text-label-sm mt-0.5">
+<span>Hace 2 horas</span>
+<span>•</span>
+<span>Editado</span>
+<span>•</span>
+<span class="material-symbols-outlined text-xs">public</span>
+</div>
+</div>
+</div>
+<button class="p-1.5 text-on-surface-variant hover:text-on-surface rounded-lg hover:bg-surface-container-low transition-colors" type="button">
+<span class="material-symbols-outlined text-xl">more_horiz</span>
+</button>
+</div>
+<!-- Post Content -->
+<div class="font-body-lg text-body-lg text-on-surface space-y-2">
+<p>
+            Acabamos de migrar nuestra arquitectura a microfrontends con <strong class="text-primary font-semibold">Angular 18</strong> y el rendimiento mejoró un <strong class="text-secondary font-semibold">42%</strong>. Comparto la métrica de Latency LCP y un resumen de lecciones aprendidas 👇
+          </p>
+</div>
+<!-- Rich Benchmark Data Visual Attachment -->
+<div class="bg-surface-container-low rounded-2xl p-space-md overflow-hidden relative">
+<!-- Top bar inside preview -->
+<div class="flex items-center justify-between mb-space-md pb-2 border-b-0">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-xl">speed</span>
+<span class="font-label-md text-label-md text-on-surface font-semibold">Production Telemetry: Core Web Vitals Benchmark</span>
+</div>
+<span class="bg-surface-container-lowest text-emerald-700 font-label-sm text-label-sm px-2.5 py-1 rounded-full shadow-sm flex items-center gap-1 font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+              P99 Global -42%
+            </span>
+</div>
+<!-- Metric Cards Grid inside Visual -->
+<div class="grid grid-cols-2 md:grid-cols-4 gap-space-sm mb-space-md">
+<div class="bg-surface-container-lowest p-3 rounded-xl shadow-sm">
+<span class="font-label-sm text-label-sm text-outline block">LCP (Largest Contentful)</span>
+<div class="flex items-baseline gap-1 mt-1">
+<span class="font-headline-md text-headline-md font-bold text-on-surface">0.8s</span>
+<span class="text-emerald-600 font-label-sm text-label-sm">↓ 58%</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-3 rounded-xl shadow-sm">
+<span class="font-label-sm text-label-sm text-outline block">TTFB (Time to First Byte)</span>
+<div class="flex items-baseline gap-1 mt-1">
+<span class="font-headline-md text-headline-md font-bold text-on-surface">120ms</span>
+<span class="text-emerald-600 font-label-sm text-label-sm">↓ 34%</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-3 rounded-xl shadow-sm">
+<span class="font-label-sm text-label-sm text-outline block">CLS Stability</span>
+<div class="flex items-baseline gap-1 mt-1">
+<span class="font-headline-md text-headline-md font-bold text-on-surface">0.002</span>
+<span class="text-primary font-label-sm text-label-sm">Stable</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-3 rounded-xl shadow-sm">
+<span class="font-label-sm text-label-sm text-outline block">Bundle Shaving</span>
+<div class="flex items-baseline gap-1 mt-1">
+<span class="font-headline-md text-headline-md font-bold text-on-surface">1.4MB</span>
+<span class="text-emerald-600 font-label-sm text-label-sm">-640KB</span>
+</div>
+</div>
+</div>
+<!-- Inline SVG Area Chart: Performance Curve -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm">
+<div class="flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm mb-2">
+<span>Distribución de Carga (Antes vs Angular 18 MFE)</span>
+<div class="flex items-center gap-3">
+<span class="flex items-center gap-1 text-outline"><span class="w-2.5 h-2.5 rounded-full bg-outline-variant inline-block"></span> Monolito Anterior</span>
+<span class="flex items-center gap-1 text-primary font-semibold"><span class="w-2.5 h-2.5 rounded-full bg-primary inline-block"></span> Angular 18 MFE</span>
+</div>
+</div>
+<div class="w-full h-32 relative">
+<svg class="w-full h-full text-primary" preserveaspectratio="none" viewbox="0 0 600 120">
+<defs>
+<lineargradient id="chartGradient" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#3F51B5" stop-opacity="0.25"></stop>
+<stop offset="100%" stop-color="#3F51B5" stop-opacity="0.0"></stop>
+</lineargradient>
+</defs>
+<!-- Previous Monolith Line -->
+<path d="M 0,95 Q 120,85 240,75 T 480,50 L 600,45" fill="none" stroke="#C5C5D4" stroke-dasharray="4 4" stroke-width="2"></path>
+<!-- New MFE Curve Fill -->
+<path d="M 0,110 Q 100,105 200,60 T 400,25 T 600,15 L 600,120 L 0,120 Z" fill="url(#chartGradient)"></path>
+<!-- New MFE Line -->
+<path d="M 0,110 Q 100,105 200,60 T 400,25 T 600,15" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="3"></path>
+<!-- Highlight Point -->
+<circle class="animate-ping" cx="400" cy="25" fill="#3F51B5" opacity="0.4" r="4"></circle>
+<circle cx="400" cy="25" fill="#3F51B5" r="4"></circle>
+</svg>
+</div>
+</div>
+</div>
+<!-- Engagement Bar & Counters -->
+<div class="flex flex-col space-y-space-sm pt-2">
+<div class="flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm pb-2">
+<div class="flex items-center gap-1.5">
+<span class="flex -space-x-1">
+<span class="w-5 h-5 rounded-full bg-primary flex items-center justify-center text-on-primary text-[10px]">👍</span>
+<span class="w-5 h-5 rounded-full bg-secondary flex items-center justify-center text-on-secondary text-[10px]">🔥</span>
+<span class="w-5 h-5 rounded-full bg-surface-container-high flex items-center justify-center text-[10px]">💡</span>
+</span>
+<span class="font-medium text-on-surface">342 recomendados</span>
+</div>
+<div class="flex items-center gap-3">
+<span>58 comentarios</span>
+<span>•</span>
+<span>19 compartidos</span>
+</div>
+</div>
+<!-- Post Actions Button Bar -->
+<div class="flex items-center justify-between pt-1">
+<button class="flex-1 flex items-center justify-center gap-2 py-2 rounded-xl text-primary font-label-md text-label-md bg-primary-fixed/30 hover:bg-primary-fixed transition-colors" type="button">
+<span class="material-symbols-outlined text-lg" style="font-variation-settings: 'FILL' 1;">thumb_up</span>
+<span>Me gusta</span>
+</button>
+<button class="flex-1 flex items-center justify-center gap-2 py-2 rounded-xl text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low transition-colors font-label-md text-label-md" type="button">
+<span class="material-symbols-outlined text-lg">chat_bubble_outline</span>
+<span>Comentar</span>
+</button>
+<button class="flex-1 flex items-center justify-center gap-2 py-2 rounded-xl text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low transition-colors font-label-md text-label-md" type="button">
+<span class="material-symbols-outlined text-lg">share</span>
+<span>Compartir</span>
+</button>
+<button class="flex-1 flex items-center justify-center gap-2 py-2 rounded-xl text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low transition-colors font-label-md text-label-md" type="button">
+<span class="material-symbols-outlined text-lg">bookmark_border</span>
+<span>Guardar</span>
+</button>
+</div>
+</div>
+<!-- Comments Preview Section -->
+<div class="bg-surface-container-low/70 rounded-2xl p-space-md space-y-space-md mt-space-sm">
+<!-- Featured Comment -->
+<div class="flex items-start gap-space-sm">
+<img class="w-9 h-9 rounded-full object-cover shrink-0" data-alt="Portrait of Elena Rostova, European woman tech architect in black turtleneck with architectural glasses, bright natural soft lighting, hyper-realistic professional photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuATucQebTo6pCViWQ-d0DjP497vw6pwDVbxNyqlYyZ7uYfdBQYtMdqhsM9uzy_aS9R7upe3RpP1xtQcg9wFBWr1ARPxeigwZCl5nyCIkGV6S2jWAQ4jBkpNxl_lMAAmoDgnEMMoiNmWhnvssE0My-o3fulz0inBUrTX1OZF1g5bbcYMAnQ8qCXmEt3hrlt3QMoVggsr99jJ-jmftwt_1UVbv2jscUVsT68_NrcYn6M8qqynwx2VguGL"/>
+<div class="flex-1 min-w-0">
+<div class="bg-surface-container-lowest rounded-2xl p-3 shadow-sm space-y-1">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2 min-w-0">
+<span class="font-label-md text-label-md text-on-surface font-semibold truncate">Elena Rostova</span>
+<span class="text-on-surface-variant font-label-sm text-label-sm truncate">Principal Architect</span>
+</div>
+<span class="text-outline font-label-sm text-label-sm">Hace 45m</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface">
+                  Excelente benchmark Carlos, ¿cómo gestionaron el state sharing entre módulos federados? ¿optaron por Custom Events o un bus con Signals compartidas?
+                </p>
+</div>
+<div class="flex items-center gap-3 mt-1.5 ml-2 font-label-sm text-label-sm text-on-surface-variant">
+<button class="hover:text-primary transition-colors" type="button">Me gusta (12)</button>
+<span>•</span>
+<button class="hover:text-primary transition-colors" type="button">Responder</button>
+</div>
+</div>
+</div>
+<!-- Quick Reply Box -->
+<div class="flex items-center gap-space-sm pt-1">
+<img alt="User avatar" class="w-8 h-8 rounded-full object-cover shrink-0" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBcPEPH8Ag9En5YonvIoNHtdnDGKqqlEGXiY7ZcYCajqh2QmiJKq8J9JeeEkKzPQB0g-rhxPvax0WPGeFS52pUX2LRgNhEtZK7JrKuHtexnsRiyfQpu9BFHnttvaKimniFsxJ1dKRkbDSzvakohv4XkmXzh3qYElBA1R8wMl7nRfHpdl252Uli3Hi6DX3dmVH_SmS_Df7Trk-w7Fh1E_iKWXPbLPDrqKFYa1MYUoHoKF3kKmYi3EI4t"/>
+<div class="flex-1 relative flex items-center">
+<input class="w-full bg-surface-container-lowest text-on-surface placeholder:text-outline font-body-sm text-body-sm pl-3.5 pr-24 py-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary transition-all" placeholder="Escribe una respuesta técnica..." type="text"/>
+<button class="absolute right-1.5 bg-primary-container text-on-primary font-label-sm text-label-sm px-3 py-1 rounded-lg hover:opacity-95 transition-opacity" type="button">
+                Responder
+              </button>
+</div>
+</div>
+</div>
+</article>
+<!-- Feed Item 2: Technical Poll & Design System Discussion -->
+<article class="bg-surface-container-lowest rounded-2xl shadow-sm p-space-lg flex flex-col space-y-space-md transition-shadow hover:shadow-md">
+<!-- Author Header -->
+<div class="flex items-start justify-between gap-space-md">
+<div class="flex items-center gap-space-md min-w-0">
+<div class="relative shrink-0">
+<img class="w-12 h-12 rounded-full object-cover ring-2 ring-secondary-fixed" data-alt="Portrait of Valeria Cruz, Latina Lead UX Designer with vibrant creative styling, wearing modern aesthetic spectacles against a warm neutral studio background, crisp editorial lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBH4ZWGLWabROSSxjvIPr1743Oek4WGYaTukKCN7bcJhq4y36eNplJu6KVT9KtTNLqAeoB_ghR6F-c8cQHAnZHWQsx52loScuhl21WBzpXiS6IHBpJyDOnTjOv74XATvxxv6qjPv0ZMG32MpuVly4dTt0pu08Vmskt4MZttKZvrOxb8xrbxdqmvIyqeYpZgucDCzCHxta2kbbnB45fxjEc8hfLsOGPEJkdWPnbtHwtIWAL6tldTophr"/>
+<span class="absolute -bottom-1 -right-1 bg-secondary text-on-secondary w-4 h-4 rounded-full flex items-center justify-center text-[10px]">
+<span class="material-symbols-outlined text-[11px]" style="font-variation-settings: 'FILL' 1;">palette</span>
+</span>
+</div>
+<div class="min-w-0">
+<div class="flex items-center gap-2">
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold truncate leading-tight">Valeria Cruz</h3>
+<span class="bg-secondary-fixed text-on-secondary-fixed-variant font-label-sm text-label-sm px-2 py-0.5 rounded-full shrink-0">Design Lead</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Lead UI/UX Designer &amp; Systems Architect</p>
+<div class="flex items-center gap-1.5 text-on-surface-variant font-label-sm text-label-sm mt-0.5">
+<span>Hace 4 horas</span>
+<span>•</span>
+<span class="material-symbols-outlined text-xs">public</span>
+</div>
+</div>
+</div>
+<button class="p-1.5 text-on-surface-variant hover:text-on-surface rounded-lg hover:bg-surface-container-low transition-colors" type="button">
+<span class="material-symbols-outlined text-xl">more_horiz</span>
+</button>
+</div>
+<!-- Post Copy -->
+<div class="font-body-lg text-body-lg text-on-surface space-y-2">
+<p>
+            Al estructurar Design Tokens atómicos en librerías corporativas de componentes: ¿Cuál ha sido su estándar preferido para propagar cambios de reactividad y estados de componentes sin acoplamiento excesivo?
+          </p>
+</div>
+<!-- Interactive Technical Poll Module -->
+<div class="bg-surface-container-low rounded-2xl p-space-md space-y-space-md" id="poll-container">
+<div class="flex items-center justify-between text-on-surface font-label-md text-label-md font-semibold">
+<span class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary text-lg">how_to_vote</span>
+              Encuesta Técnica • 1,248 votos
+            </span>
+<span class="text-outline font-label-sm text-label-sm">Cierra en 3 días</span>
+</div>
+<!-- Poll Options with visual fill bars -->
+<div class="space-y-space-sm">
+<!-- Option 1 (Signals) -->
+<div class="relative bg-surface-container-lowest rounded-xl p-3 overflow-hidden cursor-pointer shadow-sm group hover:ring-2 hover:ring-primary transition-all">
+<div class="absolute inset-y-0 left-0 bg-primary-fixed/70 w-[64%] rounded-xl transition-all duration-700"></div>
+<div class="relative flex items-center justify-between z-10">
+<div class="flex items-center gap-2">
+<span class="w-4 h-4 rounded-full bg-primary flex items-center justify-center text-on-primary text-[10px]">✓</span>
+<span class="font-label-lg text-label-lg text-on-surface font-semibold">Signals (Angular Native Reactivity)</span>
+</div>
+<span class="font-headline-sm text-headline-sm font-bold text-primary">64%</span>
+</div>
+</div>
+<!-- Option 2 (RxJS) -->
+<div class="relative bg-surface-container-lowest rounded-xl p-3 overflow-hidden cursor-pointer shadow-sm group hover:ring-2 hover:ring-secondary transition-all">
+<div class="absolute inset-y-0 left-0 bg-secondary-fixed/50 w-[36%] rounded-xl transition-all duration-700"></div>
+<div class="relative flex items-center justify-between z-10">
+<div class="flex items-center gap-2">
+<span class="w-4 h-4 rounded-full bg-surface-container-high flex items-center justify-center text-on-surface-variant text-[10px]"></span>
+<span class="font-label-lg text-label-lg text-on-surface">RxJS BehaviorSubjects &amp; Pipes</span>
+</div>
+<span class="font-headline-sm text-headline-sm font-bold text-on-surface-variant">36%</span>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm pt-1">
+<span>Voto registrado • Visible solo para profesionales verificados</span>
+<button class="text-primary hover:underline font-semibold" type="button">Ver resultados detallados</button>
+</div>
+</div>
+<!-- Poll Engagement Bar -->
+<div class="flex items-center justify-between pt-1 text-on-surface-variant font-label-sm text-label-sm">
+<span>👍 189 recomendaciones</span>
+<div class="flex items-center gap-3">
+<span>72 comentarios</span>
+<span>•</span>
+<span>8 compartidos</span>
+</div>
+</div>
+<div class="flex items-center justify-between pt-2">
+<button class="flex-1 flex items-center justify-center gap-2 py-2 rounded-xl text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors font-label-md text-label-md" type="button">
+<span class="material-symbols-outlined text-lg">thumb_up</span>
+<span>Me gusta</span>
+</button>
+<button class="flex-1 flex items-center justify-center gap-2 py-2 rounded-xl text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low transition-colors font-label-md text-label-md" type="button">
+<span class="material-symbols-outlined text-lg">chat_bubble_outline</span>
+<span>Comentar</span>
+</button>
+<button class="flex-1 flex items-center justify-center gap-2 py-2 rounded-xl text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low transition-colors font-label-md text-label-md" type="button">
+<span class="material-symbols-outlined text-lg">share</span>
+<span>Compartir</span>
+</button>
+<button class="flex-1 flex items-center justify-center gap-2 py-2 rounded-xl text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low transition-colors font-label-md text-label-md" type="button">
+<span class="material-symbols-outlined text-lg">bookmark_border</span>
+<span>Guardar</span>
+</button>
+</div>
+</article>
+</div>
+<!-- RIGHT COLUMN: Trending Topics & Auxiliary Context Rail (Col span 4 on xl) -->
+<div class="xl:col-span-4 flex flex-col space-y-space-md">
+<!-- Widget 1: Tendencias en Tech & SaaS -->
+<div class="bg-surface-container-lowest rounded-2xl shadow-sm p-space-lg space-y-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-xl">trending_up</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Tendencias Tech</h2>
+</div>
+<span class="material-symbols-outlined text-outline text-lg cursor-pointer hover:text-on-surface">info</span>
+</div>
+<div class="space-y-space-md">
+<!-- Trend Item 1 -->
+<a class="group block space-y-0.5" href="#">
+<div class="flex items-center justify-between text-outline font-label-sm text-label-sm">
+<span>Frontend • En auge</span>
+<span class="text-primary font-semibold">3.4k debates</span>
+</div>
+<div class="font-label-lg text-label-lg text-on-surface group-hover:text-primary transition-colors font-semibold">
+              #Angular18
+            </div>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-1">
+              Adopción masiva de zoneless y control flow sintaxis en corporativos.
+            </p>
+</a>
+<!-- Trend Item 2 -->
+<a class="group block space-y-0.5" href="#">
+<div class="flex items-center justify-between text-outline font-label-sm text-label-sm">
+<span>Arquitectura Cloud</span>
+<span class="text-primary font-semibold">2.1k debates</span>
+</div>
+<div class="font-label-lg text-label-lg text-on-surface group-hover:text-primary transition-colors font-semibold">
+              #Microfrontends
+            </div>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-1">
+              Estrategias de orquestación de equipos autónomos en fintech.
+            </p>
+</a>
+<!-- Trend Item 3 -->
+<a class="group block space-y-0.5" href="#">
+<div class="flex items-center justify-between text-outline font-label-sm text-label-sm">
+<span>Diseño &amp; Tokens</span>
+<span class="text-primary font-semibold">1.8k debates</span>
+</div>
+<div class="font-label-lg text-label-lg text-on-surface group-hover:text-primary transition-colors font-semibold">
+              #DesignSystems
+            </div>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-1">
+              Sincronización bidireccional entre Figma Variables y repositorios CSS.
+            </p>
+</a>
+<!-- Trend Item 4 -->
+<a class="group block space-y-0.5" href="#">
+<div class="flex items-center justify-between text-outline font-label-sm text-label-sm">
+<span>Estrategia SaaS</span>
+<span class="text-primary font-semibold">950 debates</span>
+</div>
+<div class="font-label-lg text-label-lg text-on-surface group-hover:text-primary transition-colors font-semibold">
+              #ProductGrowth
+            </div>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-1">
+              Métricas de retención y monetización orientada al valor (PLG).
+            </p>
+</a>
+</div>
+<button class="w-full text-center py-2 bg-surface-container-low hover:bg-surface-container text-primary font-label-md text-label-md rounded-xl transition-colors font-semibold" type="button">
+          Explorar todas las tendencias
+        </button>
+</div>
+<!-- Widget 2: Conexiones Recomendadas -->
+<div class="bg-surface-container-lowest rounded-2xl shadow-sm p-space-lg space-y-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-xl">group_add</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Conexiones Recomendadas</h2>
+</div>
+<button class="text-primary font-label-sm text-label-sm hover:underline" type="button">Ver todas</button>
+</div>
+<div class="space-y-space-md">
+<!-- Exec 1 -->
+<div class="flex items-start gap-space-sm justify-between">
+<div class="flex items-start gap-3 min-w-0">
+<img class="w-10 h-10 rounded-full object-cover shrink-0" data-alt="Professional studio headshot of Mateo Morales, Chief Technology Officer in dark charcoal suit, crisp modern lighting, clean background, high resolution executive photo." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAcUSfOnMavsT9TOo4p5sjUnHvQWt672EQQXxU0aCDLUkqwCa17B2UR9pl0BA_t0AElD4pVCJJrrbjdaN5XHLf-aZXaR3ucBBP6BNE-IkDLsdQjFRI1ZKbVzx21-pKcbP2u6e4UWFxel3mNBxCF2-skKzUD40XC3L0BkVvQ44b1gGfSyTdKAkHlQCsKeiiNcAluZTXiPGZgc4VaFIG-_w8zlJIrw2CuRwHUJSnk71kr3nwbEzui4FxI"/>
+<div class="min-w-0">
+<h4 class="font-label-lg text-label-lg text-on-surface font-semibold truncate leading-tight">Mateo Morales</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">CTO @ NextScale</p>
+<span class="text-outline font-label-sm text-label-sm block mt-0.5">14 contactos en común</span>
+</div>
+</div>
+<button class="shrink-0 bg-surface-container-low hover:bg-primary-container hover:text-on-primary text-primary font-label-sm text-label-sm px-3 py-1.5 rounded-xl transition-all flex items-center gap-1 shadow-sm" type="button">
+<span class="material-symbols-outlined text-sm">person_add</span>
+<span>Conectar</span>
+</button>
+</div>
+<!-- Exec 2 -->
+<div class="flex items-start gap-space-sm justify-between">
+<div class="flex items-start gap-3 min-w-0">
+<img class="w-10 h-10 rounded-full object-cover shrink-0" data-alt="Editorial business portrait of Sofia Lin, VP of Product, sleek minimal modern workplace setting, subtle blue atmospheric fill, confident expression." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDfu36MPufS-rJWfJGqWa-8RIY2GKwNudW9hUKhTo_4WcjJ_MwY2nye1XxAiiWhriQKyz4k8UpEyKyOvNWXS99eQPR_l9osG3IyNw1CUfqauwhMuZGwCPw6164lCIjXHjG6f-DFEq00TMnW_v7hge6t4T2QXn8yGZR-wrDuBAcjCyVbDRV4gP3Rsdsl5Onf6NllYHupGaKZOVT3z9ogmhjJLUIO4R-YNzaTwC4QavZ3aN0uw4jTeF8P"/>
+<div class="min-w-0">
+<h4 class="font-label-lg text-label-lg text-on-surface font-semibold truncate leading-tight">Sofía Lin</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">VP of Product @ Nexus AI</p>
+<span class="text-outline font-label-sm text-label-sm block mt-0.5">8 contactos en común</span>
+</div>
+</div>
+<button class="shrink-0 bg-surface-container-low hover:bg-primary-container hover:text-on-primary text-primary font-label-sm text-label-sm px-3 py-1.5 rounded-xl transition-all flex items-center gap-1 shadow-sm" type="button">
+<span class="material-symbols-outlined text-sm">person_add</span>
+<span>Conectar</span>
+</button>
+</div>
+<!-- Exec 3 -->
+<div class="flex items-start gap-space-sm justify-between">
+<div class="flex items-start gap-3 min-w-0">
+<img class="w-10 h-10 rounded-full object-cover shrink-0" data-alt="Portrait of David Becker, Principal Infrastructure Architect, mature professional with warm lighting in clean glass-walled office environment, 8k resolution." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBQdassYFMWDh5OH__ZULv-WSeLFQiG94yil2ODNCMuGT0imnCTMGbBel2uv9_C_ppoQarLrdtKOQmDYrc0ax3Km5ieC8qMsBQl60aQak5mCXWO-fe1SsZhR4_n8AP2OJZtg5I8z5LxDt-zmYfMX9COrAoM2w3Wyi3EuWa7KKr9nFDvrB1zOi5WmWVDeSvym4i9fwsd5-QT5vZNdZlUb4o-InsyyLYC_RiZpYoxS2sz94XLAumVebT3"/>
+<div class="min-w-0">
+<h4 class="font-label-lg text-label-lg text-on-surface font-semibold truncate leading-tight">David Becker</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Principal Infra @ CloudMesh</p>
+<span class="text-outline font-label-sm text-label-sm block mt-0.5">22 contactos en común</span>
+</div>
+</div>
+<button class="shrink-0 bg-surface-container-low hover:bg-primary-container hover:text-on-primary text-primary font-label-sm text-label-sm px-3 py-1.5 rounded-xl transition-all flex items-center gap-1 shadow-sm" type="button">
+<span class="material-symbols-outlined text-sm">person_add</span>
+<span>Conectar</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Footer Micro-links (Institutional) -->
+<div class="px-space-sm py-2 text-outline font-label-sm text-label-sm space-y-2">
+<div class="flex flex-wrap gap-x-3 gap-y-1">
+<a class="hover:text-on-surface-variant transition-colors" href="#">Privacidad &amp; Términos</a>
+<a class="hover:text-on-surface-variant transition-colors" href="#">Centro de Transparencia</a>
+<a class="hover:text-on-surface-variant transition-colors" href="#">Normas de la Red</a>
+<a class="hover:text-on-surface-variant transition-colors" href="#">Publicidad B2B</a>
+</div>
+<p class="text-[11px] text-outline">PulseNet Corporation © 2025. Workspace de Alta Confianza.</p>
+</div>
+</div>
+</div>
+</div></main></div></body></html>

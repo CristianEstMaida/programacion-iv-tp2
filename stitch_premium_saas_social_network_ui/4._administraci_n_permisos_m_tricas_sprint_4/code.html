@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+
+<html lang="es"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{"colors":{"surface":"#f8f9ff","on-secondary-fixed-variant":"#2d3c9c","on-surface-variant":"#454652","on-secondary":"#ffffff","secondary":"#4755b6","surface-variant":"#d3e4fe","on-secondary-container":"#1b2b8c","on-primary":"#ffffff","tertiary-container":"#575a64","surface-container-lowest":"#ffffff","on-primary-container":"#cacfff","on-tertiary-fixed":"#181b24","error-container":"#ffdad6","secondary-container":"#8a99fe","primary-fixed":"#dee0ff","on-primary-fixed-variant":"#293ca0","surface-tint":"#4355b9","inverse-on-surface":"#eaf1ff","on-tertiary":"#ffffff","inverse-surface":"#213145","surface-container-low":"#eff4ff","on-error-container":"#93000a","on-error":"#ffffff","surface-bright":"#f8f9ff","on-surface":"#0b1c30","primary-container":"#3f51b5","surface-container":"#e5eeff","secondary-fixed-dim":"#bbc3ff","on-tertiary-container":"#cfd2dd","on-secondary-fixed":"#000d5f","error":"#ba1a1a","on-primary-fixed":"#00105c","tertiary-fixed-dim":"#c4c6d2","outline":"#757684","on-background":"#0b1c30","surface-container-high":"#dce9ff","outline-variant":"#c5c5d4","primary":"#24389c","tertiary-fixed":"#e0e2ee","on-tertiary-fixed-variant":"#434750","surface-container-highest":"#d3e4fe","background":"#f8f9ff","tertiary":"#3f434c","secondary-fixed":"#dfe0ff","surface-dim":"#cbdbf5","inverse-primary":"#bac3ff","primary-fixed-dim":"#bac3ff"},"borderRadius":{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},"spacing":{"margin":"2rem","margin-mobile":"1rem","space-lg":"1.5rem","space-sm":"0.5rem","gutter-mobile":"1rem","gutter":"1.5rem","space-md":"1rem","space-xs":"0.25rem","space-xl":"2rem"},"fontFamily":{"body-lg":["Inter"],"headline-xl-mobile":["Inter"],"body-sm":["Inter"],"label-lg":["Inter"],"headline-xl":["Inter"],"label-md":["Inter"],"label-sm":["Inter"],"headline-lg-mobile":["Inter"],"headline-md":["Inter"],"headline-lg":["Inter"],"body-md":["Inter"],"headline-sm":["Inter"]},"fontSize":{"body-lg":["16px",{"lineHeight":"26px","letterSpacing":"-0.005em","fontWeight":"400"}],"headline-xl-mobile":["30px",{"lineHeight":"38px","letterSpacing":"-0.02em","fontWeight":"700"}],"body-sm":["13px",{"lineHeight":"18px","letterSpacing":"0.005em","fontWeight":"400"}],"label-lg":["14px",{"lineHeight":"20px","letterSpacing":"0.01em","fontWeight":"600"}],"headline-xl":["40px",{"lineHeight":"48px","letterSpacing":"-0.025em","fontWeight":"700"}],"label-md":["12px",{"lineHeight":"16px","letterSpacing":"0.02em","fontWeight":"500"}],"label-sm":["11px",{"lineHeight":"14px","letterSpacing":"0.04em","fontWeight":"600"}],"headline-lg-mobile":["24px",{"lineHeight":"32px","letterSpacing":"-0.015em","fontWeight":"600"}],"headline-md":["24px",{"lineHeight":"32px","letterSpacing":"-0.015em","fontWeight":"600"}],"headline-lg":["32px",{"lineHeight":"40px","letterSpacing":"-0.02em","fontWeight":"600"}],"body-md":["14px",{"lineHeight":"22px","letterSpacing":"0em","fontWeight":"400"}],"headline-sm":["20px",{"lineHeight":"28px","letterSpacing":"-0.01em","fontWeight":"600"}]}}}};</script></head><body class="bg-surface font-body-md text-body-md text-on-surface antialiased"><header class="fixed top-0 left-0 w-full h-16 bg-surface-container-lowest z-50 shadow-[0_1px_8px_rgba(0,0,0,0.04)] px-space-lg flex items-center justify-between"><div class="flex items-center gap-space-md"><img alt="PulseNet Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1VvVVq8-UUPuvZvnPrU-qC7cE_k-Ob7knYYoHVrxehAIWJdBfSjNR5GxmTbeBSP7Xrl7x79bLVUFkjdpIFpKxLTpCvN1VetXmLVS0aJaxuoxhyIblcLkbZPPn3f74IM3cSP-47wpOSxbcD4I8FUp5vZHizoO7TAJX7YQsoUYe8v01SlQ4hJFzsUAOprt4Rwocp59tuPgMVkj2Q1XRwqWajMi3_Wff4Na1CWlRffLk_ZMHxp4wGZJWhI3A"/><div class="flex items-center gap-space-xs"><span class="font-headline-sm text-headline-sm text-on-surface font-bold tracking-tight">PulseNet</span><span class="bg-primary-fixed text-on-primary-fixed-variant font-label-sm text-label-sm px-space-xs py-0.5 rounded-full">PRO</span></div></div><div class="flex-1 max-w-lg mx-space-xl hidden md:block"><div class="relative flex items-center w-full"><span class="material-symbols-outlined absolute left-space-md text-outline pointer-events-none text-xl">search</span><input class="w-full bg-surface-container-low text-on-surface placeholder:text-outline font-body-sm text-body-sm pl-11 pr-20 py-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-container transition-all" placeholder="Buscar profesionales, empresas, debates..." type="text"/><div class="absolute right-space-sm flex items-center"><kbd class="bg-surface-container-lowest text-on-surface-variant font-label-sm text-label-sm px-1.5 py-0.5 rounded shadow-[0_1px_2px_rgba(0,0,0,0.05)]">⌘ K</kbd></div></div></div><div class="flex items-center gap-space-md"><button class="hidden sm:inline-flex items-center gap-space-xs bg-primary-container text-on-primary font-label-lg text-label-lg px-space-md py-2 rounded-xl hover:opacity-95 shadow-sm transition-all" type="button"><span class="material-symbols-outlined text-lg">add</span><span>Nueva Publicación</span></button><div class="flex items-center gap-space-xs"><button class="p-2 rounded-xl text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors relative" type="button"><span class="material-symbols-outlined text-xl">chat_bubble</span><span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-primary-container"></span></button><button class="p-2 rounded-xl text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors relative" type="button"><span class="material-symbols-outlined text-xl">notifications</span><span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-error"></span></button></div><div class="relative flex items-center pl-space-xs"><div class="relative cursor-pointer"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBcPEPH8Ag9En5YonvIoNHtdnDGKqqlEGXiY7ZcYCajqh2QmiJKq8J9JeeEkKzPQB0g-rhxPvax0WPGeFS52pUX2LRgNhEtZK7JrKuHtexnsRiyfQpu9BFHnttvaKimniFsxJ1dKRkbDSzvakohv4XkmXzh3qYElBA1R8wMl7nRfHpdl252Uli3Hi6DX3dmVH_SmS_Df7Trk-w7Fh1E_iKWXPbLPDrqKFYa1MYUoHoKF3kKmYi3EI4t"/><span class="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-emerald-500 ring-2 ring-surface-container-lowest"></span></div><span class="material-symbols-outlined text-outline cursor-pointer ml-1 text-sm">keyboard_arrow_down</span></div></div></header><aside class="fixed left-0 top-16 bottom-0 w-64 bg-surface-container-lowest z-40 flex flex-col justify-between py-space-md shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="flex-1 overflow-y-auto px-space-sm"><nav class="space-y-1" data-active-classes="bg-primary-fixed text-primary font-semibold"><a class="flex items-center justify-between px-space-md py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="feed-principal" href="#"><div class="flex items-center gap-space-md"><span class="material-symbols-outlined text-xl">feed</span><span class="font-label-lg text-label-lg">Feed Principal</span></div></a><a class="flex items-center justify-between px-space-md py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="mi-perfil-y-red" href="#"><div class="flex items-center gap-space-md"><span class="material-symbols-outlined text-xl">badge</span><span class="font-label-lg text-label-lg">Mi Perfil &amp; Red</span></div></a><a class="flex items-center justify-between px-space-md py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="descubrir-y-explorar" href="#"><div class="flex items-center gap-space-md"><span class="material-symbols-outlined text-xl">explore</span><span class="font-label-lg text-label-lg">Descubrir &amp; Explorar</span></div></a><a class="flex items-center justify-between px-space-md py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="mensajes" href="#"><div class="flex items-center gap-space-md"><span class="material-symbols-outlined text-xl">forum</span><span class="font-label-lg text-label-lg">Mensajes</span></div><span class="bg-secondary-fixed text-on-secondary-fixed-variant font-label-sm text-label-sm px-2 py-0.5 rounded-full">4</span></a><a class="flex items-center justify-between px-space-md py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="guardados" href="#"><div class="flex items-center gap-space-md"><span class="material-symbols-outlined text-xl">bookmark</span><span class="font-label-lg text-label-lg">Guardados</span></div></a><a class="flex items-center justify-between px-space-md py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="panel-de-administracion-y-metricas" href="#"><div class="flex items-center gap-space-md"><span class="material-symbols-outlined text-xl">insights</span><span class="font-label-lg text-label-lg">Panel &amp; Métricas</span></div></a></nav></div><div class="px-space-sm pt-space-sm"><div class="h-px bg-surface-container-high mx-space-sm mb-space-sm"></div><nav class="space-y-1" data-active-classes="bg-primary-fixed text-primary font-semibold"><a class="flex items-center gap-space-md px-space-md py-2 rounded-xl text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="configuracion-y-preferencias" href="#"><span class="material-symbols-outlined text-xl">settings</span><span class="font-label-lg text-label-lg">Configuración</span></a><a class="flex items-center gap-space-md px-space-md py-2 rounded-xl text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="soporte" href="#"><span class="material-symbols-outlined text-xl">help</span><span class="font-label-lg text-label-lg">Soporte</span></a><a class="flex items-center gap-space-md px-space-md py-2 rounded-xl text-error hover:bg-error-container hover:text-on-error-container transition-colors" data-path="cerrar-sesion" href="#"><span class="material-symbols-outlined text-xl">logout</span><span class="font-label-lg text-label-lg">Cerrar Sesión</span></a></nav></div></aside><div class="pl-64"><main class="relative pt-16 min-h-screen bg-surface px-gutter"><div class="flex flex-col w-full pb-16">
+<!-- Top Ambient Glow Layer (strictly within container) -->
+<div class="relative w-full overflow-hidden">
+<div class="absolute -top-24 right-1/4 w-96 h-96 bg-primary-fixed/30 rounded-full blur-3xl pointer-events-none"></div>
+<div class="absolute top-10 right-10 w-72 h-72 bg-secondary-fixed/40 rounded-full blur-3xl pointer-events-none"></div>
+<!-- Administrative Header Bar -->
+<div class="relative z-10 pt-6 pb-8 flex flex-col xl:flex-row xl:items-end justify-between gap-6">
+<div class="space-y-2">
+<div class="flex items-center gap-2">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-primary-fixed text-on-primary-fixed-variant font-label-sm text-label-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container animate-pulse"></span>
+            Consola Operativa v4.2
+          </span>
+<span class="text-outline font-label-sm text-label-sm">•</span>
+<span class="text-on-surface-variant font-label-sm text-label-sm">Gobernanza &amp; Protocolos</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">
+          Panel de Administración &amp; Analítica de Red
+        </h1>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-3xl">
+          Gestión centralizada de identidades, jerarquía de roles, moderación preventiva y telemetría de interacción en tiempo real.
+        </p>
+</div>
+<!-- Action Controls -->
+<div class="flex flex-wrap items-center gap-3">
+<!-- Date Selector Pill -->
+<div class="relative">
+<button class="flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-surface-container-lowest text-on-surface font-label-lg text-label-lg shadow-sm hover:bg-surface-container-low transition-all" id="dateRangeBtn" type="button">
+<span class="material-symbols-outlined text-outline text-lg">calendar_today</span>
+<span>Últimos 30 días</span>
+<span class="material-symbols-outlined text-outline text-base">expand_more</span>
+</button>
+</div>
+<!-- Export Action -->
+<button class="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-surface-container-low text-on-surface hover:bg-surface-container hover:text-on-surface font-label-lg text-label-lg transition-all shadow-sm" type="button">
+<span class="material-symbols-outlined text-lg">download</span>
+<span>Exportar CSV/PDF</span>
+</button>
+<!-- Primary CTA: Invite -->
+<button class="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-primary-container text-on-primary font-label-lg text-label-lg shadow-sm hover:opacity-95 transition-all" onclick="toggleInviteModal(true)" type="button">
+<span class="material-symbols-outlined text-lg">person_add</span>
+<span>+ Invitar Administrador</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Key Metrics KPI Row (4 Cards) -->
+<div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-gutter mb-space-xl">
+<!-- KPI 1 -->
+<div class="bg-surface-container-lowest rounded-2xl p-5 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden flex flex-col justify-between">
+<div class="flex items-start justify-between mb-4">
+<div class="p-2.5 rounded-xl bg-primary-fixed text-primary">
+<span class="material-symbols-outlined text-xl">groups</span>
+</div>
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-xs">trending_up</span>
+          +12.4%
+        </span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider mb-1">Usuarios Activos Totales</p>
+<div class="flex items-baseline gap-2">
+<span class="font-headline-lg text-headline-lg text-on-surface">48,290</span>
+<span class="font-body-sm text-body-sm text-outline">vs 42,950 anterior</span>
+</div>
+</div>
+<div class="mt-4 pt-3 flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm">
+<span>Tasa de retención</span>
+<span class="font-semibold text-primary">89.4%</span>
+</div>
+</div>
+<!-- KPI 2 -->
+<div class="bg-surface-container-lowest rounded-2xl p-5 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden flex flex-col justify-between">
+<div class="flex items-start justify-between mb-3">
+<div class="p-2.5 rounded-xl bg-secondary-fixed text-secondary">
+<span class="material-symbols-outlined text-xl">insights</span>
+</div>
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-xs">arrow_upward</span>
+          +8.2%
+        </span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider mb-1">Engagement &amp; Publicaciones</p>
+<div class="flex items-baseline gap-2 mb-2">
+<span class="font-headline-lg text-headline-lg text-on-surface">142.8K</span>
+<span class="font-body-sm text-body-sm text-outline">eventos totales</span>
+</div>
+</div>
+<!-- Sparkline SVG Graph -->
+<div class="w-full h-9 mt-1">
+<svg class="w-full h-full overflow-visible" fill="none" preserveaspectratio="none" viewbox="0 0 200 36">
+<defs>
+<lineargradient id="sparkGradient" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#3F51B5" stop-opacity="0.25"></stop>
+<stop offset="100%" stop-color="#3F51B5" stop-opacity="0.0"></stop>
+</lineargradient>
+</defs>
+<path d="M0,30 Q30,12 60,22 T120,8 T160,18 T200,4" fill="none" stroke="#3F51B5" stroke-linecap="round" stroke-width="2.2"></path>
+<path d="M0,30 Q30,12 60,22 T120,8 T160,18 T200,4 L200,36 L0,36 Z" fill="url(#sparkGradient)"></path>
+</svg>
+</div>
+</div>
+<!-- KPI 3 -->
+<div class="bg-surface-container-lowest rounded-2xl p-5 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden flex flex-col justify-between">
+<div class="flex items-start justify-between mb-4">
+<div class="p-2.5 rounded-xl bg-surface-container-high text-on-surface">
+<span class="material-symbols-outlined text-xl">share_reviews</span>
+</div>
+<span class="inline-flex items-center px-2 py-0.5 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm">
+          Estable
+        </span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider mb-1">Publicaciones Guardadas / Compartidas</p>
+<div class="flex flex-col gap-1 mt-1">
+<div class="flex items-center justify-between">
+<span class="font-label-lg text-label-lg text-on-surface">34.5K</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Guardadas (65%)</span>
+</div>
+<div class="w-full bg-surface-container rounded-full h-1.5 overflow-hidden flex">
+<div class="bg-primary h-full rounded-full" style="width: 65%"></div>
+<div class="bg-secondary-container h-full rounded-full" style="width: 35%"></div>
+</div>
+<div class="flex items-center justify-between text-body-sm font-body-sm text-outline mt-1">
+<span>18.2K Compartidas</span>
+<span>Ratio 1.9x</span>
+</div>
+</div>
+</div>
+<div class="mt-3 pt-2 text-on-surface-variant font-label-sm text-label-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-sm text-secondary">verified</span>
+<span>Mayor tracción en líderes C-Level</span>
+</div>
+</div>
+<!-- KPI 4 -->
+<div class="bg-surface-container-lowest rounded-2xl p-5 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden flex flex-col justify-between">
+<div class="flex items-start justify-between mb-4">
+<div class="p-2.5 rounded-xl bg-amber-50 text-amber-700">
+<span class="material-symbols-outlined text-xl">gavel</span>
+</div>
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-800 font-label-sm text-label-sm animate-pulse">
+<span class="material-symbols-outlined text-xs">notification_important</span>
+          Atención requerida
+        </span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider mb-1">Reportes / Moderación Pendiente</p>
+<div class="flex items-baseline gap-2">
+<span class="font-headline-lg text-headline-lg text-amber-700">3 casos</span>
+<span class="font-body-sm text-body-sm text-outline">sin revisar</span>
+</div>
+</div>
+<div class="mt-4 pt-3 flex items-center justify-between">
+<span class="font-body-sm text-body-sm text-on-surface-variant">SLA medio: 18 min</span>
+<a class="font-label-md text-label-md text-primary hover:underline flex items-center" href="#tabla-usuarios">
+          Revisar cola <span class="material-symbols-outlined text-xs ml-0.5">chevron_right</span>
+</a>
+</div>
+</div>
+</div>
+<!-- Main Analytics & Governance Row (2 Columns) -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter mb-space-xl items-start">
+<!-- Wide Analytics Column (8 Cols) -->
+<div class="lg:col-span-8 bg-surface-container-lowest rounded-2xl p-space-lg shadow-sm">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+<div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Actividad de la Red &amp; Publicaciones en el Tiempo</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Volumen diario consolidado de contenido generado, debates e interacciones</p>
+</div>
+<!-- Chart Filter Segment -->
+<div class="inline-flex p-1 bg-surface-container-low rounded-xl">
+<button class="px-3 py-1 text-label-sm font-label-sm rounded-lg bg-surface-container-lowest text-primary shadow-sm font-medium" type="button">Diario</button>
+<button class="px-3 py-1 text-label-sm font-label-sm rounded-lg text-on-surface-variant hover:text-on-surface" type="button">Semanal</button>
+<button class="px-3 py-1 text-label-sm font-label-sm rounded-lg text-on-surface-variant hover:text-on-surface" type="button">Mensual</button>
+</div>
+</div>
+<!-- Rich Visual SVG Area Chart with Tooltip -->
+<div class="relative w-full h-80 bg-surface-container-low/50 rounded-xl p-4 overflow-hidden">
+<!-- SVG Canvas -->
+<svg class="w-full h-full" preserveaspectratio="none" viewbox="0 0 740 260">
+<defs>
+<lineargradient id="areaGradientPrimary" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#3F51B5" stop-opacity="0.4"></stop>
+<stop offset="100%" stop-color="#3F51B5" stop-opacity="0.0"></stop>
+</lineargradient>
+<lineargradient id="areaGradientSecondary" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#8A99FE" stop-opacity="0.3"></stop>
+<stop offset="100%" stop-color="#8A99FE" stop-opacity="0.0"></stop>
+</lineargradient>
+<pattern height="40" id="gridPattern" patternunits="userSpaceOnUse" width="74">
+<line stroke="#E5EEFF" stroke-dasharray="2 4" stroke-width="1" x1="0" x2="740" y1="0" y2="0"></line>
+</pattern>
+</defs>
+<!-- Grid Lines -->
+<rect fill="url(#gridPattern)" height="220" width="100%"></rect>
+<!-- Secondary Path: Interacciones (Shares/Likes) -->
+<path d="M 0,180 C 60,160 120,190 180,140 C 240,110 300,150 360,115 C 420,80 480,130 540,65 C 600,100 660,70 740,40" fill="none" stroke="#8A99FE" stroke-dasharray="4 2" stroke-width="2.5"></path>
+<!-- Primary Path: Posts creados -->
+<path d="M 0,210 C 70,195 130,170 190,130 C 250,90 310,120 370,85 C 430,50 490,95 550,30 C 610,75 670,45 740,20 L 740,240 L 0,240 Z" fill="url(#areaGradientPrimary)"></path>
+<path d="M 0,210 C 70,195 130,170 190,130 C 250,90 310,120 370,85 C 430,50 490,95 550,30 C 610,75 670,45 740,20" fill="none" stroke="#24389C" stroke-width="3"></path>
+<!-- Peak Data Marker (Day 24 Peak) -->
+<circle cx="550" cy="30" fill="#3F51B5" r="6" stroke="#FFFFFF" stroke-width="3"></circle>
+<line stroke="#3F51B5" stroke-dasharray="3 3" stroke-width="1.5" x1="550" x2="550" y1="30" y2="240"></line>
+</svg>
+<!-- Dynamic Peak Tooltip Pinpoint -->
+<div class="absolute top-5 left-[69%] -translate-x-1/2 bg-on-surface text-surface px-3 py-2 rounded-xl shadow-xl pointer-events-none z-20">
+<div class="flex items-center gap-2 mb-1">
+<span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+<span class="font-label-sm text-label-sm font-semibold">24 Oct (Pico Mensual)</span>
+</div>
+<div class="font-body-sm text-body-sm space-y-0.5 text-surface-container-highest">
+<p><span class="font-semibold text-white">4,812</span> publicaciones</p>
+<p><span class="font-semibold text-white">16.4K</span> interacciones</p>
+</div>
+<div class="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-on-surface rotate-45"></div>
+</div>
+<!-- Date X-Axis Markers -->
+<div class="absolute bottom-2 inset-x-6 flex justify-between text-outline font-label-sm text-label-sm">
+<span>01 Oct</span>
+<span>06 Oct</span>
+<span>12 Oct</span>
+<span>18 Oct</span>
+<span class="text-primary font-semibold">24 Oct</span>
+<span>30 Oct</span>
+</div>
+</div>
+<!-- Chart Legend & High-level Footnote -->
+<div class="mt-4 pt-4 flex flex-wrap items-center justify-between gap-4">
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-2">
+<span class="w-3.5 h-3.5 rounded bg-primary"></span>
+<span class="font-label-md text-label-md text-on-surface">Posts creados (+24% este sprint)</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-3.5 h-1.5 rounded-full bg-secondary-container"></span>
+<span class="font-label-md text-label-md text-on-surface-variant">Interacciones &amp; Reposts</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-outline"></span>
+<span class="font-label-md text-label-md text-on-surface-variant">Comentarios moderados</span>
+</div>
+</div>
+<div class="text-on-surface-variant font-body-sm text-body-sm flex items-center gap-1.5">
+<span class="material-symbols-outlined text-sm text-emerald-600">verified_user</span>
+<span>99.98% publicaciones verificadas</span>
+</div>
+</div>
+</div>
+<!-- Radial / Donut Roles & Security Governance Column (4 Cols) -->
+<div class="lg:col-span-4 bg-surface-container-lowest rounded-2xl p-space-lg shadow-sm flex flex-col justify-between h-full">
+<div>
+<div class="flex items-center justify-between mb-4">
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Distribución de Roles</h2>
+<button class="p-1 rounded-lg text-outline hover:text-on-surface" type="button">
+<span class="material-symbols-outlined text-lg">info</span>
+</button>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-6">
+          Balance de privilegios de usuario y perfiles de autoridad activos en la infraestructura.
+        </p>
+<!-- Donut Visualization -->
+<div class="relative flex items-center justify-center my-2">
+<svg class="w-48 h-48 transform -rotate-90" viewbox="0 0 100 100">
+<!-- Background Ring -->
+<circle cx="50" cy="50" fill="transparent" r="38" stroke="#E5EEFF" stroke-width="12"></circle>
+<!-- Segment 1: Standard Users (96%) -->
+<circle cx="50" cy="50" fill="transparent" r="38" stroke="#8A99FE" stroke-dasharray="238.7" stroke-dashoffset="9.5" stroke-linecap="round" stroke-width="12"></circle>
+<!-- Segment 2: Verified Creators (3.8%) -->
+<circle cx="50" cy="50" fill="transparent" r="38" stroke="#3F51B5" stroke-dasharray="238.7" stroke-dashoffset="230" stroke-linecap="round" stroke-width="12"></circle>
+<!-- Segment 3: Admins (0.02%) -->
+<circle cx="50" cy="50" fill="transparent" r="38" stroke="#24389C" stroke-dasharray="238.7" stroke-dashoffset="237" stroke-linecap="round" stroke-width="12"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center text-center pointer-events-none">
+<span class="font-headline-lg text-headline-lg text-on-surface font-bold leading-none">48.2K</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mt-1">Cuentas</span>
+</div>
+</div>
+<!-- Legend & Quantities Breakdown -->
+<div class="space-y-3 mt-6">
+<div class="flex items-center justify-between p-2.5 rounded-xl bg-surface-container-low">
+<div class="flex items-center gap-2.5">
+<span class="w-3 h-3 rounded-full bg-primary"></span>
+<span class="font-label-lg text-label-lg text-on-surface">Administradores Globales</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-label-lg text-label-lg text-on-surface font-semibold">12</span>
+<span class="px-2 py-0.5 rounded bg-primary-fixed text-on-primary-fixed-variant font-label-sm text-label-sm">Total</span>
+</div>
+</div>
+<div class="flex items-center justify-between p-2.5 rounded-xl bg-surface-container-low">
+<div class="flex items-center gap-2.5">
+<span class="w-3 h-3 rounded-full bg-primary-container"></span>
+<span class="font-label-lg text-label-lg text-on-surface">Creadores Verificados Pro</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-label-lg text-label-lg text-on-surface font-semibold">1,840</span>
+<span class="px-2 py-0.5 rounded bg-secondary-fixed text-on-secondary-fixed-variant font-label-sm text-label-sm">3.8%</span>
+</div>
+</div>
+<div class="flex items-center justify-between p-2.5 rounded-xl bg-surface-container-low">
+<div class="flex items-center gap-2.5">
+<span class="w-3 h-3 rounded-full bg-secondary-container"></span>
+<span class="font-label-lg text-label-lg text-on-surface">Miembros Estándar</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-label-lg text-label-lg text-on-surface font-semibold">46,438</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm">96.2%</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Security / Mode Enforcement Toggle -->
+<div class="mt-6 pt-5 bg-surface-container-low p-4 rounded-xl">
+<div class="flex items-center justify-between">
+<div class="space-y-0.5">
+<div class="flex items-center gap-1.5 font-label-lg text-label-lg text-on-surface font-semibold">
+<span class="material-symbols-outlined text-secondary text-base">shield_lock</span>
+<span>Modo Estricto 2FA</span>
+</div>
+<p class="font-body-sm text-body-sm text-outline">Obligatorio para roles Admin y Moderador</p>
+</div>
+<!-- Toggle Button -->
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-container"></div>
+</label>
+</div>
+</div>
+</div>
+</div>
+<!-- Operational Users & Permissions Control Table -->
+<section class="bg-surface-container-lowest rounded-2xl shadow-sm overflow-hidden mb-12" id="tabla-usuarios">
+<!-- Header of the Table Container -->
+<div class="p-space-lg pb-4">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+<div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface tracking-tight">Gestión de Usuarios y Control de Permisos</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Asigne facultades operativas, inspeccione sesiones y aplique gobernanza de contenido.</p>
+</div>
+<!-- Quick Summary Tag -->
+<div class="flex items-center gap-3">
+<span class="px-3 py-1.5 rounded-xl bg-surface-container font-label-md text-label-md text-on-surface">
+            Total en Directorio: <strong class="text-primary font-bold">48,290</strong>
+</span>
+</div>
+</div>
+<!-- Filters & Search Toolbar -->
+<div class="mt-6 flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-3">
+<!-- Search Input -->
+<div class="relative flex-1 max-w-md">
+<span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-outline text-lg">search</span>
+<input class="w-full pl-10 pr-4 py-2.5 bg-surface-container-low rounded-xl text-on-surface font-body-sm text-body-sm placeholder:text-outline focus:outline-none focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary-container transition-all" id="userSearchInput" placeholder="Buscar por nombre, cargo o correo corporativo..." type="text"/>
+</div>
+<!-- Dropdown Filters Group -->
+<div class="flex flex-wrap items-center gap-2.5">
+<!-- Role Filter -->
+<div class="relative">
+<select class="appearance-none bg-surface-container-low text-on-surface font-label-md text-label-md py-2.5 pl-3.5 pr-8 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-container cursor-pointer transition-all">
+<option value="all">Rol: Todos los roles</option>
+<option value="admin">Administrador Global</option>
+<option value="moderator">Moderador Senior</option>
+<option value="pro">Usuario Pro / Creador</option>
+<option value="member">Miembro Estándar</option>
+</select>
+<span class="material-symbols-outlined absolute right-2.5 top-1/2 -translate-y-1/2 text-outline pointer-events-none text-base">expand_more</span>
+</div>
+<!-- Status Filter -->
+<div class="relative">
+<select class="appearance-none bg-surface-container-low text-on-surface font-label-md text-label-md py-2.5 pl-3.5 pr-8 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-container cursor-pointer transition-all">
+<option value="all">Estado: Cualquiera</option>
+<option value="active">Activo</option>
+<option value="flagged">En revisión</option>
+<option value="suspended">Suspendido</option>
+</select>
+<span class="material-symbols-outlined absolute right-2.5 top-1/2 -translate-y-1/2 text-outline pointer-events-none text-base">expand_more</span>
+</div>
+<!-- Refresh action -->
+<button class="p-2.5 rounded-xl bg-surface-container-low text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" title="Refrescar lista" type="button">
+<span class="material-symbols-outlined text-lg">refresh</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Data Table View -->
+<div class="overflow-x-auto w-full">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low text-on-surface-variant font-label-md text-label-md uppercase tracking-wider">
+<th class="py-3 px-space-lg font-medium">Usuario &amp; Credencial</th>
+<th class="py-3 px-4 font-medium">Rol Asignado</th>
+<th class="py-3 px-4 font-medium">Permisos Habilitados</th>
+<th class="py-3 px-4 font-medium text-center">Publicaciones</th>
+<th class="py-3 px-4 font-medium">Última Actividad</th>
+<th class="py-3 px-space-lg font-medium text-right">Acciones</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container-high/60 text-body-md font-body-md">
+<!-- User Row 1 (Executive Admin) -->
+<tr class="hover:bg-surface-container-low/60 transition-colors group">
+<td class="py-4 px-space-lg">
+<div class="flex items-center gap-3">
+<div class="relative">
+<img class="w-10 h-10 rounded-full object-cover shadow-sm" data-alt="Corporate headshot of Elena Rostova, VP of Engineering, confident expression with architectural lighting and dark navy blazer" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDnMddBsOki1HllDqsOBtVLaOkitnogcf8J_7NOdRmy4kK6jvzEECN8qD362xcDPbHCJyaXwZ6_4jYfcQVLoLwJOMzOVIf9krwN9m_qfmRuFhTZ8GGQDJk2e3obGzWqpHd_u6srbZUStCHvCf-L_VOkvqX_fRjJ0vt37Bn2zlntGxS147V0_Pt22VB1--0ggobIMbcsxPpVG0NRHyGZ9IX1TDhZJeXH7oyG7szHwWA-XnvunmXqfrDn"/>
+<span class="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-emerald-500 ring-2 ring-white"></span>
+</div>
+<div class="min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-label-lg text-label-lg text-on-surface font-semibold truncate">Dra. Elena Rostova</span>
+<span class="material-symbols-outlined text-primary text-sm" title="Identidad Verificada">verified</span>
+</div>
+<span class="font-body-sm text-body-sm text-outline truncate block">elena.rostova@quantum-scale.io</span>
+</div>
+</div>
+</td>
+<td class="py-4 px-4 whitespace-nowrap">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-primary text-on-primary font-label-sm text-label-sm font-semibold shadow-xs">
+<span class="material-symbols-outlined text-xs">shield_person</span>
+                Admin Global
+              </span>
+</td>
+<td class="py-4 px-4">
+<div class="flex flex-wrap gap-1.5 max-w-xs">
+<span class="px-2 py-0.5 rounded-md bg-surface-container font-label-sm text-label-sm text-on-surface">Crear Posts</span>
+<span class="px-2 py-0.5 rounded-md bg-surface-container font-label-sm text-label-sm text-on-surface">Moderar</span>
+<span class="px-2 py-0.5 rounded-md bg-primary-fixed text-on-primary-fixed-variant font-label-sm text-label-sm font-medium">Acceso Analítica</span>
+</div>
+</td>
+<td class="py-4 px-4 text-center whitespace-nowrap">
+<span class="font-label-lg text-label-lg text-on-surface font-bold">148</span>
+<span class="block text-outline font-label-sm text-label-sm">99% aprobadas</span>
+</td>
+<td class="py-4 px-4 whitespace-nowrap text-on-surface-variant font-body-sm text-body-sm">
+<span class="font-medium text-on-surface">Hace 4 min</span>
+<span class="block text-outline font-label-sm text-label-sm">IP: 194.28.112.9</span>
+</td>
+<td class="py-4 px-space-lg text-right whitespace-nowrap">
+<div class="relative inline-block text-left">
+<button class="p-2 rounded-xl text-outline hover:text-on-surface hover:bg-surface-container transition-colors" onclick="toggleRowMenu('menu-1')" type="button">
+<span class="material-symbols-outlined text-lg">more_vert</span>
+</button>
+<!-- Row Dropdown Menu -->
+<div class="hidden absolute right-0 mt-2 w-48 bg-surface-container-lowest rounded-xl shadow-xl z-30 py-1.5 ring-1 ring-black/5" id="menu-1">
+<a class="flex items-center gap-2 px-3.5 py-2 text-label-md text-on-surface hover:bg-surface-container-low" href="#">
+<span class="material-symbols-outlined text-base">edit</span> Editar Rol &amp; Acceso
+                  </a>
+<a class="flex items-center gap-2 px-3.5 py-2 text-label-md text-on-surface hover:bg-surface-container-low" href="#">
+<span class="material-symbols-outlined text-base">receipt_long</span> Ver Logs de Auditoría
+                  </a>
+<div class="h-px bg-surface-container-high my-1"></div>
+<a class="flex items-center gap-2 px-3.5 py-2 text-label-md text-error hover:bg-error-container" href="#">
+<span class="material-symbols-outlined text-base">lock</span> Revocar Permisos
+                  </a>
+</div>
+</div>
+</td>
+</tr>
+<!-- User Row 2 (Senior Moderator) -->
+<tr class="hover:bg-surface-container-low/60 transition-colors group">
+<td class="py-4 px-space-lg">
+<div class="flex items-center gap-3">
+<div class="relative">
+<img class="w-10 h-10 rounded-full object-cover shadow-sm" data-alt="Portrait of Marcus Vance, Chief Security Officer in crisp white shirt with subtle indigo ambient light behind" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAXk4tpT5uTU6ku9C3aGkKZ-Cgk1KuRG8AfR_1Yl9G5W6C07-Xh56LXlMOUnhA6aW2ny0M1puixHM10RjlqjlbYaGsFKYtreDnBQj2yuczQfr-KCSAacA14F83PPJTPdDujPZpT0l0Iyz_-r0BdCYqBWadeg3lJ8SvExsyS4EwfOmm5cK_9YnDN2Na0xLqO6aS_FE292_GFN0gajjlhuvEPm2NxgL7h5YtvYenuiObk1H6ly1snA-e6"/>
+<span class="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-emerald-500 ring-2 ring-white"></span>
+</div>
+<div class="min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-label-lg text-label-lg text-on-surface font-semibold truncate">Marcus Vance</span>
+</div>
+<span class="font-body-sm text-body-sm text-outline truncate block">m.vance@security-core.net</span>
+</div>
+</div>
+</td>
+<td class="py-4 px-4 whitespace-nowrap">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-secondary text-on-secondary font-label-sm text-label-sm font-semibold">
+<span class="material-symbols-outlined text-xs">gavel</span>
+                Moderador Senior
+              </span>
+</td>
+<td class="py-4 px-4">
+<div class="flex flex-wrap gap-1.5 max-w-xs">
+<span class="px-2 py-0.5 rounded-md bg-surface-container font-label-sm text-label-sm text-on-surface">Crear Posts</span>
+<span class="px-2 py-0.5 rounded-md bg-secondary-fixed text-on-secondary-fixed-variant font-label-sm text-label-sm font-semibold">Moderar Cola</span>
+<span class="px-2 py-0.5 rounded-md bg-surface-container font-label-sm text-label-sm text-outline">Sin Analítica</span>
+</div>
+</td>
+<td class="py-4 px-4 text-center whitespace-nowrap">
+<span class="font-label-lg text-label-lg text-on-surface font-bold">52</span>
+<span class="block text-outline font-label-sm text-label-sm">410 acciones mod</span>
+</td>
+<td class="py-4 px-4 whitespace-nowrap text-on-surface-variant font-body-sm text-body-sm">
+<span class="font-medium text-on-surface">Hace 18 min</span>
+<span class="block text-outline font-label-sm text-label-sm">IP: 82.165.197.1</span>
+</td>
+<td class="py-4 px-space-lg text-right whitespace-nowrap">
+<div class="relative inline-block text-left">
+<button class="p-2 rounded-xl text-outline hover:text-on-surface hover:bg-surface-container transition-colors" onclick="toggleRowMenu('menu-2')" type="button">
+<span class="material-symbols-outlined text-lg">more_vert</span>
+</button>
+<div class="hidden absolute right-0 mt-2 w-48 bg-surface-container-lowest rounded-xl shadow-xl z-30 py-1.5 ring-1 ring-black/5" id="menu-2">
+<a class="flex items-center gap-2 px-3.5 py-2 text-label-md text-on-surface hover:bg-surface-container-low" href="#">
+<span class="material-symbols-outlined text-base">edit</span> Editar Rol
+                  </a>
+<a class="flex items-center gap-2 px-3.5 py-2 text-label-md text-on-surface hover:bg-surface-container-low" href="#">
+<span class="material-symbols-outlined text-base">receipt_long</span> Historial Moderación
+                  </a>
+<div class="h-px bg-surface-container-high my-1"></div>
+<a class="flex items-center gap-2 px-3.5 py-2 text-label-md text-error hover:bg-error-container" href="#">
+<span class="material-symbols-outlined text-base">pause_circle</span> Pausar Permisos
+                  </a>
+</div>
+</div>
+</td>
+</tr>
+<!-- User Row 3 (Verified Creator / Pro) -->
+<tr class="hover:bg-surface-container-low/60 transition-colors group">
+<td class="py-4 px-space-lg">
+<div class="flex items-center gap-3">
+<div class="relative">
+<img class="w-10 h-10 rounded-full object-cover shadow-sm" data-alt="Headshot photo of Sofia Chen, Chief AI Strategist wearing minimalist glasses in modern glass-walled office" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBkuU4dqU8ss-l_W7TBmjBRxv-AAGQdNSus5DB_H1Fd3V5YSk5zniOl2jpHowSpsY9nuhqo2xMEEIeL1sWaOjsmo_JxMC2mEAQlMjjZXLE2gyMhB82S6iQLAEbPFoGia61qMMgdcOxPAFt5MSG2pNg-ylfz4ImU2zAEPzfLYVhwtUS1sV5S56VnPnYiEi0cb1erB5sUt1UOEcQUyvAs7xFQpPkPS71wRXRLarsuLJhgzF8dD-OniunE"/>
+<span class="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-emerald-500 ring-2 ring-white"></span>
+</div>
+<div class="min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-label-lg text-label-lg text-on-surface font-semibold truncate">Sofia Chen</span>
+<span class="material-symbols-outlined text-primary text-sm" title="Creador Top">star</span>
+</div>
+<span class="font-body-sm text-body-sm text-outline truncate block">sofia.chen@frontier-ai.org</span>
+</div>
+</div>
+</td>
+<td class="py-4 px-4 whitespace-nowrap">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-container-high text-primary font-label-sm text-label-sm font-semibold">
+<span class="material-symbols-outlined text-xs">auto_awesome</span>
+                Usuario Pro
+              </span>
+</td>
+<td class="py-4 px-4">
+<div class="flex flex-wrap gap-1.5 max-w-xs">
+<span class="px-2 py-0.5 rounded-md bg-surface-container font-label-sm text-label-sm text-on-surface">Crear Posts (Ampliado)</span>
+<span class="px-2 py-0.5 rounded-md bg-surface-container font-label-sm text-label-sm text-outline">Métricas Propias</span>
+</div>
+</td>
+<td class="py-4 px-4 text-center whitespace-nowrap">
+<span class="font-label-lg text-label-lg text-on-surface font-bold">312</span>
+<span class="block text-emerald-600 font-label-sm text-label-sm">Top 1% viral</span>
+</td>
+<td class="py-4 px-4 whitespace-nowrap text-on-surface-variant font-body-sm text-body-sm">
+<span class="font-medium text-on-surface">Hace 2 horas</span>
+<span class="block text-outline font-label-sm text-label-sm">IP: 104.244.42.1</span>
+</td>
+<td class="py-4 px-space-lg text-right whitespace-nowrap">
+<div class="relative inline-block text-left">
+<button class="p-2 rounded-xl text-outline hover:text-on-surface hover:bg-surface-container transition-colors" onclick="toggleRowMenu('menu-3')" type="button">
+<span class="material-symbols-outlined text-lg">more_vert</span>
+</button>
+<div class="hidden absolute right-0 mt-2 w-48 bg-surface-container-lowest rounded-xl shadow-xl z-30 py-1.5 ring-1 ring-black/5" id="menu-3">
+<a class="flex items-center gap-2 px-3.5 py-2 text-label-md text-on-surface hover:bg-surface-container-low" href="#">
+<span class="material-symbols-outlined text-base">military_tech</span> Ascender a Moderador
+                  </a>
+<a class="flex items-center gap-2 px-3.5 py-2 text-label-md text-on-surface hover:bg-surface-container-low" href="#">
+<span class="material-symbols-outlined text-base">analytics</span> Ver Estadísticas
+                  </a>
+<div class="h-px bg-surface-container-high my-1"></div>
+<a class="flex items-center gap-2 px-3.5 py-2 text-label-md text-error hover:bg-error-container" href="#">
+<span class="material-symbols-outlined text-base">block</span> Suspender Cuenta
+                  </a>
+</div>
+</div>
+</td>
+</tr>
+<!-- User Row 4 (Flagged / Under Review) -->
+<tr class="hover:bg-amber-50/40 transition-colors group bg-amber-50/20">
+<td class="py-4 px-space-lg">
+<div class="flex items-center gap-3">
+<div class="relative">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest text-tertiary flex items-center justify-center font-bold">
+                    AR
+                  </div>
+<span class="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-amber-500 ring-2 ring-white"></span>
+</div>
+<div class="min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-label-lg text-label-lg text-on-surface font-semibold truncate">Alejandro Ramos</span>
+<span class="px-1.5 py-0.2 rounded bg-amber-100 text-amber-800 font-label-sm text-label-sm text-[10px]">Reportado</span>
+</div>
+<span class="font-body-sm text-body-sm text-outline truncate block">aramos_fintech@gmail.com</span>
+</div>
+</div>
+</td>
+<td class="py-4 px-4 whitespace-nowrap">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-container text-on-surface font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-xs">person</span>
+                Miembro Estándar
+              </span>
+</td>
+<td class="py-4 px-4">
+<div class="flex flex-wrap gap-1.5 max-w-xs">
+<span class="px-2 py-0.5 rounded-md bg-amber-100 text-amber-900 font-label-sm text-label-sm font-semibold">Post Restringido</span>
+<span class="px-2 py-0.5 rounded-md bg-surface-container font-label-sm text-label-sm text-outline">Solo Lectura</span>
+</div>
+</td>
+<td class="py-4 px-4 text-center whitespace-nowrap">
+<span class="font-label-lg text-label-lg text-amber-800 font-bold">19</span>
+<span class="block text-error font-label-sm text-label-sm">3 denuncias</span>
+</td>
+<td class="py-4 px-4 whitespace-nowrap text-on-surface-variant font-body-sm text-body-sm">
+<span class="font-medium text-amber-800">En revisión</span>
+<span class="block text-outline font-label-sm text-label-sm">Ayer, 22:15</span>
+</td>
+<td class="py-4 px-space-lg text-right whitespace-nowrap">
+<div class="relative inline-block text-left">
+<button class="p-2 rounded-xl text-outline hover:text-on-surface hover:bg-surface-container transition-colors" onclick="toggleRowMenu('menu-4')" type="button">
+<span class="material-symbols-outlined text-lg">more_vert</span>
+</button>
+<div class="hidden absolute right-0 mt-2 w-48 bg-surface-container-lowest rounded-xl shadow-xl z-30 py-1.5 ring-1 ring-black/5" id="menu-4">
+<a class="flex items-center gap-2 px-3.5 py-2 text-label-md text-primary font-semibold hover:bg-surface-container-low" href="#">
+<span class="material-symbols-outlined text-base">rule</span> Resolver Reporte
+                  </a>
+<a class="flex items-center gap-2 px-3.5 py-2 text-label-md text-on-surface hover:bg-surface-container-low" href="#">
+<span class="material-symbols-outlined text-base">history</span> Ver Actividad Sospechosa
+                  </a>
+<div class="h-px bg-surface-container-high my-1"></div>
+<a class="flex items-center gap-2 px-3.5 py-2 text-label-md text-error hover:bg-error-container" href="#">
+<span class="material-symbols-outlined text-base">person_off</span> Confirmar Suspensión
+                  </a>
+</div>
+</div>
+</td>
+</tr>
+<!-- User Row 5 (Suspended User) -->
+<tr class="hover:bg-surface-container-low/60 transition-colors group opacity-75">
+<td class="py-4 px-space-lg">
+<div class="flex items-center gap-3">
+<div class="relative">
+<img class="w-10 h-10 rounded-full object-cover grayscale" data-alt="Black and white profile picture of an anonymous user with greyed out background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB7f2hmj9IG1OOOi-CKRJSGctKOvCvxUIE5hlNN7W_opUf5zsmzo932F-HCx3Z6v3lwAk_oybzlJWxwX1Y9hH2Dv3LCwompawPZjmnjCD27xigKg_5Z8BQwvlZcrbJ3Pq2hA2Kt3WqO-W5watLMwUGCkFt07bV8zI6GycRd70c_3KACy2R8-XnGCcEeVoxIKXfmVsziqP6lACqN8pi4UURa6cEPfr1HbaNSQh1xByesYtzMzKWAZGyJ"/>
+<span class="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-error ring-2 ring-white"></span>
+</div>
+<div class="min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-label-lg text-label-lg text-outline font-semibold truncate line-through">David K. Morales</span>
+<span class="px-1.5 py-0.2 rounded bg-error-container text-on-error-container font-label-sm text-label-sm text-[10px]">Inactivo</span>
+</div>
+<span class="font-body-sm text-body-sm text-outline truncate block">david.morales@spambot-relay.com</span>
+</div>
+</div>
+</td>
+<td class="py-4 px-4 whitespace-nowrap">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-error-container text-on-error-container font-label-sm text-label-sm font-semibold">
+<span class="material-symbols-outlined text-xs">block</span>
+                Suspendido
+              </span>
+</td>
+<td class="py-4 px-4">
+<span class="px-2 py-0.5 rounded-md bg-surface-container-high text-outline font-label-sm text-label-sm">
+                Sin permisos (Bloqueado)
+              </span>
+</td>
+<td class="py-4 px-4 text-center whitespace-nowrap">
+<span class="font-label-lg text-label-lg text-outline font-bold">4</span>
+<span class="block text-error font-label-sm text-label-sm">Contenido eliminado</span>
+</td>
+<td class="py-4 px-4 whitespace-nowrap text-on-surface-variant font-body-sm text-body-sm">
+<span class="text-outline">14 Oct 2024</span>
+<span class="block text-outline font-label-sm text-label-sm">Bloqueo manual</span>
+</td>
+<td class="py-4 px-space-lg text-right whitespace-nowrap">
+<div class="relative inline-block text-left">
+<button class="p-2 rounded-xl text-outline hover:text-on-surface hover:bg-surface-container transition-colors" onclick="toggleRowMenu('menu-5')" type="button">
+<span class="material-symbols-outlined text-lg">more_vert</span>
+</button>
+<div class="hidden absolute right-0 mt-2 w-48 bg-surface-container-lowest rounded-xl shadow-xl z-30 py-1.5 ring-1 ring-black/5" id="menu-5">
+<a class="flex items-center gap-2 px-3.5 py-2 text-label-md text-on-surface hover:bg-surface-container-low" href="#">
+<span class="material-symbols-outlined text-base">restore</span> Rehabilitar Cuenta
+                  </a>
+<a class="flex items-center gap-2 px-3.5 py-2 text-label-md text-error hover:bg-error-container" href="#">
+<span class="material-symbols-outlined text-base">delete_forever</span> Eliminar Definitivamente
+                  </a>
+</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination & Directory Controls -->
+<div class="px-space-lg py-4 border-t border-surface-container-high/40 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+<div class="font-body-sm text-body-sm text-on-surface-variant">
+        Mostrando <span class="font-semibold text-on-surface">1</span> a <span class="font-semibold text-on-surface">5</span> de <span class="font-semibold text-on-surface">48,290</span> profesionales registrados
+      </div>
+<div class="flex items-center gap-1.5 self-end sm:self-auto">
+<button class="p-2 rounded-xl text-outline cursor-not-allowed bg-surface-container-low" disabled="" type="button">
+<span class="material-symbols-outlined text-lg">chevron_left</span>
+</button>
+<button class="w-8 h-8 rounded-xl bg-primary text-on-primary font-label-sm text-label-sm font-semibold flex items-center justify-center" type="button">1</button>
+<button class="w-8 h-8 rounded-xl text-on-surface-variant hover:bg-surface-container-low font-label-sm text-label-sm font-semibold flex items-center justify-center" type="button">2</button>
+<button class="w-8 h-8 rounded-xl text-on-surface-variant hover:bg-surface-container-low font-label-sm text-label-sm font-semibold flex items-center justify-center" type="button">3</button>
+<span class="px-1 text-outline">...</span>
+<button class="w-8 h-8 rounded-xl text-on-surface-variant hover:bg-surface-container-low font-label-sm text-label-sm font-semibold flex items-center justify-center" type="button">965</button>
+<button class="p-2 rounded-xl text-on-surface hover:bg-surface-container transition-colors" type="button">
+<span class="material-symbols-outlined text-lg">chevron_right</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Invite Administrator Modal (Suspended Over Layer) -->
+<div class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-on-surface/40 backdrop-blur-sm transition-opacity" id="inviteModal">
+<div class="bg-surface-container-lowest rounded-2xl max-w-lg w-full p-space-lg shadow-xl relative animate-in fade-in zoom-in-95 duration-150">
+<div class="flex items-center justify-between mb-4">
+<div class="flex items-center gap-2.5">
+<div class="p-2 rounded-xl bg-primary-fixed text-primary">
+<span class="material-symbols-outlined text-xl">admin_panel_settings</span>
+</div>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Invitar Administrador</h3>
+<p class="font-body-sm text-body-sm text-outline">Asignación formal de credenciales de red</p>
+</div>
+</div>
+<button class="p-2 rounded-xl text-outline hover:text-on-surface hover:bg-surface-container-low" onclick="toggleInviteModal(false)" type="button">
+<span class="material-symbols-outlined text-xl">close</span>
+</button>
+</div>
+<form class="space-y-4" onsubmit="handleInviteSubmit(event)">
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-1.5 font-medium">Correo Electrónico Corporativo</label>
+<input class="w-full px-3.5 py-2.5 rounded-xl bg-surface-container-low text-on-surface font-body-md text-body-md border-0 focus:ring-2 focus:ring-primary-container outline-none transition-all" placeholder="nombre@organizacion.com" required="" type="email"/>
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-1.5 font-medium">Rol y Nivel de Atribución</label>
+<select class="w-full px-3.5 py-2.5 rounded-xl bg-surface-container-low text-on-surface font-body-md text-body-md border-0 focus:ring-2 focus:ring-primary-container outline-none transition-all cursor-pointer">
+<option value="admin_ops">Administrador Operativo (Publicaciones &amp; Moderación)</option>
+<option value="sec_lead">Moderador Senior de Seguridad</option>
+<option value="data_analyst">Analista de Métricas (Solo Lectura Telemetría)</option>
+<option value="super_admin">Super Administrador Global (Acceso Total)</option>
+</select>
+</div>
+<div class="bg-surface-container-low p-3.5 rounded-xl space-y-2">
+<span class="font-label-sm text-label-sm text-on-surface-variant font-semibold uppercase tracking-wider block">Permisos Iniciales</span>
+<div class="grid grid-cols-2 gap-2">
+<label class="flex items-center gap-2 cursor-pointer font-body-sm text-body-sm text-on-surface">
+<input checked="" class="w-4 h-4 rounded text-primary-container focus:ring-primary-container" type="checkbox"/>
+<span>Auditar Publicaciones</span>
+</label>
+<label class="flex items-center gap-2 cursor-pointer font-body-sm text-body-sm text-on-surface">
+<input checked="" class="w-4 h-4 rounded text-primary-container focus:ring-primary-container" type="checkbox"/>
+<span>Suspender Cuentas</span>
+</label>
+<label class="flex items-center gap-2 cursor-pointer font-body-sm text-body-sm text-on-surface">
+<input class="w-4 h-4 rounded text-primary-container focus:ring-primary-container" type="checkbox"/>
+<span>Exportar Reportes PI</span>
+</label>
+<label class="flex items-center gap-2 cursor-pointer font-body-sm text-body-sm text-on-surface">
+<input checked="" class="w-4 h-4 rounded text-primary-container focus:ring-primary-container" type="checkbox"/>
+<span>Ver Logs de IP</span>
+</label>
+</div>
+</div>
+<div class="pt-4 flex items-center justify-end gap-3">
+<button class="px-4 py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container font-label-lg text-label-lg transition-all" onclick="toggleInviteModal(false)" type="button">
+            Cancelar
+          </button>
+<button class="px-5 py-2.5 rounded-xl bg-primary-container text-on-primary font-label-lg text-label-lg shadow-sm hover:opacity-95 transition-all" type="submit">
+            Enviar Invitación Segura
+          </button>
+</div>
+</form>
+</div>
+</div>
+</div>
+<script>
+  // Simple Dropdown Toggle for Table Row Actions
+  function toggleRowMenu(menuId) {
+    const menus = document.querySelectorAll('[id^="menu-"]');
+    menus.forEach(m => {
+      if (m.id !== menuId) m.classList.add('hidden');
+    });
+    const target = document.getElementById(menuId);
+    if (target) {
+      target.classList.toggle('hidden');
+    }
+  }
+
+  // Close menus on outside click
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('td')) {
+      const menus = document.querySelectorAll('[id^="menu-"]');
+      menus.forEach(m => m.classList.add('hidden'));
+    }
+  });
+
+  // Modal Control
+  function toggleInviteModal(show) {
+    const modal = document.getElementById('inviteModal');
+    if (modal) {
+      if (show) {
+        modal.classList.remove('hidden');
+      } else {
+        modal.classList.add('hidden');
+      }
+    }
+  }
+
+  function handleInviteSubmit(e) {
+    e.preventDefault();
+    alert('Invitación enviada exitosamente con token de seguridad.');
+    toggleInviteModal(false);
+  }
+
+  // Live filter simulation on search input
+  const searchInput = document.getElementById('userSearchInput');
+  if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+      const val = e.target.value.toLowerCase();
+      const rows = document.querySelectorAll('#tabla-usuarios tbody tr');
+      rows.forEach(r => {
+        const text = r.innerText.toLowerCase();
+        r.style.display = text.includes(val) ? '' : 'none';
+      });
+    });
+  }
+</script></main></div></body></html>

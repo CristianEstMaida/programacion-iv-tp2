@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+
+<html lang="es"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{"colors":{"surface":"#f8f9ff","on-secondary-fixed-variant":"#2d3c9c","on-surface-variant":"#454652","on-secondary":"#ffffff","secondary":"#4755b6","surface-variant":"#d3e4fe","on-secondary-container":"#1b2b8c","on-primary":"#ffffff","tertiary-container":"#575a64","surface-container-lowest":"#ffffff","on-primary-container":"#cacfff","on-tertiary-fixed":"#181b24","error-container":"#ffdad6","secondary-container":"#8a99fe","primary-fixed":"#dee0ff","on-primary-fixed-variant":"#293ca0","surface-tint":"#4355b9","inverse-on-surface":"#eaf1ff","on-tertiary":"#ffffff","inverse-surface":"#213145","surface-container-low":"#eff4ff","on-error-container":"#93000a","on-error":"#ffffff","surface-bright":"#f8f9ff","on-surface":"#0b1c30","primary-container":"#3f51b5","surface-container":"#e5eeff","secondary-fixed-dim":"#bbc3ff","on-tertiary-container":"#cfd2dd","on-secondary-fixed":"#000d5f","error":"#ba1a1a","on-primary-fixed":"#00105c","tertiary-fixed-dim":"#c4c6d2","outline":"#757684","on-background":"#0b1c30","surface-container-high":"#dce9ff","outline-variant":"#c5c5d4","primary":"#24389c","tertiary-fixed":"#e0e2ee","on-tertiary-fixed-variant":"#434750","surface-container-highest":"#d3e4fe","background":"#f8f9ff","tertiary":"#3f434c","secondary-fixed":"#dfe0ff","surface-dim":"#cbdbf5","inverse-primary":"#bac3ff","primary-fixed-dim":"#bac3ff"},"borderRadius":{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},"spacing":{"margin":"2rem","margin-mobile":"1rem","space-lg":"1.5rem","space-sm":"0.5rem","gutter-mobile":"1rem","gutter":"1.5rem","space-md":"1rem","space-xs":"0.25rem","space-xl":"2rem"},"fontFamily":{"body-lg":["Inter"],"headline-xl-mobile":["Inter"],"body-sm":["Inter"],"label-lg":["Inter"],"headline-xl":["Inter"],"label-md":["Inter"],"label-sm":["Inter"],"headline-lg-mobile":["Inter"],"headline-md":["Inter"],"headline-lg":["Inter"],"body-md":["Inter"],"headline-sm":["Inter"]},"fontSize":{"body-lg":["16px",{"lineHeight":"26px","letterSpacing":"-0.005em","fontWeight":"400"}],"headline-xl-mobile":["30px",{"lineHeight":"38px","letterSpacing":"-0.02em","fontWeight":"700"}],"body-sm":["13px",{"lineHeight":"18px","letterSpacing":"0.005em","fontWeight":"400"}],"label-lg":["14px",{"lineHeight":"20px","letterSpacing":"0.01em","fontWeight":"600"}],"headline-xl":["40px",{"lineHeight":"48px","letterSpacing":"-0.025em","fontWeight":"700"}],"label-md":["12px",{"lineHeight":"16px","letterSpacing":"0.02em","fontWeight":"500"}],"label-sm":["11px",{"lineHeight":"14px","letterSpacing":"0.04em","fontWeight":"600"}],"headline-lg-mobile":["24px",{"lineHeight":"32px","letterSpacing":"-0.015em","fontWeight":"600"}],"headline-md":["24px",{"lineHeight":"32px","letterSpacing":"-0.015em","fontWeight":"600"}],"headline-lg":["32px",{"lineHeight":"40px","letterSpacing":"-0.02em","fontWeight":"600"}],"body-md":["14px",{"lineHeight":"22px","letterSpacing":"0em","fontWeight":"400"}],"headline-sm":["20px",{"lineHeight":"28px","letterSpacing":"-0.01em","fontWeight":"600"}]}}}};</script></head><body class="bg-surface font-body-md text-body-md text-on-surface antialiased"><header class="fixed top-0 left-0 w-full h-16 bg-surface-container-lowest z-50 shadow-[0_1px_8px_rgba(0,0,0,0.04)] px-space-lg flex items-center justify-between"><div class="flex items-center gap-space-md"><img alt="PulseNet Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1VvVVq8-UUPuvZvnPrU-qC7cE_k-Ob7knYYoHVrxehAIWJdBfSjNR5GxmTbeBSP7Xrl7x79bLVUFkjdpIFpKxLTpCvN1VetXmLVS0aJaxuoxhyIblcLkbZPPn3f74IM3cSP-47wpOSxbcD4I8FUp5vZHizoO7TAJX7YQsoUYe8v01SlQ4hJFzsUAOprt4Rwocp59tuPgMVkj2Q1XRwqWajMi3_Wff4Na1CWlRffLk_ZMHxp4wGZJWhI3A"/><div class="flex items-center gap-space-xs"><span class="font-headline-sm text-headline-sm text-on-surface font-bold tracking-tight">PulseNet</span><span class="bg-primary-fixed text-on-primary-fixed-variant font-label-sm text-label-sm px-space-xs py-0.5 rounded-full">PRO</span></div></div><div class="flex-1 max-w-lg mx-space-xl hidden md:block"><div class="relative flex items-center w-full"><span class="material-symbols-outlined absolute left-space-md text-outline pointer-events-none text-xl">search</span><input class="w-full bg-surface-container-low text-on-surface placeholder:text-outline font-body-sm text-body-sm pl-11 pr-20 py-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-container transition-all" placeholder="Buscar profesionales, empresas, debates..." type="text"/><div class="absolute right-space-sm flex items-center"><kbd class="bg-surface-container-lowest text-on-surface-variant font-label-sm text-label-sm px-1.5 py-0.5 rounded shadow-[0_1px_2px_rgba(0,0,0,0.05)]">⌘ K</kbd></div></div></div><div class="flex items-center gap-space-md"><button class="hidden sm:inline-flex items-center gap-space-xs bg-primary-container text-on-primary font-label-lg text-label-lg px-space-md py-2 rounded-xl hover:opacity-95 shadow-sm transition-all" type="button"><span class="material-symbols-outlined text-lg">add</span><span>Nueva Publicación</span></button><div class="flex items-center gap-space-xs"><button class="p-2 rounded-xl text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors relative" type="button"><span class="material-symbols-outlined text-xl">chat_bubble</span><span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-primary-container"></span></button><button class="p-2 rounded-xl text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors relative" type="button"><span class="material-symbols-outlined text-xl">notifications</span><span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-error"></span></button></div><div class="relative flex items-center pl-space-xs"><div class="relative cursor-pointer"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBcPEPH8Ag9En5YonvIoNHtdnDGKqqlEGXiY7ZcYCajqh2QmiJKq8J9JeeEkKzPQB0g-rhxPvax0WPGeFS52pUX2LRgNhEtZK7JrKuHtexnsRiyfQpu9BFHnttvaKimniFsxJ1dKRkbDSzvakohv4XkmXzh3qYElBA1R8wMl7nRfHpdl252Uli3Hi6DX3dmVH_SmS_Df7Trk-w7Fh1E_iKWXPbLPDrqKFYa1MYUoHoKF3kKmYi3EI4t"/><span class="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-emerald-500 ring-2 ring-surface-container-lowest"></span></div><span class="material-symbols-outlined text-outline cursor-pointer ml-1 text-sm">keyboard_arrow_down</span></div></div></header><aside class="fixed left-0 top-16 bottom-0 w-64 bg-surface-container-lowest z-40 flex flex-col justify-between py-space-md shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="flex-1 overflow-y-auto px-space-sm"><nav class="space-y-1" data-active-classes="bg-primary-fixed text-primary font-semibold"><a class="flex items-center justify-between px-space-md py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="feed-principal" href="#"><div class="flex items-center gap-space-md"><span class="material-symbols-outlined text-xl">feed</span><span class="font-label-lg text-label-lg">Feed Principal</span></div></a><a class="flex items-center justify-between px-space-md py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="mi-perfil-y-red" href="#"><div class="flex items-center gap-space-md"><span class="material-symbols-outlined text-xl">badge</span><span class="font-label-lg text-label-lg">Mi Perfil &amp; Red</span></div></a><a class="flex items-center justify-between px-space-md py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="descubrir-y-explorar" href="#"><div class="flex items-center gap-space-md"><span class="material-symbols-outlined text-xl">explore</span><span class="font-label-lg text-label-lg">Descubrir &amp; Explorar</span></div></a><a class="flex items-center justify-between px-space-md py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="mensajes" href="#"><div class="flex items-center gap-space-md"><span class="material-symbols-outlined text-xl">forum</span><span class="font-label-lg text-label-lg">Mensajes</span></div><span class="bg-secondary-fixed text-on-secondary-fixed-variant font-label-sm text-label-sm px-2 py-0.5 rounded-full">4</span></a><a class="flex items-center justify-between px-space-md py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="guardados" href="#"><div class="flex items-center gap-space-md"><span class="material-symbols-outlined text-xl">bookmark</span><span class="font-label-lg text-label-lg">Guardados</span></div></a><a class="flex items-center justify-between px-space-md py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="panel-de-administracion-y-metricas" href="#"><div class="flex items-center gap-space-md"><span class="material-symbols-outlined text-xl">insights</span><span class="font-label-lg text-label-lg">Panel &amp; Métricas</span></div></a></nav></div><div class="px-space-sm pt-space-sm"><div class="h-px bg-surface-container-high mx-space-sm mb-space-sm"></div><nav class="space-y-1" data-active-classes="bg-primary-fixed text-primary font-semibold"><a class="flex items-center gap-space-md px-space-md py-2 rounded-xl text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="configuracion-y-preferencias" href="#"><span class="material-symbols-outlined text-xl">settings</span><span class="font-label-lg text-label-lg">Configuración</span></a><a class="flex items-center gap-space-md px-space-md py-2 rounded-xl text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="soporte" href="#"><span class="material-symbols-outlined text-xl">help</span><span class="font-label-lg text-label-lg">Soporte</span></a><a class="flex items-center gap-space-md px-space-md py-2 rounded-xl text-error hover:bg-error-container hover:text-on-error-container transition-colors" data-path="cerrar-sesion" href="#"><span class="material-symbols-outlined text-xl">logout</span><span class="font-label-lg text-label-lg">Cerrar Sesión</span></a></nav></div></aside><div class="pl-64"><main class="relative pt-16 min-h-screen bg-surface px-gutter"><div class="flex flex-col w-full pb-space-xl">
+<!-- Profile Header Hero Card -->
+<section class="w-full bg-surface-container-lowest rounded-2xl shadow-sm overflow-hidden mb-space-lg relative">
+<!-- Decorative Banner with Ambient Indigo Lattice Graphic -->
+<div class="relative w-full h-48 md:h-56 bg-gradient-to-r from-primary via-primary-container to-secondary overflow-hidden">
+<svg class="absolute inset-0 w-full h-full opacity-15" fill="none" preserveaspectratio="none" viewbox="0 0 800 240" xmlns="http://www.w3.org/2000/svg">
+<circle class="text-on-primary" cx="120" cy="40" r="140" stroke="currentColor" stroke-width="1.5"></circle>
+<circle class="text-on-primary" cx="340" cy="180" r="90" stroke="currentColor" stroke-width="1.2"></circle>
+<circle class="text-on-primary" cx="680" cy="60" r="160" stroke="currentColor" stroke-width="1.5"></circle>
+<path class="text-on-primary" d="M120 40 L340 180 M340 180 L680 60 M220 220 L510 110" stroke="currentColor" stroke-dasharray="4 4" stroke-width="1"></path>
+</svg>
+<div class="absolute top-4 right-4 flex items-center gap-2">
+<button class="bg-surface-container-lowest/80 hover:bg-surface-container-lowest backdrop-blur-md text-on-surface px-3 py-1.5 rounded-xl font-label-md text-label-md flex items-center gap-1.5 shadow-sm transition-all duration-200" type="button">
+<span class="material-symbols-outlined text-base text-primary">photo_camera</span>
+<span>Personalizar Portada</span>
+</button>
+</div>
+</div>
+<!-- Header Details Bar -->
+<div class="px-space-lg pb-space-lg pt-0">
+<div class="flex flex-col lg:flex-row lg:items-end justify-between gap-space-md -mt-16 md:-mt-20 mb-space-md">
+<!-- Avatar & Core Info Block -->
+<div class="flex flex-col sm:flex-row sm:items-end gap-space-md">
+<div class="relative group w-32 h-32 md:w-36 md:h-36 rounded-full p-1 bg-surface-container-lowest shadow-md shrink-0">
+<img class="w-full h-full object-cover rounded-full" data-alt="Close up portrait photograph of Dr. Sofia Valenzuela, executive product director in her late 30s with warm confident expression, dark pulled-back hair, wearing an architectural slate blue blazer, studio soft editorial lighting, highly sharp focus" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBnS0ghPOccyGGsV4nlYXMHPMUOWTUJ-CKWQIDpSako8J-wYhsIPVLOjyjsGcoMmUu8RB-xk48YTMfLEJWAyA_4m8mJ4erPV0yVV2WJx1jhK1qDuTpWSNcMFf7fNeVl_qXeYMU1mNmKWT3Tsof87lW0N2f9EeAHShiqFyosd_exFMPfHATiIG-KdJNt6aGBvbQVL6rNkfnqt27Qil6J-eQvkLk8rhUszvnJOVL3I5c9KpsPCgCZMQcY"/>
+<span class="absolute bottom-2 right-2 w-5 h-5 rounded-full bg-emerald-500 ring-4 ring-surface-container-lowest" title="En línea"></span>
+<button class="absolute inset-1 rounded-full bg-inverse-surface/60 opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center text-inverse-on-surface transition-opacity duration-200 cursor-pointer" type="button">
+<span class="material-symbols-outlined text-xl">camera_alt</span>
+<span class="font-label-sm text-label-sm mt-0.5">Cambiar foto</span>
+</button>
+</div>
+<div class="pt-2">
+<div class="flex items-center gap-2 flex-wrap">
+<h1 class="font-headline-lg text-headline-lg text-on-surface font-bold tracking-tight">Dra. Sofía Valenzuela</h1>
+<span class="material-symbols-outlined text-primary text-xl" style="font-variation-settings: 'FILL' 1;" title="Perfil Verificado PulseNet">verified</span>
+<span class="bg-primary-fixed text-on-primary-fixed-variant font-label-sm text-label-sm px-2.5 py-0.5 rounded-full uppercase tracking-wider font-semibold">PulseNet PRO</span>
+</div>
+<p class="font-body-lg text-body-lg text-on-surface-variant font-medium mt-1">
+              VP de Producto &amp; Diseño de Sistemas | Ex-Stripe | Asesora de Startups SaaS
+            </p>
+<div class="flex items-center gap-space-sm text-on-surface-variant font-body-sm text-body-sm mt-2 flex-wrap">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-base text-outline">location_on</span>
+                Madrid, España
+              </span>
+<span>•</span>
+<span class="font-medium text-primary">4,820 conexiones</span>
+<span>•</span>
+<span class="text-on-surface-variant">12,400 seguidores</span>
+</div>
+</div>
+</div>
+<!-- Action Toolbar -->
+<div class="flex flex-wrap items-center gap-space-xs mt-2 lg:mt-0">
+<button class="inline-flex items-center gap-1.5 bg-primary-container hover:bg-primary text-on-primary px-space-md py-2.5 rounded-xl font-label-lg text-label-lg shadow-sm transition-all duration-200 cursor-pointer" onclick="document.getElementById('edit-profile-drawer').classList.remove('translate-x-full')" type="button">
+<span class="material-symbols-outlined text-lg">edit</span>
+<span>Editar Perfil Completo</span>
+</button>
+<button class="inline-flex items-center gap-1.5 bg-surface-container-low hover:bg-surface-container text-on-surface px-space-md py-2.5 rounded-xl font-label-lg text-label-lg transition-all duration-200" type="button">
+<span class="material-symbols-outlined text-lg">share</span>
+<span>Compartir Perfil</span>
+</button>
+<button class="inline-flex items-center gap-1 bg-surface hover:bg-surface-container-low text-primary px-3 py-2.5 rounded-xl font-label-lg text-label-lg transition-colors" title="Vista preliminar de perfil público" type="button">
+<span class="material-symbols-outlined text-lg">visibility</span>
+<span class="hidden xl:inline">Ver como visitante</span>
+</button>
+</div>
+</div>
+<!-- Live Status Pill Callout -->
+<div class="flex items-center justify-between flex-wrap gap-2 pt-3 border-t-0 mt-2 bg-surface-container-low/60 p-3 rounded-xl">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+<span class="font-label-md text-label-md text-on-surface font-medium">Disponible para asesorías en comités consultivos y rondas Serie A/B</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Respuesta en &lt; 24h</span>
+<a class="font-label-sm text-label-sm text-primary font-semibold hover:underline" href="#">Gestionar disponibilidad →</a>
+</div>
+</div>
+</div>
+<!-- Navigation Tabs Strip -->
+<div class="px-space-lg bg-surface-container-lowest flex items-center gap-space-lg overflow-x-auto shadow-[0_1px_0_0_rgba(203,219,245,0.4)]">
+<button class="relative py-3.5 font-label-lg text-label-lg text-primary font-semibold shrink-0">
+        Actividad &amp; Posts
+        <span class="absolute bottom-0 left-0 right-0 h-0.5 bg-primary-container rounded-t-full"></span>
+</button>
+<button class="py-3.5 font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface transition-colors shrink-0">
+        Experiencia &amp; Proyectos
+      </button>
+<button class="py-3.5 font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface transition-colors shrink-0">
+        Habilidades Validadas
+      </button>
+<button class="py-3.5 font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface transition-colors shrink-0 flex items-center gap-1.5">
+<span>Red &amp; Contactos</span>
+<span class="bg-secondary-fixed text-on-secondary-fixed-variant font-label-sm text-label-sm px-1.5 py-0.2 rounded-full font-bold">4.8k</span>
+</button>
+<button class="py-3.5 font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface transition-colors shrink-0">
+        Configuración de Privacidad
+      </button>
+</div>
+</section>
+<!-- 2-Column Responsive Layout: Left Details / Right Network & Visibility -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg">
+<!-- LEFT COLUMN: Professional Details & Inline Editing (7 Cols) -->
+<div class="lg:col-span-7 space-y-space-lg min-w-0">
+<!-- Card: Acerca de -->
+<div class="bg-surface-container-lowest rounded-2xl p-space-lg shadow-sm">
+<div class="flex items-center justify-between mb-space-md">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-xl">psychology</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Acerca de</h2>
+</div>
+<button class="p-2 rounded-xl text-on-surface-variant hover:bg-surface-container-low hover:text-primary transition-colors" title="Editar sumario" type="button">
+<span class="material-symbols-outlined text-lg">edit</span>
+</button>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed mb-3">
+          Líder de producto con más de 12 años forjando plataformas SaaS enterprise y arquitecturas de diseño a hiperescala. Ex-Directora de Diseño en Stripe EMEA, donde lideré el despliegue del sistema de facturación global multipaís.
+        </p>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+          Especializada en convertir fricciones operacionales complejas en experiencias web intuitivas, unificando la ingeniería de software moderna con metodologías centradas en valor medible (ARR, NRR y retención). Mentora activa de fundadoras de tecnología en Techstars y Seedcamp.
+        </p>
+</div>
+<!-- Card: Experiencia Laboral -->
+<div class="bg-surface-container-lowest rounded-2xl p-space-lg shadow-sm">
+<div class="flex items-center justify-between mb-space-lg">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-xl">work_history</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Experiencia Laboral</h2>
+</div>
+<div class="flex items-center gap-1">
+<button class="p-2 rounded-xl text-on-surface-variant hover:bg-surface-container-low hover:text-primary transition-colors" title="Añadir nueva posición" type="button">
+<span class="material-symbols-outlined text-xl">add</span>
+</button>
+</div>
+</div>
+<!-- Timeline Items -->
+<div class="space-y-space-lg relative before:absolute before:inset-0 before:left-5 before:w-0.5 before:bg-surface-container-high">
+<!-- Experience 1 -->
+<div class="relative flex items-start gap-space-md">
+<div class="w-10 h-10 rounded-xl bg-primary-fixed flex items-center justify-center shrink-0 z-10 shadow-sm">
+<span class="material-symbols-outlined text-primary text-xl">cloud_sync</span>
+</div>
+<div class="flex-1 min-w-0 bg-surface-container-low/50 p-space-md rounded-xl">
+<div class="flex items-start justify-between gap-2">
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold">VP de Producto &amp; Sistemas</h3>
+<p class="font-label-lg text-label-lg text-primary">Kroma Systems • Tiempo completo</p>
+</div>
+<button class="text-outline hover:text-primary transition-colors" type="button">
+<span class="material-symbols-outlined text-base">edit</span>
+</button>
+</div>
+<p class="font-label-md text-label-md text-on-surface-variant mt-1">2022 - Presente • 2 años 4 meses | Madrid, España (Híbrido)</p>
+<ul class="mt-3 space-y-1.5 font-body-sm text-body-sm text-on-surface-variant list-disc pl-4">
+<li>Diseño y ejecución del roadmap SaaS B2B, logrando un crecimiento de ARR del 140% interanual.</li>
+<li>Supervisión transversal de un equipo multidisciplinar de 34 ingenieros y diseñadores senior.</li>
+<li>Reducción del time-to-market en un 38% mediante la implementación del core framework PulseDS.</li>
+</ul>
+</div>
+</div>
+<!-- Experience 2 -->
+<div class="relative flex items-start gap-space-md">
+<div class="w-10 h-10 rounded-xl bg-surface-container-high flex items-center justify-center shrink-0 z-10 shadow-sm">
+<span class="material-symbols-outlined text-secondary text-xl">payments</span>
+</div>
+<div class="flex-1 min-w-0 bg-surface-container-low/50 p-space-md rounded-xl">
+<div class="flex items-start justify-between gap-2">
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Head of Design Engineering EMEA</h3>
+<p class="font-label-lg text-label-lg text-on-surface-variant">Stripe • Dublín &amp; Remoto</p>
+</div>
+<button class="text-outline hover:text-primary transition-colors" type="button">
+<span class="material-symbols-outlined text-base">edit</span>
+</button>
+</div>
+<p class="font-label-md text-label-md text-on-surface-variant mt-1">2018 - 2022 • 4 años | Dublín, Irlanda</p>
+<ul class="mt-3 space-y-1.5 font-body-sm text-body-sm text-on-surface-variant list-disc pl-4">
+<li>Liderazgo en la estandarización de componentes de checkout transaccional para mercados europeos.</li>
+<li>Premio interno de excelencia arquitectónica por interoperabilidad micro-frontend.</li>
+</ul>
+</div>
+</div>
+<!-- Experience 3 -->
+<div class="relative flex items-start gap-space-md">
+<div class="w-10 h-10 rounded-xl bg-surface-container-high flex items-center justify-center shrink-0 z-10 shadow-sm">
+<span class="material-symbols-outlined text-tertiary text-xl">token</span>
+</div>
+<div class="flex-1 min-w-0 bg-surface-container-low/50 p-space-md rounded-xl">
+<div class="flex items-start justify-between gap-2">
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Senior Product Architect</h3>
+<p class="font-label-lg text-label-lg text-on-surface-variant">Novu Labs Inc.</p>
+</div>
+<button class="text-outline hover:text-primary transition-colors" type="button">
+<span class="material-symbols-outlined text-base">edit</span>
+</button>
+</div>
+<p class="font-label-md text-label-md text-on-surface-variant mt-1">2015 - 2018 • 3 años | San Francisco, CA</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Card: Aptitudes & Validaciones -->
+<div class="bg-surface-container-lowest rounded-2xl p-space-lg shadow-sm">
+<div class="flex items-center justify-between mb-space-md">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-xl">verified_user</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Aptitudes &amp; Validaciones</h2>
+</div>
+<button class="inline-flex items-center gap-1 font-label-md text-label-md text-primary font-semibold hover:underline" type="button">
+<span class="material-symbols-outlined text-base">add_circle</span>
+<span>Añadir Aptitud</span>
+</button>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-space-md">
+          Validado por más de 340 profesionales con perfiles de verificación corporativa activa.
+        </p>
+<div class="flex flex-wrap gap-2.5">
+<div class="flex items-center gap-2 bg-surface-container-low hover:bg-surface-container px-3.5 py-2 rounded-xl transition-colors cursor-pointer group">
+<span class="font-label-lg text-label-lg text-on-surface font-semibold">Angular Architecture</span>
+<span class="bg-primary-fixed text-primary font-label-sm text-label-sm px-2 py-0.5 rounded-full font-bold">84</span>
+<span class="material-symbols-outlined text-base text-outline opacity-0 group-hover:opacity-100 transition-opacity">thumb_up</span>
+</div>
+<div class="flex items-center gap-2 bg-surface-container-low hover:bg-surface-container px-3.5 py-2 rounded-xl transition-colors cursor-pointer group">
+<span class="font-label-lg text-label-lg text-on-surface font-semibold">Design Systems</span>
+<span class="bg-primary-fixed text-primary font-label-sm text-label-sm px-2 py-0.5 rounded-full font-bold">112</span>
+<span class="material-symbols-outlined text-base text-outline opacity-0 group-hover:opacity-100 transition-opacity">thumb_up</span>
+</div>
+<div class="flex items-center gap-2 bg-surface-container-low hover:bg-surface-container px-3.5 py-2 rounded-xl transition-colors cursor-pointer group">
+<span class="font-label-lg text-label-lg text-on-surface font-semibold">SaaS Product Strategy</span>
+<span class="bg-primary-fixed text-primary font-label-sm text-label-sm px-2 py-0.5 rounded-full font-bold">96</span>
+<span class="material-symbols-outlined text-base text-outline opacity-0 group-hover:opacity-100 transition-opacity">thumb_up</span>
+</div>
+<div class="flex items-center gap-2 bg-surface-container-low hover:bg-surface-container px-3.5 py-2 rounded-xl transition-colors cursor-pointer group">
+<span class="font-label-lg text-label-lg text-on-surface font-semibold">Executive Leadership</span>
+<span class="bg-secondary-fixed text-on-secondary-fixed-variant font-label-sm text-label-sm px-2 py-0.5 rounded-full font-bold">73</span>
+<span class="material-symbols-outlined text-base text-outline opacity-0 group-hover:opacity-100 transition-opacity">thumb_up</span>
+</div>
+<div class="flex items-center gap-2 bg-surface-container-low hover:bg-surface-container px-3.5 py-2 rounded-xl transition-colors cursor-pointer group">
+<span class="font-label-lg text-label-lg text-on-surface font-semibold">Distributed Micro-Frontends</span>
+<span class="bg-secondary-fixed text-on-secondary-fixed-variant font-label-sm text-label-sm px-2 py-0.5 rounded-full font-bold">61</span>
+<span class="material-symbols-outlined text-base text-outline opacity-0 group-hover:opacity-100 transition-opacity">thumb_up</span>
+</div>
+<div class="flex items-center gap-2 bg-surface-container-low hover:bg-surface-container px-3.5 py-2 rounded-xl transition-colors cursor-pointer group">
+<span class="font-label-lg text-label-lg text-on-surface font-semibold">B2B Financial UX</span>
+<span class="bg-secondary-fixed text-on-secondary-fixed-variant font-label-sm text-label-sm px-2 py-0.5 rounded-full font-bold">58</span>
+<span class="material-symbols-outlined text-base text-outline opacity-0 group-hover:opacity-100 transition-opacity">thumb_up</span>
+</div>
+</div>
+</div>
+</div>
+<!-- RIGHT COLUMN: Metrics & Network Visibility (5 Cols) -->
+<div class="lg:col-span-5 space-y-space-lg min-w-0">
+<!-- Metric Cards: Panel de Analítica Rápida -->
+<div class="bg-surface-container-lowest rounded-2xl p-space-lg shadow-sm">
+<div class="flex items-center justify-between mb-space-md">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-xl">query_stats</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Rendimiento de Perfil</h2>
+</div>
+<span class="bg-primary-fixed text-on-primary-fixed-variant font-label-sm text-label-sm px-2 py-0.5 rounded-full font-semibold">7 días</span>
+</div>
+<div class="space-y-space-md">
+<!-- Stat 1: Visitas al perfil con Sparkline -->
+<div class="p-space-md rounded-xl bg-surface-container-low">
+<div class="flex items-start justify-between">
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant">Visitas al perfil esta semana</p>
+<div class="flex items-baseline gap-2 mt-1">
+<span class="font-headline-lg text-headline-lg text-on-surface font-bold">1,430</span>
+<span class="inline-flex items-center text-emerald-600 font-label-sm text-label-sm font-semibold">
+<span class="material-symbols-outlined text-sm">trending_up</span>
+                    +28%
+                  </span>
+</div>
+</div>
+<!-- Sparkline SVG -->
+<div class="w-24 h-10 flex items-center justify-end">
+<svg class="w-full h-full text-primary" fill="none" stroke="currentColor" viewbox="0 0 100 40">
+<path d="M0 32 Q 20 28, 35 18 T 65 24 T 100 6" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></path>
+<path d="M0 32 Q 20 28, 35 18 T 65 24 T 100 6 L 100 40 L 0 40 Z" fill="currentColor" opacity="0.12" stroke="none"></path>
+</svg>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-outline mt-2">
+              Un 42% provienen de directivos en sectores Fintech &amp; B2B SaaS.
+            </p>
+</div>
+<!-- Stat 2: Apariciones en búsquedas -->
+<div class="p-space-md rounded-xl bg-surface-container-low flex items-center justify-between">
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant">Apariciones en búsquedas</p>
+<div class="flex items-baseline gap-2 mt-1">
+<span class="font-headline-lg text-headline-lg text-on-surface font-bold">382</span>
+<span class="font-label-sm text-label-sm text-primary font-semibold">veces</span>
+</div>
+<p class="font-body-sm text-body-sm text-outline mt-1">Top keyword: "VP Product Europe"</p>
+</div>
+<div class="w-12 h-12 rounded-xl bg-surface-container flex items-center justify-center text-primary shrink-0">
+<span class="material-symbols-outlined text-2xl">travel_explore</span>
+</div>
+</div>
+</div>
+<div class="mt-4 pt-3 border-t-0 flex justify-end">
+<a class="font-label-md text-label-md text-primary font-semibold hover:underline inline-flex items-center gap-1" href="#">
+<span>Ver analíticas completas</span>
+<span class="material-symbols-outlined text-sm">arrow_forward</span>
+</a>
+</div>
+</div>
+<!-- Card: Red de Contactos Recientes -->
+<div class="bg-surface-container-lowest rounded-2xl p-space-lg shadow-sm">
+<div class="flex items-center justify-between mb-space-md">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-xl">hub</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Red Reciente</h2>
+</div>
+<span class="font-label-sm text-label-sm text-outline">Conexiones mutuas activas</span>
+</div>
+<!-- 6 Mini-Avatars Grid -->
+<div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+<!-- Contact 1 -->
+<div class="p-3 rounded-xl bg-surface-container-low flex flex-col items-center text-center hover:bg-surface-container transition-all">
+<div class="relative w-12 h-12 rounded-full overflow-hidden shadow-sm mb-2">
+<img class="w-full h-full object-cover" data-alt="Corporate headshot of Javier Morales, CTO of a fintech company, bearded man in light blue linen shirt against modern clean background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD7Wr-rOLK1qjEXRKiZWhyOF8sjzPbR11QbY5LTLuDQ6g2N-hmLQYRjDsG8rGCRkLe2f8XTnjvQx3XngY4INjTHIS6-alzn6AGgUvt06vqKZ7yv-eHeHrQi50_LAKCo8orUGRJ5eF6-SZjJ35B0e9fJ5DARxrSZCz5Xnjkpxyysna3YVTL4K6zN_4LULVyJqHvCco1tDJXDL_73AF5BJGMK3giAfpOpCUXLKk0hb4alX4fvGl7kXSeJ"/>
+</div>
+<p class="font-label-md text-label-md text-on-surface font-semibold truncate w-full">Javier Morales</p>
+<p class="font-body-sm text-body-sm text-outline truncate w-full">CTO @ Scaler</p>
+<span class="font-label-sm text-label-sm text-primary font-medium mt-1">14 mutuas</span>
+</div>
+<!-- Contact 2 -->
+<div class="p-3 rounded-xl bg-surface-container-low flex flex-col items-center text-center hover:bg-surface-container transition-all">
+<div class="relative w-12 h-12 rounded-full overflow-hidden shadow-sm mb-2">
+<img class="w-full h-full object-cover" data-alt="Professional studio portrait of Elena Roche, venture capitalist woman with glasses smiling confidently in dark gray minimalist office" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBebTJWzJD9N5uAVzRrpyybpcdQYk0yjq-NF8C-SE8VuwNnHt8oHAroBTM1-Oyl8nsTyU3c330gTxLf694fUfg_YpHQV15N_Owe3CFlSFF1mSgWpI4Hb5ruXb0va2DgIhZOCsfdsXhBrT3IVMjd1tLhtkrtgAj97EQWges59OI9CBTTL2r4mdaZYcxF8Xnh_XGb2vM58YVy6tR2hQHjYunOT7jBtprDa7s_qiqv9REv-vkFuuGM4wGe"/>
+</div>
+<p class="font-label-md text-label-md text-on-surface font-semibold truncate w-full">Elena Roche</p>
+<p class="font-body-sm text-body-sm text-outline truncate w-full">Partner @ SeedVC</p>
+<span class="font-label-sm text-label-sm text-primary font-medium mt-1">32 mutuas</span>
+</div>
+<!-- Contact 3 -->
+<div class="p-3 rounded-xl bg-surface-container-low flex flex-col items-center text-center hover:bg-surface-container transition-all">
+<div class="relative w-12 h-12 rounded-full overflow-hidden shadow-sm mb-2">
+<img class="w-full h-full object-cover" data-alt="Headshot of Marc Durand, French product design director, energetic mid 30s man with turtleneck in naturally lit architectural studio" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCXnjGELrbC83IWOGfhSr_ZmRtAOuAvgQ8A5myUHW5e2OYTwdz82eqTwY2YT3HOVvWO9T0nBk1aIcQpH8YELuKDCqBX1N-2Wi825QvzrDLBXX8E6L6xSjoFGhaaOescBXlu9XXamRkS1fFLcGy1UEHATuJMClKd5WrSycOo8_lOBbVaUwQdroSGQsndbUz_W16jKzfqyl9ZNDr4RAEsdPGCezQBd6Ne5Pg-xTPJ3gzcl3FFmqOH-BdQ"/>
+</div>
+<p class="font-label-md text-label-md text-on-surface font-semibold truncate w-full">Marc Durand</p>
+<p class="font-body-sm text-body-sm text-outline truncate w-full">Design Lead @ Stripe</p>
+<span class="font-label-sm text-label-sm text-primary font-medium mt-1">45 mutuas</span>
+</div>
+<!-- Contact 4 -->
+<div class="p-3 rounded-xl bg-surface-container-low flex flex-col items-center text-center hover:bg-surface-container transition-all">
+<div class="relative w-12 h-12 rounded-full overflow-hidden shadow-sm mb-2">
+<img class="w-full h-full object-cover" data-alt="Professional portrait of Carmen Ortega, VP of Engineering, Hispanic woman with vibrant focused look in sleek corporate environment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAd3FNxkf1Xde2mvGQgYJypAbm_xCQhlFpAOkySWmKCpKchiy0pOezuKz_9KRGw0Fix4xrh6AYYdQhv7MrjfE3JMqTJDntPx0wAGai4DSg3DknK9mM4s20xnYSpqE8jCWZpDycbKyCQ3w5VGJoNmf7iKyqPCmSHKBLdBcC1g8xvAh68NwHZMRZn9fc3ZdrQsOPBh5qUQDtVQx3usn0XV-a3EmQlh174g77G76QXKpXLuXohsezA5jQn"/>
+</div>
+<p class="font-label-md text-label-md text-on-surface font-semibold truncate w-full">Carmen Ortega</p>
+<p class="font-body-sm text-body-sm text-outline truncate w-full">VP Eng @ Novu</p>
+<span class="font-label-sm text-label-sm text-primary font-medium mt-1">19 mutuas</span>
+</div>
+<!-- Contact 5 -->
+<div class="p-3 rounded-xl bg-surface-container-low flex flex-col items-center text-center hover:bg-surface-container transition-all">
+<div class="relative w-12 h-12 rounded-full overflow-hidden shadow-sm mb-2">
+<img class="w-full h-full object-cover" data-alt="Headshot portrait of David Kim, fintech executive founder, Asian man in tailored dark suit with clean blurred corporate background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBVD86u-EfgKlxHT2CgYQlXJOrEqm-mi45yzYy47VN0jxUq5MiI8aEhkGPJR9e0M_m0OgOAm60nSPjPbP2TEOdpJPR3eZSy8R0-fj0BA1K3DfGEiVB43TsqtDSOB7Pvk-1vw9ijIzBQY-FZf7oIMPJF257vasK2zYggN-64KwFqG5UwO62djqReZqrs5ICQs2Y4ypWxcQp0GfH3uTjb4RzZwwHY0Lgeu5TTuQo4l0ytdbH_cc0DTlQt"/>
+</div>
+<p class="font-label-md text-label-md text-on-surface font-semibold truncate w-full">David Kim</p>
+<p class="font-body-sm text-body-sm text-outline truncate w-full">Founder &amp; CEO</p>
+<span class="font-label-sm text-label-sm text-primary font-medium mt-1">8 mutuas</span>
+</div>
+<!-- Contact 6 -->
+<div class="p-3 rounded-xl bg-surface-container-low flex flex-col items-center text-center hover:bg-surface-container transition-all">
+<div class="relative w-12 h-12 rounded-full overflow-hidden shadow-sm mb-2">
+<img class="w-full h-full object-cover" data-alt="Studio portrait of Lucia Silva, head of brand operations, warm friendly confident demeanor in white blazer against slate background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCnaP5Zywnrf5pUqIebmBaTS_H5IW2-aCwYIk0RiI1YNGS7kz9uGsHCWQ9ZC1uOo4AAFr_yR8ls0SCSOF6l0VNhnPWU52U5HhC7Crz90XSLj4uDjcXY5S74AocrCfgj-xp9rW1FDpb3iEPWrBRQeryL8DS9L9WBurjqWAudFxhLkRiTpRjFo77_8WIO-UpxBJdCLMXcSH13ZEKbSgXz-4ANvLn7gVuf7H6az5m0ZFYehV35v8RkesO-"/>
+</div>
+<p class="font-label-md text-label-md text-on-surface font-semibold truncate w-full">Lucía Silva</p>
+<p class="font-body-sm text-body-sm text-outline truncate w-full">Advisor @ Techstars</p>
+<span class="font-label-sm text-label-sm text-primary font-medium mt-1">27 mutuas</span>
+</div>
+</div>
+<button class="w-full mt-4 py-2 bg-surface-container-low hover:bg-surface-container text-primary font-label-lg text-label-lg rounded-xl transition-colors text-center" type="button">
+          Explorar todas las 4,820 conexiones
+        </button>
+</div>
+<!-- Quick Tips / Profile Completeness Banner -->
+<div class="bg-gradient-to-br from-primary-fixed to-surface-container p-space-lg rounded-2xl shadow-sm">
+<div class="flex items-start gap-space-md">
+<div class="w-10 h-10 rounded-xl bg-primary text-on-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-xl">auto_awesome</span>
+</div>
+<div>
+<h3 class="font-label-lg text-label-lg text-on-surface font-bold">Nivel de Fortaleza: Eminente (94%)</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+              Agrega una publicación destacada de caso de estudio para alcanzar el estatus 100% Verified Thought Leader.
+            </p>
+<div class="w-full bg-surface-container-lowest h-2 rounded-full mt-3 overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 94%;"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Quick Inline Edit Drawer / Modal Preview (Hidden by default, opened via top Edit button) -->
+<aside class="fixed top-16 right-0 bottom-0 w-full sm:w-[460px] bg-surface-container-lowest shadow-xl z-50 transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col" id="edit-profile-drawer">
+<!-- Drawer Header -->
+<div class="p-space-lg bg-surface-container-low flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-xl">edit_note</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-bold">Edición Rápida de Perfil</h2>
+</div>
+<button class="p-1.5 rounded-xl hover:bg-surface-container text-on-surface-variant hover:text-on-surface transition-colors cursor-pointer" onclick="document.getElementById('edit-profile-drawer').classList.add('translate-x-full')" type="button">
+<span class="material-symbols-outlined text-xl">close</span>
+</button>
+</div>
+<!-- Drawer Body Form -->
+<div class="flex-1 overflow-y-auto p-space-lg space-y-space-md">
+<div>
+<label class="block font-label-md text-label-md text-on-surface font-semibold mb-1">Nombre Completo y Títulos</label>
+<input class="w-full bg-surface text-on-surface font-body-md text-body-md px-3.5 py-2.5 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-container" type="text" value="Dra. Sofía Valenzuela"/>
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface font-semibold mb-1">Titular Profesional (Headline)</label>
+<textarea class="w-full bg-surface text-on-surface font-body-md text-body-md px-3.5 py-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-container" rows="3">VP de Producto &amp; Diseño de Sistemas | Ex-Stripe | Asesora de Startups SaaS</textarea>
+</div>
+<div class="grid grid-cols-2 gap-space-sm">
+<div>
+<label class="block font-label-md text-label-md text-on-surface font-semibold mb-1">Ubicación</label>
+<input class="w-full bg-surface text-on-surface font-body-md text-body-md px-3.5 py-2.5 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-container" type="text" value="Madrid, España"/>
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface font-semibold mb-1">Empresa Actual</label>
+<input class="w-full bg-surface text-on-surface font-body-md text-body-md px-3.5 py-2.5 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-container" type="text" value="Kroma Systems"/>
+</div>
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface font-semibold mb-1">Estado de Disponibilidad</label>
+<div class="space-y-2">
+<label class="flex items-center gap-2.5 p-2.5 rounded-xl bg-surface cursor-pointer">
+<input checked="" class="text-primary focus:ring-primary-container" name="availability" type="radio"/>
+<span class="font-body-sm text-body-sm text-on-surface">Disponible para comités consultivos / Asesoría</span>
+</label>
+<label class="flex items-center gap-2.5 p-2.5 rounded-xl bg-surface cursor-pointer">
+<input class="text-primary focus:ring-primary-container" name="availability" type="radio"/>
+<span class="font-body-sm text-body-sm text-on-surface">Abierta a nuevas posiciones ejecutivas</span>
+</label>
+<label class="flex items-center gap-2.5 p-2.5 rounded-xl bg-surface cursor-pointer">
+<input class="text-primary focus:ring-primary-container" name="availability" type="radio"/>
+<span class="font-body-sm text-body-sm text-on-surface">Solo consultoría puntual de Design Systems</span>
+</label>
+</div>
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface font-semibold mb-1">Visibilidad de Perfil</label>
+<div class="flex items-center justify-between p-3 rounded-xl bg-surface">
+<div>
+<p class="font-label-md text-label-md text-on-surface font-medium">Perfil Público Indexable</p>
+<p class="font-body-sm text-body-sm text-outline">Visible en motores de búsqueda y no miembros</p>
+</div>
+<input checked="" class="w-4 h-4 text-primary rounded focus:ring-primary-container" type="checkbox"/>
+</div>
+</div>
+</div>
+<!-- Drawer Footer Actions -->
+<div class="p-space-md bg-surface-container-low flex items-center justify-end gap-space-sm">
+<button class="px-4 py-2 rounded-xl text-on-surface font-label-lg text-label-lg hover:bg-surface-container transition-colors" onclick="document.getElementById('edit-profile-drawer').classList.add('translate-x-full')" type="button">
+        Cancelar
+      </button>
+<button class="px-5 py-2 bg-primary-container hover:bg-primary text-on-primary font-label-lg text-label-lg rounded-xl shadow-sm transition-colors" onclick="document.getElementById('edit-profile-drawer').classList.add('translate-x-full')" type="button">
+        Guardar Cambios
+      </button>
+</div>
+</aside>
+<!-- Script for quick keyboard shortcuts & interactions -->
+<script>
+    document.addEventListener('keydown', function(event) {
+      if (event.key === 'Escape') {
+        const drawer = document.getElementById('edit-profile-drawer');
+        if (drawer && !drawer.classList.contains('translate-x-full')) {
+          drawer.classList.add('translate-x-full');
+        }
+      }
+    });
+  </script>
+</div></main></div></body></html>
