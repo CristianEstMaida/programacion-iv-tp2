@@ -1,0 +1,44 @@
+/* You can add global styles to this file, and also import other style files */
+/* Estilo global obligatorio para que los Material Symbols funcionen en toda la app */
+.material-symbols-outlined {
+  font-family: 'Material Symbols Outlined' !important;
+  font-weight: normal;
+  font-style: normal;
+  font-size: 20px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Corrección general para los inputs con iconos en Login y Register */
+.input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.input-container span.material-symbols-outlined {
+  position: absolute;
+  left: 0.875rem;
+  color: #757684;
+  font-size: 20px;
+  pointer-events: none;
+}
+
+.input-container input,
+.input-container select {
+  width: 100%;
+  padding: 0.75rem 1rem 0.75rem 2.75rem !important; /* Espacio exacto para que el texto no pise el icono */
+  background-color: #f8f9ff;
+  border: 1px solid #d3e4fe;
+  color: #0b1c30;
+  font-size: 14px;
+  border-radius: 0.75rem;
+  outline: none;
+}
