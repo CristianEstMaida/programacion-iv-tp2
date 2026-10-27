@@ -3,6 +3,7 @@ import { UsuariosService } from './usuarios.service.js';
 import { UsuariosController } from './usuarios.controller.js';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Usuario, UsuarioSchema } from './schemas/usuario.schema.js';
+import { CloudinaryService } from '../cloudinary/cloudinary.service.js';
 
 @Module({
   imports: [
@@ -12,7 +13,10 @@ import { Usuario, UsuarioSchema } from './schemas/usuario.schema.js';
     ])
   ],
   controllers: [UsuariosController],
-  providers: [UsuariosService],
+  providers: [
+    UsuariosService,
+    CloudinaryService
+  ],
   exports: [UsuariosService],
 })
 export class UsuariosModule {}
