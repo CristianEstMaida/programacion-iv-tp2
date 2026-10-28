@@ -1,7 +1,11 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-publicaciones',
+  imports: [
+    CommonModule
+  ],
   templateUrl: './publicaciones.component.html',
   styleUrls: ['./publicaciones.component.css']
 })

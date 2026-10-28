@@ -30,10 +30,10 @@ export class Register {
       email: ['', [Validators.required, Validators.email]],
       username: ['', Validators.required],
       password: ['', [Validators.required, Validators.pattern(/^(?=.*[A-Z])(?=.*\d).{8,}$/)]],
-      // repetirPassword: ['', Validators.required],
+      repetirPassword: ['', Validators.required],
       fechaNacimiento: ['', Validators.required],
       descripcion: [''],
-      // perfil: ['usuario', Validators.required]
+      perfil: ['usuario', Validators.required]
     });
   }
 

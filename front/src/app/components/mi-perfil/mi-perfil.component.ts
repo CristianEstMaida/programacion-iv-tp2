@@ -10,14 +10,14 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./mi-perfil.component.css']
 })
 export class MiPerfilComponent implements OnInit {
-  usuario: any = {
-    nombre: '',
-    apellido: '',
-    username: '',
-    descripcion: '',
+  usuario = {
+    nombre: 'Cristian',
+    apellido: 'Maida',
+    username: 'cristian_est_maida',
+    descripcion: 'Estudiante de sistemas y programador full-stack.',
     imagenPerfil: ''
   };
-
+  
   constructor(private authService: Auth) {}
 
   ngOnInit(): void {
