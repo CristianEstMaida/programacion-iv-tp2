@@ -1,4 +1,4 @@
-import { IsString, IsEmail, IsNotEmpty, IsDateString, IsOptional, Matches, MinLength } from 'class-validator';
+import { IsString, IsEmail, IsNotEmpty, IsDateString, IsOptional, Matches, MinLength, IsIn } from 'class-validator';
 
 export class CreateUsuarioDto {
   @IsString()
@@ -24,6 +24,10 @@ export class CreateUsuarioDto {
   })
   password: string;
 
+  @IsString()
+  @IsNotEmpty({ message: 'Debe repetir la contraseña' })
+  repetirPassword: string;
+
   @IsDateString({}, { message: 'La fecha de nacimiento debe tener un formato válido' })
   @IsNotEmpty()
   fechaNacimiento: string;
@@ -36,4 +40,9 @@ export class CreateUsuarioDto {
   @IsString()
   @IsOptional()
   imagenPerfil?: string;
+
+  @IsString()
+  @IsOptional() // O @IsNotEmpty() si el parcial exige que sea obligatorio elegirlo
+  @IsIn(['usuario', 'administrador'], { message: 'Perfil no válido' }) // Opcional: restringe los roles permitidos
+  perfil?: string;
 }

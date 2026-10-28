@@ -36,16 +36,16 @@ export class AutenticacionController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.autenticacionService.findOne(+id);
+    return this.autenticacionService.findOne(id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateAutenticacionDto: UpdateAutenticacionDto) {
-    return this.autenticacionService.update(+id, updateAutenticacionDto);
+    return this.autenticacionService.update(id, updateAutenticacionDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.autenticacionService.remove(+id);
+    return this.autenticacionService.remove(id);
   }
 }

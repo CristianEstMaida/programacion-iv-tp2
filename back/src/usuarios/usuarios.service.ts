@@ -1,4 +1,4 @@
-import { ConflictException, ForbiddenException, Injectable, InternalServerErrorException, UnauthorizedException } from '@nestjs/common';
+import { BadRequestException, ConflictException, ForbiddenException, Injectable, InternalServerErrorException, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { CreateUsuarioDto } from './dto/create-usuario.dto.js';
 import { UpdateUsuarioDto } from './dto/update-usuario.dto.js';
 import { InjectModel } from '@nestjs/mongoose';
@@ -15,11 +15,19 @@ export class UsuariosService {
   ) {}
 
   async registrar(createUsuarioDto: CreateUsuarioDto, imagenPath?: string): Promise<any> {
+    // 1. Validar que la contraseña y su repetición coincidan
+    if (createUsuarioDto.password !== createUsuarioDto.repetirPassword) {
+      throw new BadRequestException('Las contraseñas no coinciden.');
+    }
+    
     try {
+      const { repetirPassword, ...usuarioData } = createUsuarioDto;
+
       const nuevoUsuario = new this.usuarioModel({
-        ...createUsuarioDto,
+        ...usuarioData,
         imagenPerfil: imagenPath ? `/uploads/${imagenPath}` : null,
-        perfil: 'usuario', // Forzado por seguridad en el backend
+        // Si no mandan perfil desde el front, por defecto será 'usuario'
+        perfil: usuarioData.perfil || 'usuario',
         activo: true,
       });
 
@@ -39,6 +47,7 @@ export class UsuariosService {
         activo: usuarioGuardado.activo,
       };
     } catch (error: unknown) {
+      console.error('ERROR REAL EN BACKEND:', error);
       const err = error as { code?: number; keyPattern?: Record<string, any> };
       if (err.code === 11000) {
         const campo = Object.keys(err.keyPattern || {})[0] || 'campo';
@@ -51,19 +60,34 @@ export class UsuariosService {
     return 'This action adds a new usuario';
   }
 
-  findAll() {
-    return `This action returns all usuarios`;
+  async findAll() {
+    return await this.usuarioModel.find().select('-password').exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} usuario`;
+  async findOne(id: string) {
+    const usuario = await this.usuarioModel.findById(id).select('-password');
+    if (!usuario) {
+      throw new NotFoundException('Usuario no encontrado');
+    }
+    return usuario;
   }
 
-  update(id: number, updateUsuarioDto: UpdateUsuarioDto) {
-    return `This action updates a #${id} usuario`;
+  async update(id: string, updateUsuarioDto: UpdateUsuarioDto) {
+    const usuarioActualizado = await this.usuarioModel
+      .findByIdAndUpdate(id, updateUsuarioDto, { new: true })
+      .select('-password');
+      
+    if (!usuarioActualizado) {
+      throw new NotFoundException('Usuario no encontrado para actualizar');
+    }
+    return usuarioActualizado;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} usuario`;
+  async remove(id: string) {
+    const usuarioEliminado = await this.usuarioModel.findByIdAndDelete(id);
+    if (!usuarioEliminado) {
+      throw new NotFoundException('Usuario no encontrado para eliminar');
+    }
+    return { message: 'Usuario eliminado correctamente', id };
   }
 }
