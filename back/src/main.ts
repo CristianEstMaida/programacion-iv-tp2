@@ -21,6 +21,8 @@ async function bootstrap() {
   //   credentials: true,
   // });
   app.enableCors();
+
+  app.setGlobalPrefix('api');
   // Activamos validaciones globales
   // app.useGlobalPipes(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }));
   app.useGlobalPipes(new ValidationPipe());
