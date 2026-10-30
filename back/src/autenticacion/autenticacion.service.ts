@@ -89,15 +89,30 @@ export class AutenticacionService {
     return `This action returns all autenticacion`;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} autenticacion`;
+  async findOne(id: string) {
+    const usuario = await this.usuarioModel.findById(id).select('-password');
+    if (!usuario) {
+      throw new NotFoundException('Usuario no encontrado');
+    }
+    return usuario;
   }
 
-  update(id: number, updateAutenticacionDto: UpdateAutenticacionDto) {
-    return `This action updates a #${id} autenticacion`;
+  async update(id: string, updateAutenticacionDto: UpdateAutenticacionDto) {
+    const usuarioActualizado = await this.usuarioModel
+      .findByIdAndUpdate(id, updateAutenticacionDto, { new: true })
+      .select('-password');
+      
+    if (!usuarioActualizado) {
+      throw new NotFoundException('Usuario no encontrado para actualizar');
+    }
+    return usuarioActualizado;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} autenticacion`;
+  async remove(id: string) {
+    const usuarioEliminado = await this.usuarioModel.findByIdAndDelete(id);
+    if (!usuarioEliminado) {
+      throw new NotFoundException('Usuario no encontrado para eliminar');
+    }
+    return { message: 'Usuario eliminado correctamente', id };
   }
 }
