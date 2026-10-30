@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /* Contenedor principal centrado */
 .perfil-container {
   max-width: 650px;
@@ -131,4 +132,139 @@
 
 .submit-btn:hover {
   background-color: #4338ca;
+=======
+/* Contenedor principal centrado */
+.perfil-container {
+  max-width: 650px;
+  margin: 40px auto;
+  padding: 0 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Tarjeta principal (Idéntica estética al Login y al Muro) */
+.perfil-card {
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.04);
+  padding: 30px;
+  border: 1px solid #f3f4f6;
+}
+
+.perfil-card h2 {
+  font-size: 22px;
+  font-weight: 700;
+  color: #111827;
+  margin-top: 0;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #f3f4f6;
+  padding-bottom: 15px;
+}
+
+/* Sección del Avatar */
+/* Contenedor y centrado del avatar */
+.avatar-section {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 25px;
+}
+
+/* Si hay imagen de perfil cargada */
+.avatar-img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #4f46e5;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+/* Si NO hay imagen, muestra un círculo con la inicial con los mismos estilos */
+.avatar-inicial {
+  width: 80px;
+  height: 80px;
+  background-color: #4f46e5;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  font-weight: bold;
+  border: 3px solid #e0e7ff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #4f46e5;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+/* Grupos de formularios limpios */
+.form-group {
+  margin-bottom: 18px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 6px;
+}
+
+.form-group input, 
+.form-group textarea {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #1f2937;
+  background-color: #f9fafb;
+  transition: border-color 0.2s, background-color 0.2s;
+  box-sizing: border-box;
+}
+
+.form-group input:focus, 
+.form-group textarea:focus {
+  outline: none;
+  border-color: #4f46e5;
+  background-color: #ffffff;
+}
+
+/* Campo desactivado (como el username) */
+.form-group input:disabled {
+  background-color: #f3f4f6;
+  color: #9ca3af;
+  cursor: not-allowed;
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+/* Botón de envío unificado */
+.submit-btn {
+  width: 100%;
+  background-color: #4f46e5;
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(79, 70, 229, 0.2);
+  transition: background-color 0.2s;
+  margin-top: 10px;
+}
+
+.submit-btn:hover {
+  background-color: #4338ca;
+>>>>>>> 6750fee216b559d2cfb4f73672613fb9be8925f6
 }

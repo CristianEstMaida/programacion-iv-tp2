@@ -21,6 +21,9 @@ export class Usuario {
   @Prop({ required: true })
   password: string;
 
+  // @Prop({ required: true })
+  // repetirPassword: string;
+
   @Prop({ required: true })
   fechaNacimiento: Date;
 
