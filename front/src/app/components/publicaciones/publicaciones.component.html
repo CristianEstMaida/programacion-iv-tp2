@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <div class="muro-container">
  
   <header class="muro-header">
@@ -24,31 +23,4 @@
       </div>
     </div>
   </div>
-=======
-<div class="muro-container">
- 
-  <header class="muro-header">
-    <h2>Muro de Publicaciones - PulseNet</h2>
-    <button class="btn-primary" (click)="abrirModalCrear()">+ Nueva Publicación</button>
-  </header>
-
-  <!-- Listado de Publicaciones -->
-  <div class="feed">
-    <div class="post-card" *ngFor="let post of publicaciones"> 
-      <div class="post-header">
-        <strong>{{ post.autor }}</strong>
-        <span class="fecha">{{ post.fecha }}</span>
-      </div>
-      <h3>{{ post.titulo }}</h3>
-      <p>{{ post.mensaje }}</p>
-      <div *ngIf="post.imagen" class="post-image">
-        <img [src]="post.imagen" alt="Imagen de publicación">
-      </div>
-      <div class="post-actions">
-        <button class="btn-like" (click)="darMegusta(post)">❤️ Me gusta ({{ post.likes }})</button>
-        <button class="btn-comment" (click)="toggleComentarios(post)">💬 Comentarios</button>
-      </div>
-    </div>
-  </div>
->>>>>>> 6750fee216b559d2cfb4f73672613fb9be8925f6
 </div>

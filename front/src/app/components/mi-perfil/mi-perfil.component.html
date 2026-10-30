@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <div class="perfil-container">
   <div class="perfil-card">
     <h2>Mi Perfil</h2>
@@ -39,46 +38,4 @@
       <button type="submit" class="submit-btn">Guardar Cambios</button>
     </form>
   </div>
-=======
-<div class="perfil-container">
-  <div class="perfil-card">
-    <h2>Mi Perfil</h2>
-    
-    <!-- Sección del Avatar corregida -->
-    <div class="avatar-section">
-      <ng-container *ngIf="usuario.imagenPerfil; else sinImagen">
-        <img [src]="usuario.imagenPerfil" alt="Foto de perfil" class="avatar-img">
-      </ng-container>
-      <ng-template #sinImagen>
-        <div class="avatar-inicial">
-          {{ usuario.nombre ? usuario.nombre.charAt(0).toUpperCase() : 'C' }}
-        </div>
-      </ng-template>
-    </div>
-
-    <form (submit)="actualizarPerfil()">
-      <div class="form-group">
-        <label>Nombre:</label>
-        <input type="text" [(ngModel)]="usuario.nombre" name="nombre">
-      </div>
-
-      <div class="form-group">
-        <label>Apellido:</label>
-        <input type="text" [(ngModel)]="usuario.apellido" name="apellido">
-      </div>
-
-      <div class="form-group">
-        <label>Nombre de Usuario:</label>
-        <input type="text" [(ngModel)]="usuario.username" name="username" disabled>
-      </div>
-
-      <div class="form-group">
-        <label>Descripción breve:</label>
-        <textarea [(ngModel)]="usuario.descripcion" name="descripcion"></textarea>
-      </div>
-
-      <button type="submit" class="submit-btn">Guardar Cambios</button>
-    </form>
-  </div>
->>>>>>> 6750fee216b559d2cfb4f73672613fb9be8925f6
 </div>

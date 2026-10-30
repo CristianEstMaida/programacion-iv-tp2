@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <div class="app-layout">
   <!-- Barra Lateral (Sidebar) -->
   <aside class="sidebar" *ngIf="mostrarNavbar">
@@ -28,35 +27,4 @@
   <main class="main-content">
     <router-outlet></router-outlet>
   </main>
-=======
-<div class="app-layout">
-  <!-- Barra Lateral (Sidebar) -->
-  <aside class="sidebar" *ngIf="mostrarNavbar">
-    <div class="sidebar-brand">
-      <span class="brand-logo">⚡</span>
-      <span class="brand-title">PulseNet</span>
-      <span class="brand-badge">PRO</span>
-    </div>
-    
-    <nav class="sidebar-nav">
-      <a routerLink="/publicaciones" routerLinkActive="active" class="nav-item">
-        <span class="material-symbols-outlined">article</span> Publicaciones
-      </a>
-      <a routerLink="/perfil" routerLinkActive="active" class="nav-item">
-        <span class="material-symbols-outlined">person</span> Mi Perfil
-      </a>
-    </nav>
-
-    <div class="sidebar-footer">
-      <a routerLink="/login" class="nav-item logout-item">
-        <span class="material-symbols-outlined">logout</span> Cerrar Sesión
-      </a>
-    </div>
-  </aside>
-
-  <!-- Contenido Principal -->
-  <main class="main-content">
-    <router-outlet></router-outlet>
-  </main>
->>>>>>> 6750fee216b559d2cfb4f73672613fb9be8925f6
 </div>
