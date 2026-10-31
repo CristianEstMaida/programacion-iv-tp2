@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, AbstractContro
 import { Auth } from '../../services/auth.service';
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { NgZone } from '@angular/core';
 
 @Component({
   standalone: true,
@@ -23,7 +24,8 @@ export class Register {
     private fb: FormBuilder,
     private authService: Auth,
     private router: Router,
-    private cdr: ChangeDetectorRef // <-- Inyectamos esto para forzar que el modal se dibuje al primer clic
+    private cdr: ChangeDetectorRef, // <-- Inyectamos esto para forzar que el modal se dibuje al primer clic
+    private ngZone: NgZone
   ) {
     this.registerForm = this.fb.group({
       nombre: ['', [Validators.required, Validators.maxLength(50)]],
@@ -101,15 +103,19 @@ export class Register {
       this.authService.register(formData).subscribe({
         next: (res) => {
           // Forzamos la actualización inmediata de la vista al tener éxito
-          this.mostrarModal = true;
-          this.cdr.detectChanges();
+          this.ngZone.run(() => {
+            this.mostrarModal = true;
+            this.cdr.detectChanges();
+          });
         },
         error: (err) => {
-          console.error('Error en registro:', err);
-          // Forzamos la actualización inmediata de la vista al recibir el 409 u otro error
-          this.errorMessage = err.error?.message || err.error || 'El correo o usuario ya se encuentran registrados.';
-          this.mostrarModalError = true;
-          this.cdr.detectChanges();
+          this.ngZone.run(() => {
+            console.error('Error en registro:', err);
+            // Forzamos la actualización inmediata de la vista al recibir el 409 u otro error
+            this.errorMessage = err.error?.message || err.error || 'El correo o usuario ya se encuentran registrados.';
+            this.mostrarModalError = true;
+            this.cdr.detectChanges();
+          });
         }
       });
     } else {
@@ -124,7 +130,9 @@ export class Register {
   }
 
   cerrarModalError() {
-    this.mostrarModalError = false;
-    this.cdr.detectChanges();
+    this.ngZone.run(() => {
+      this.mostrarModalError = false;
+      this.cdr.detectChanges();
+    });
   }
 }
