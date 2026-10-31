@@ -5,17 +5,19 @@ import { PassportModule } from '@nestjs/passport';
 import { MongooseModule } from '@nestjs/mongoose';
 import { JwtModule } from '@nestjs/jwt';
 import { Usuario, UsuarioSchema } from '../usuarios/schemas/usuario.schema.js';
+import { JwtStrategy } from './jwt.strategy.js';
 
 @Module({
   imports: [
     PassportModule, // <--- Importante
     MongooseModule.forFeature([{ name: Usuario.name, schema: UsuarioSchema }]),
     JwtModule.register({
-      secret: 'SUPER_SECRETO_CAMBIAR_EN_PRODUCCION',
-      signOptions: { expiresIn: '2h' },
+      secret: 'MI_CLAVE_SECRETA_SUPER_SEGURA',
+      signOptions: { expiresIn: '15m' },
     }),
   ],
   controllers: [AutenticacionController],
-  providers: [AutenticacionService],
+  providers: [AutenticacionService, JwtStrategy],
+  exports: [JwtStrategy, PassportModule, JwtModule],
 })
 export class AutenticacionModule {}

@@ -1,46 +1,70 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Req } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, UseGuards, Req, Query, UnauthorizedException } from '@nestjs/common';
 import { PublicacionesService } from './publicaciones.service.js';
 import { CreatePublicacioneDto } from './dto/create-publicacione.dto.js';
-import { UpdatePublicacioneDto } from './dto/update-publicacione.dto.js';
 import { JwtAuthGuard } from '../guards/jwt-auth/jwt-auth.guard.js';
+import express from 'express';
 
 @Controller('publicaciones')
 export class PublicacionesController {
   constructor(private readonly publicacionesService: PublicacionesService) {}
 
+  // 1. CREAR PUBLICACIÓN (Asociada al usuario autenticado)
   @UseGuards(JwtAuthGuard)
-  @Get('mi-perfil-o-recurso-privado')
-  // obtenerDatosPrivados(@Req() req) {
-  //   // req.user contiene lo que devolvió el método validate() de la estrategia JWT
-  //   const usuarioAutenticado = req.user; 
-    
-  //   return {
-  //     mensaje: 'Acceso concedido a ruta protegida',
-  //     usuario: usuarioAutenticado,
-  //   };
-  // }
   @Post()
-  create(@Body() createPublicacioneDto: CreatePublicacioneDto) {
-    return this.publicacionesService.create(createPublicacioneDto);
+  create(
+    @Body() createPublicacioneDto: CreatePublicacioneDto, 
+    @Req() req: express.Request
+  ) {
+    console.log("CONTENIDO DE REQ.USER:", (req as any).user);
+    const user = (req as any).user;
+    
+    // Validamos por si el token viene estructurado con 'id', '_id' o 'sub'
+    const userId = user?.userId || user?.id || user?._id || user?.sub;
+
+    if (!userId) {
+      throw new UnauthorizedException('No se pudo identificar al usuario desde el token');
+    }
+
+    return this.publicacionesService.create(createPublicacioneDto, userId);
   }
 
+  // 2. LISTAR CON FILTROS, ORDENAMIENTO Y PAGINACIÓN
   @Get()
-  findAll() {
-    return this.publicacionesService.findAll();
+  findAll(
+    @Query('usuarioId') usuarioId?: string,
+    @Query('orden') orden?: 'fecha' | 'likes',
+    @Query('limit') limit?: string,
+    @Query('offset') offset?: string,
+  ) {
+    return this.publicacionesService.findAll({
+      usuarioId: usuarioId,
+      orden: orden || 'fecha',
+      limit: limit ? +limit : 10,
+      offset: offset ? +offset : 0,
+    });
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.publicacionesService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updatePublicacioneDto: UpdatePublicacioneDto) {
-    return this.publicacionesService.update(+id, updatePublicacioneDto);
-  }
-
+  // 3. BAJA LÓGICA (Solo dueño o admin)
+  @UseGuards(JwtAuthGuard)
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.publicacionesService.remove(+id);
+  remove(@Param('id') id: string, @Req() req: express.Request) {
+    const usuarioLogueado = req.user; // Debe contener id y rol/es
+    return this.publicacionesService.softDelete(id, usuarioLogueado);
+  }
+
+  // 4. DAR "ME GUSTA" (Un solo like por usuario)
+  @UseGuards(JwtAuthGuard)
+  @Post(':id/like')
+  darLike(@Param('id') id: string, @Req() req: express.Request) {
+    const userId = (req as any).user.id;
+    return this.publicacionesService.darLike(id, userId);
+  }
+
+  // 5. QUITAR "ME GUSTA"
+  @UseGuards(JwtAuthGuard)
+  @Delete(':id/like')
+  quitarLike(@Param('id') id: string, @Req() req: express.Request) {
+    const userId = (req as any).user.id;
+    return this.publicacionesService.quitarLike(id, userId);
   }
 }
