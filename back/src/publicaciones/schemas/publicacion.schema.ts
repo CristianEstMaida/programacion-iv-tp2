@@ -15,14 +15,14 @@ export class Publicacion {
   imagenUrl?: string;
 
   // Relación con el modelo de Usuario
-  @Prop({ type: Types.ObjectId, ref: 'User', required: true })
+  @Prop({ type: Types.ObjectId, ref: 'Usuario', required: true })
   usuario: Types.ObjectId;
 
   @Prop({ default: true })
   activo: boolean; // Para la baja lógica
 
   // Array que almacena los IDs de los usuarios que dieron "me gusta"
-  @Prop({ type: [{ type: Types.ObjectId, ref: 'User' }], default: [] })
+  @Prop({ type: [{ type: Types.ObjectId, ref: 'Usuario' }], default: [] })
   likes: Types.ObjectId[];
 }
 
