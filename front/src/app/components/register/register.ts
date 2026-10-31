@@ -28,7 +28,7 @@ export class Register {
     this.registerForm = this.fb.group({
       nombre: ['', [Validators.required, Validators.maxLength(50)]],
       apellido: ['', [Validators.required, Validators.maxLength(50)]],
-      email: ['', [Validators.required, Validators.email]],
+      email: ['', [Validators.required, Validators.email, Validators.maxLength(100)]],
       username: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
       password: ['', [
         Validators.required, 
@@ -37,9 +37,37 @@ export class Register {
       ]],
       repetirPassword: ['', [Validators.required]],
       fechaNacimiento: ['', [Validators.required]],
-      descripcion: [''],
+      descripcion: ['', [
+        Validators.maxLength(160) // 👈 Límite para la descripción breve (estilo bio)
+      ]],
       perfil: ['usuario', [Validators.required]]
     }, { validators: this.passwordMatchValidator });
+  }
+
+  cargarDatosPrueba(tipo: 'usuario' | 'admin') {
+    if (tipo === 'usuario') {
+      this.registerForm.patchValue({
+        nombre: 'Usuario',
+        apellido: 'Test',
+        email: 'usuario_test@pulsenet.com',
+        username: 'usuario_test',
+        password: 'Password123',
+        repetirPassword: 'Password123',
+        fechaNacimiento: '1998-05-15',
+        descripcion: 'Cuenta de prueba de usuario'
+      });
+    } else {
+      this.registerForm.patchValue({
+        nombre: 'Admin',
+        apellido: 'Test',
+        email: 'admin_test@pulsenet.com',
+        username: 'admin_test',
+        password: 'Password123',
+        repetirPassword: 'Password123',
+        fechaNacimiento: '1998-05-15',
+        descripcion: 'Cuenta de prueba de admin'
+      });
+    }
   }
 
   passwordMatchValidator(control: AbstractControl): ValidationErrors | null {

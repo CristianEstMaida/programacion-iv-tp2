@@ -7,6 +7,16 @@
         </div>
         <h1>Crear Cuenta</h1>
         <p>Únete a la red profesional de PulseNet</p>
+
+        <!-- 🧪 Botones de testeo rápido de registro -->
+        <div style="display: flex; justify-content: center; gap: 0.5rem; margin-top: 1rem;">
+          <button type="button" (click)="cargarDatosPrueba('usuario')" style="font-size: 11px; padding: 4px 10px; background: #f1f5f9; color: #475569; border: 1px solid #cbd5e1; border-radius: 9999px; cursor: pointer; font-weight: 500;">
+            ⚡ Test Usuario
+          </button>
+          <button type="button" (click)="cargarDatosPrueba('admin')" style="font-size: 11px; padding: 4px 10px; background: #f1f5f9; color: #475569; border: 1px solid #cbd5e1; border-radius: 9999px; cursor: pointer; font-weight: 500;">
+            🛡️ Test Admin
+          </button>
+        </div>
       </div>
 
       <!-- Formulario Reactivo -->
@@ -19,6 +29,9 @@
             <span class="material-symbols-outlined">badge</span>
             <input formControlName="nombre" placeholder="Ej. Sofía" type="text" maxlength="50"/>
           </div>
+          <div *ngIf="registerForm.get('nombre')?.invalid && registerForm.get('nombre')?.touched">
+            <div *ngIf="registerForm.get('nombre')?.errors?.['required']" class="field-error">El nombre es obligatorio.</div>
+          </div>
         </div>
 
         <!-- Apellido -->
@@ -28,6 +41,9 @@
             <span class="material-symbols-outlined">badge</span>
             <input formControlName="apellido" placeholder="Ej. Valenzuela" type="text" maxlength="50"/>
           </div>
+          <div *ngIf="registerForm.get('apellido')?.invalid && registerForm.get('apellido')?.touched">
+            <div *ngIf="registerForm.get('apellido')?.errors?.['required']" class="field-error">El apellido es obligatorio.</div>
+          </div>
         </div>
 
         <!-- Correo Electrónico -->
@@ -35,7 +51,12 @@
           <label><span>Correo electrónico</span></label>
           <div class="input-container">
             <span class="material-symbols-outlined">mail</span>
-            <input formControlName="email" placeholder="nombre@empresa.com" type="email"/>
+            <input formControlName="email" placeholder="nombre@empresa.com" type="email" maxlength="100"/>
+          </div>
+          <div *ngIf="registerForm.get('email')?.touched">
+            <div *ngIf="registerForm.get('email')?.errors?.['required']" class="field-error">El correo es obligatorio.</div>
+            <div *ngIf="registerForm.get('email')?.errors?.['email']" class="field-error">Ingresa un correo electrónico válido.</div>
+            <div *ngIf="registerForm.get('email')?.errors?.['maxlength']" class="field-error">El correo no puede superar los 100 caracteres.</div>
           </div>
         </div>
 
@@ -45,6 +66,10 @@
           <div class="input-container">
             <span class="material-symbols-outlined">alternate_email</span>
             <input formControlName="username" placeholder="sofia_val" type="text" maxlength="30"/>
+          </div>
+          <div *ngIf="registerForm.get('username')?.invalid && registerForm.get('username')?.touched">
+            <div *ngIf="registerForm.get('username')?.errors?.['required']" class="field-error">El nombre de usuario es obligatorio.</div>
+            <div *ngIf="registerForm.get('username')?.errors?.['minlength']" class="field-error">Mínimo 3 caracteres.</div>
           </div>
         </div>
 
@@ -69,18 +94,20 @@
             <span class="material-symbols-outlined">key</span>
             <input formControlName="repetirPassword" placeholder="••••••••••••" type="password" maxlength="64"/>
           </div>
-          <!-- Agregado class="field-error" para mantener la misma estética del login -->
           <div *ngIf="registerForm.errors?.['mismatch'] && registerForm.get('repetirPassword')?.touched" class="field-error">
             Las contraseñas no coinciden.
           </div>
         </div>
 
-        <!-- Fecha de Nacimiento (Bloqueada para fechas futuras con [max]) -->
+        <!-- Fecha de Nacimiento -->
         <div class="form-group">
           <label><span>Fecha de Nacimiento</span></label>
           <div class="input-container">
             <span class="material-symbols-outlined">calendar_today</span>
             <input formControlName="fechaNacimiento" type="date" [max]="maxDate"/>
+          </div>
+          <div *ngIf="registerForm.get('fechaNacimiento')?.invalid && registerForm.get('fechaNacimiento')?.touched">
+            <div *ngIf="registerForm.get('fechaNacimiento')?.errors?.['required']" class="field-error">La fecha de nacimiento es obligatoria.</div>
           </div>
         </div>
 
@@ -89,7 +116,10 @@
           <label><span>Descripción Breve</span></label>
           <div class="input-container">
             <span class="material-symbols-outlined">description</span>
-            <input formControlName="descripcion" placeholder="Cuéntanos sobre ti..." type="text"/>
+            <input formControlName="descripcion" placeholder="Cuéntanos sobre ti..." type="text" maxlength="160"/>
+            <div *ngIf="registerForm.get('descripcion')?.touched">
+              <div *ngIf="registerForm.get('descripcion')?.errors?.['maxlength']" class="field-error">La descripción no puede superar los 160 caracteres.</div>
+            </div>
           </div>
         </div>
 
@@ -101,18 +131,6 @@
             <input type="file" (change)="onFileSelected($event)" class="file-input"/>
           </div>
         </div>
-
-        <!-- Tipo de Perfil -->
-        <!-- <div class="form-group">
-          <label><span>Tipo de Perfil</span></label>
-          <div class="input-container">
-            <span class="material-symbols-outlined">admin_panel_settings</span>
-            <select formControlName="perfil" class="select-input">
-              <option value="usuario">Usuario</option>
-              <option value="administrador">Administrador</option>
-            </select>
-          </div>
-        </div> -->
 
         <button class="submit-btn" type="submit" [disabled]="registerForm.invalid">
           <span>Crear Cuenta Profesional</span>
@@ -126,6 +144,8 @@
     </div>
   </div>
 </main>
+
+<!-- Modales de Éxito / Error (Se mantienen igual) -->
 
 <!-- Modal de Éxito -->
 <div *ngIf="mostrarModal" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: rgba(15, 23, 42, 0.6); backdrop-filter: blur(4px); z-index: 99999; display: flex; align-items: center; justify-content: center; padding: 1rem;">
