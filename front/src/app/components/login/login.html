@@ -7,25 +7,58 @@
         </div>
         <h1>Iniciar Sesión</h1>
         <p>Bienvenido de nuevo a PulseNet</p>
+        <!-- 🧪 Botones de testeo estéticamente integrados aquí -->
+        <div style="display: flex; justify-content: center; gap: 0.5rem; margin-top: 1rem;">
+          <button type="button" (click)="cargarDatosPrueba('usuario')" style="font-size: 11px; padding: 4px 10px; background: #f1f5f9; color: #475569; border: 1px solid #cbd5e1; border-radius: 9999px; cursor: pointer; font-weight: 500;">
+            ⚡ Test Usuario
+          </button>
+          <button type="button" (click)="cargarDatosPrueba('admin')" style="font-size: 11px; padding: 4px 10px; background: #f1f5f9; color: #475569; border: 1px solid #cbd5e1; border-radius: 9999px; cursor: pointer; font-weight: 500;">
+            🛡️ Test Admin
+          </button>
+        </div>
       </div>
 
       <!-- Vinculamos el FormGroup -->
       <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+        
+        <!-- Campo Identificador -->
         <div class="form-group">
           <label><span>Correo electrónico o Usuario</span></label>
           <div class="input-container">
             <span class="material-symbols-outlined">mail</span>
-            <!-- Usamos formControlName en lugar de ngModel -->
             <input formControlName="identificador" placeholder="nombre@empresa.com o usuario" type="text"/>
+          </div>
+          <!-- Error de campo vacío para identificador (Opcional) -->
+          <div *ngIf="loginForm.get('identificador')?.invalid && loginForm.get('identificador')?.touched" class="field-error">
+            El correo o usuario es obligatorio.
           </div>
         </div>
 
+        <!-- Campo Contraseña -->
         <div class="form-group">
           <label><span>Contraseña</span></label>
           <div class="input-container">
             <span class="material-symbols-outlined">key</span>
-            <input formControlName="password" placeholder="••••••••••••" type="password"/>
+            <input formControlName="password" placeholder="••••••••••••" type="password" maxlength="64"/>
           </div>
+          <!-- Errores dinámicos para contraseña -->
+          <div *ngIf="loginForm.get('password')?.touched">
+            <div *ngIf="loginForm.get('password')?.errors?.['required']" class="field-error">
+              La contraseña es obligatoria.
+            </div>
+            <div *ngIf="loginForm.get('password')?.errors?.['maxlength']" class="field-error">
+              La contraseña no puede superar los 64 caracteres.
+            </div>
+            <div *ngIf="loginForm.get('password')?.errors?.['pattern']" class="field-error">
+              Debe tener al menos 8 caracteres, una mayúscula y un número.
+            </div>
+          </div>
+        </div> <!-- Cierra correctamente el form-group de la contraseña -->
+
+        <!-- Alerta de error por credenciales incorrectas (Backend) -->
+        <div *ngIf="errorMessage()" class="error-alert">
+          <span class="material-symbols-outlined">error</span>
+          <span>{{ errorMessage() }}</span>
         </div>
 
         <button class="submit-btn" type="submit" [disabled]="loginForm.invalid">
@@ -38,5 +71,6 @@
         ¿No tienes una cuenta? <a routerLink="/registro">Crear Cuenta</a>
       </p>
     </div>
+    
   </div>
 </main>

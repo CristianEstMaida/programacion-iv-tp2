@@ -21,7 +21,7 @@ export class App {
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).forEach((event: any) => {
-      this.verificarRuta(event.url);
+      this.verificarRuta(event.urlAfterRedirects);
     });
   }
 

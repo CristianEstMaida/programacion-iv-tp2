@@ -1,12 +1,12 @@
-import { ChangeDetectorRef, Component, NgZone } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { Component, ChangeDetectorRef } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Auth } from '../../services/auth.service';
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 @Component({
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink], // 👈 Necesario para formularios reactivos y enlaces
+  imports: [CommonModule, ReactiveFormsModule, RouterLink],
   selector: 'app-register',
   styleUrl: './register.css',
   templateUrl: './register.html',
@@ -17,24 +17,35 @@ export class Register {
   mostrarModal: boolean = false;
   mostrarModalError: boolean = false;
   errorMessage: string = '';
+  maxDate: string = new Date().toISOString().split('T')[0];
 
   constructor(
     private fb: FormBuilder,
     private authService: Auth,
     private router: Router,
-    private cdr: ChangeDetectorRef,
-    private ngZone: NgZone) {
+    private cdr: ChangeDetectorRef // <-- Inyectamos esto para forzar que el modal se dibuje al primer clic
+  ) {
     this.registerForm = this.fb.group({
-      nombre: ['', Validators.required],
-      apellido: ['', Validators.required],
+      nombre: ['', [Validators.required, Validators.maxLength(50)]],
+      apellido: ['', [Validators.required, Validators.maxLength(50)]],
       email: ['', [Validators.required, Validators.email]],
-      username: ['', Validators.required],
-      password: ['', [Validators.required, Validators.pattern(/^(?=.*[A-Z])(?=.*\d).{8,}$/)]],
-      repetirPassword: ['', Validators.required],
-      fechaNacimiento: ['', Validators.required],
+      username: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
+      password: ['', [
+        Validators.required, 
+        Validators.maxLength(64), 
+        Validators.pattern(/^(?=.*[A-Z])(?=.*\d).{8,}$/)
+      ]],
+      repetirPassword: ['', [Validators.required]],
+      fechaNacimiento: ['', [Validators.required]],
       descripcion: [''],
-      perfil: ['usuario', Validators.required]
-    });
+      perfil: ['usuario', [Validators.required]]
+    }, { validators: this.passwordMatchValidator });
+  }
+
+  passwordMatchValidator(control: AbstractControl): ValidationErrors | null {
+    const password = control.get('password')?.value;
+    const repetirPassword = control.get('repetirPassword')?.value;
+    return password === repetirPassword ? null : { mismatch: true };
   }
 
   onFileSelected(event: any) {
@@ -48,32 +59,29 @@ export class Register {
     if (this.registerForm.valid) {
       const formData = new FormData();
       
-      // Agrega todos los campos del formulario reactivo
       Object.keys(this.registerForm.controls).forEach(key => {
-        formData.append(key, this.registerForm.get(key)?.value);
+        const value = this.registerForm.get(key)?.value;
+        if (value !== null && value !== undefined) {
+          formData.append(key, value);
+        }
       });
 
-      // Agrega la imagen si fue seleccionada
       if (this.selectedFile) {
         formData.append('imagenPerfil', this.selectedFile);
       }
 
       this.authService.register(formData).subscribe({
         next: (res) => {
-          // Éxito: Activamos el modal de éxito en lugar de alert()
-          this.ngZone.run(() => {
-            this.mostrarModal = true;
-            this.cdr.detectChanges();
-          });
+          // Forzamos la actualización inmediata de la vista al tener éxito
+          this.mostrarModal = true;
+          this.cdr.detectChanges();
         },
         error: (err) => {
-          console.error(err);
-          // Error: Capturamos el mensaje del backend y mostramos el modal de error
-          this.ngZone.run(() => {
-            this.errorMessage = err.error?.message || 'Error al registrar usuario';
-            this.mostrarModalError = true;
-            this.cdr.detectChanges();
-          });
+          console.error('Error en registro:', err);
+          // Forzamos la actualización inmediata de la vista al recibir el 409 u otro error
+          this.errorMessage = err.error?.message || err.error || 'El correo o usuario ya se encuentran registrados.';
+          this.mostrarModalError = true;
+          this.cdr.detectChanges();
         }
       });
     } else {
@@ -83,10 +91,12 @@ export class Register {
 
   irAlLogin() {
     this.mostrarModal = false;
+    this.cdr.detectChanges();
     this.router.navigate(['/login']);
   }
 
   cerrarModalError() {
     this.mostrarModalError = false;
+    this.cdr.detectChanges();
   }
 }

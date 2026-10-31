@@ -163,3 +163,34 @@ input:focus {
   word-wrap: normal;
   direction: ltr;
 }
+
+.error-alert {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #dc2626;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+
+.error-alert .material-symbols-outlined {
+  font-size: 18px;
+}
+
+.field-error {
+  font-size: 12px;
+  color: #dc2626;
+  margin-top: 0.25rem;
+  margin-left: 0.25rem;
+  font-weight: 500;
+}
+
+.submit-btn:disabled {
+  background-color: #a5b4fc; /* Un azul más claro y opaco */
+  cursor: not-allowed;     /* Cambia el cursor a prohibido */
+  opacity: 0.7;
+}

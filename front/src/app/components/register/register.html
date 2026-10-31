@@ -9,24 +9,28 @@
         <p>Únete a la red profesional de PulseNet</p>
       </div>
 
-      <!-- Vinculamos el FormGroup del registro -->
+      <!-- Formulario Reactivo -->
       <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
+        
+        <!-- Nombre -->
         <div class="form-group">
           <label><span>Nombre</span></label>
           <div class="input-container">
             <span class="material-symbols-outlined">badge</span>
-            <input formControlName="nombre" placeholder="Ej. Sofía" type="text"/>
+            <input formControlName="nombre" placeholder="Ej. Sofía" type="text" maxlength="50"/>
           </div>
         </div>
 
+        <!-- Apellido -->
         <div class="form-group">
           <label><span>Apellido</span></label>
           <div class="input-container">
             <span class="material-symbols-outlined">badge</span>
-            <input formControlName="apellido" placeholder="Ej. Valenzuela" type="text"/>
+            <input formControlName="apellido" placeholder="Ej. Valenzuela" type="text" maxlength="50"/>
           </div>
         </div>
 
+        <!-- Correo Electrónico -->
         <div class="form-group">
           <label><span>Correo electrónico</span></label>
           <div class="input-container">
@@ -35,38 +39,52 @@
           </div>
         </div>
 
+        <!-- Nombre de Usuario -->
         <div class="form-group">
           <label><span>Nombre de Usuario (Único)</span></label>
           <div class="input-container">
             <span class="material-symbols-outlined">alternate_email</span>
-            <input formControlName="username" placeholder="sofia_val" type="text"/>
+            <input formControlName="username" placeholder="sofia_val" type="text" maxlength="30"/>
           </div>
         </div>
 
+        <!-- Contraseña -->
         <div class="form-group">
           <label><span>Contraseña (Mín. 8 caracteres, 1 mayúscula, 1 número)</span></label>
           <div class="input-container">
             <span class="material-symbols-outlined">key</span>
-            <input formControlName="password" placeholder="••••••••••••" type="password"/>
+            <input formControlName="password" placeholder="••••••••••••" type="password" maxlength="64"/>
+          </div>
+          <div *ngIf="registerForm.get('password')?.touched">
+            <div *ngIf="registerForm.get('password')?.errors?.['required']" class="field-error">La contraseña es obligatoria.</div>
+            <div *ngIf="registerForm.get('password')?.errors?.['maxlength']" class="field-error">Máximo 64 caracteres.</div>
+            <div *ngIf="registerForm.get('password')?.errors?.['pattern']" class="field-error">Debe tener al menos 8 caracteres, una mayúscula y un número.</div>
           </div>
         </div>
 
+        <!-- Repetir Contraseña -->
         <div class="form-group">
           <label><span>Repetir Contraseña</span></label>
           <div class="input-container">
             <span class="material-symbols-outlined">key</span>
-            <input formControlName="repetirPassword" placeholder="••••••••••••" type="password"/>
+            <input formControlName="repetirPassword" placeholder="••••••••••••" type="password" maxlength="64"/>
+          </div>
+          <!-- Agregado class="field-error" para mantener la misma estética del login -->
+          <div *ngIf="registerForm.errors?.['mismatch'] && registerForm.get('repetirPassword')?.touched" class="field-error">
+            Las contraseñas no coinciden.
           </div>
         </div>
 
+        <!-- Fecha de Nacimiento (Bloqueada para fechas futuras con [max]) -->
         <div class="form-group">
           <label><span>Fecha de Nacimiento</span></label>
           <div class="input-container">
             <span class="material-symbols-outlined">calendar_today</span>
-            <input formControlName="fechaNacimiento" type="date"/>
+            <input formControlName="fechaNacimiento" type="date" [max]="maxDate"/>
           </div>
         </div>
 
+        <!-- Descripción Breve -->
         <div class="form-group">
           <label><span>Descripción Breve</span></label>
           <div class="input-container">
@@ -75,6 +93,7 @@
           </div>
         </div>
 
+        <!-- Imagen de Perfil -->
         <div class="form-group">
           <label><span>Imagen de Perfil</span></label>
           <div class="input-container">
@@ -83,7 +102,8 @@
           </div>
         </div>
 
-        <div class="form-group">
+        <!-- Tipo de Perfil -->
+        <!-- <div class="form-group">
           <label><span>Tipo de Perfil</span></label>
           <div class="input-container">
             <span class="material-symbols-outlined">admin_panel_settings</span>
@@ -92,7 +112,7 @@
               <option value="administrador">Administrador</option>
             </select>
           </div>
-        </div>
+        </div> -->
 
         <button class="submit-btn" type="submit" [disabled]="registerForm.invalid">
           <span>Crear Cuenta Profesional</span>
@@ -105,11 +125,11 @@
       </p>
     </div>
   </div>
-
 </main>
+
 <!-- Modal de Éxito -->
 <div *ngIf="mostrarModal" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: rgba(15, 23, 42, 0.6); backdrop-filter: blur(4px); z-index: 99999; display: flex; align-items: center; justify-content: center; padding: 1rem;">
-  <div style="background: white; width: 100%; max-width: 420px; border-radius: 1rem; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); overflow: hidden; animation: fadeIn 0.2s ease-out;">
+  <div style="background: white; width: 100%; max-width: 420px; border-radius: 1rem; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); overflow: hidden;">
     <div style="background: linear-gradient(135deg, #10b981, #059669); color: white; padding: 1.25rem 1.5rem; font-weight: 600; font-size: 1.15rem; display: flex; align-items: center; gap: 0.5rem;">
       <span>🎉</span> ¡Registro exitoso!
     </div>
@@ -117,7 +137,7 @@
       Tu cuenta ha sido creada correctamente en PulseNet. Por favor, inicia sesión para continuar.
     </div>
     <div style="padding: 0 1.5rem 1.75rem 1.5rem; text-align: center;">
-      <button type="button" style="background: #0f172a; color: white; border: none; width: 100%; padding: 0.75rem; border-radius: 0.75rem; font-weight: 600; font-size: 0.95rem; cursor: pointer; transition: background 0.2s;" (click)="irAlLogin()" onmouseover="this.style.background='#1e293b'" onmouseout="this.style.background='#0f172a'">
+      <button type="button" style="background: #0f172a; color: white; border: none; width: 100%; padding: 0.75rem; border-radius: 0.75rem; font-weight: 600; font-size: 0.95rem; cursor: pointer;" (click)="irAlLogin()">
         Ir al Login
       </button>
     </div>
@@ -126,7 +146,7 @@
 
 <!-- Modal de Error -->
 <div *ngIf="mostrarModalError" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: rgba(15, 23, 42, 0.6); backdrop-filter: blur(4px); z-index: 99999; display: flex; align-items: center; justify-content: center; padding: 1rem;">
-  <div style="background: white; width: 100%; max-width: 420px; border-radius: 1rem; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); overflow: hidden; animation: fadeIn 0.2s ease-out;">
+  <div style="background: white; width: 100%; max-width: 420px; border-radius: 1rem; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); overflow: hidden;">
     <div style="background: linear-gradient(135deg, #ef4444, #dc2626); color: white; padding: 1.25rem 1.5rem; font-weight: 600; font-size: 1.15rem; display: flex; align-items: center; gap: 0.5rem;">
       <span>⚠️</span> Atención
     </div>
@@ -134,7 +154,7 @@
       {{ errorMessage }}
     </div>
     <div style="padding: 0 1.5rem 1.75rem 1.5rem; text-align: center;">
-      <button type="button" style="background: #0f172a; color: white; border: none; width: 100%; padding: 0.75rem; border-radius: 0.75rem; font-weight: 600; font-size: 0.95rem; cursor: pointer; transition: background 0.2s;" (click)="cerrarModalError()" onmouseover="this.style.background='#1e293b'" onmouseout="this.style.background='#0f172a'">
+      <button type="button" style="background: #0f172a; color: white; border: none; width: 100%; padding: 0.75rem; border-radius: 0.75rem; font-weight: 600; font-size: 0.95rem; cursor: pointer;" (click)="cerrarModalError()">
         Entendido
       </button>
     </div>
