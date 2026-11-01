@@ -69,9 +69,15 @@ export class PublicacionesService {
       throw new NotFoundException(`Publicación #${id} no encontrada`);
     }
 
-    // Validar si es el dueño o es admin
-    const esDueño = publicacion.usuario.toString() === usuarioLogueado.id;
-    const esAdmin = usuarioLogueado.rol === 'admin';
+    // Extraer el ID del usuario logueado de forma segura (puede venir en 'sub' o en 'id')
+    const usuarioIdLogueado = usuarioLogueado.sub || usuarioLogueado.id;
+
+    // Validar si es el dueño
+    const esDueño = publicacion.usuario.toString() === usuarioIdLogueado.toString();
+
+    // Validar si es admin (revisando tanto 'rol' como 'perfil', y permitiendo 'admin' o 'administrador')
+    const rolUsuario = usuarioLogueado.rol || usuarioLogueado.perfil;
+    const esAdmin = rolUsuario === 'admin' || rolUsuario === 'administrador';
 
     if (!esDueño && !esAdmin) {
       throw new ForbiddenException('No tienes permisos para eliminar esta publicación');
