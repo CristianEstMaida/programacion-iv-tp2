@@ -18,6 +18,7 @@ export class PublicacionesComponent implements OnInit {
   publicaciones: any[] = [];
   usuarioLogueadoId: string = '';
   usuarioNombre: string = '';
+  rolUsuario: string = '';
 
   // Controladores del Modal
   isModalOpen: boolean = false;
@@ -38,22 +39,31 @@ export class PublicacionesComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-   try {
-    const token = localStorage.getItem('access_token');
-    if (token) {
+    this.extraerDatosToken();
+    this.cargarPublicaciones();
+  }
+
+  // 2. Función para leer el token una sola vez al cargar el componente
+  extraerDatosToken(): void {
+    try {
+      const token = localStorage.getItem('access_token');
+      if (token) {
         // Decodificamos la parte del payload del JWT (la segunda sección separada por puntos)
         const payloadPayload = token.split('.')[1];
         const decodedPayload = JSON.parse(atob(payloadPayload));
         
         // Extraemos el ID del token (probando sub, id o _id)
         this.usuarioLogueadoId = String(decodedPayload.sub || decodedPayload.id || decodedPayload._id || '');
+
+        const rolEncontrado = decodedPayload.rol || decodedPayload.perfil || '';
+        this.rolUsuario = String(rolEncontrado).toLowerCase();
       }
     } catch (e) {
       console.error('Error al decodificar el token:', e);
     }
 
     console.log("ID del usuario extraído del token:", this.usuarioLogueadoId);
-    this.cargarPublicaciones();
+    console.log("Rol del usuario:", this.rolUsuario);
   }
 
   @HostListener('window:scroll', ['$event']) // Pasamos el evento correctamente
@@ -184,11 +194,19 @@ export class PublicacionesComponent implements OnInit {
   }
 
   // 3. Validar si la publicación pertenece al usuario logueado para mostrar el botón de eliminar
-  esMiPost(post: any): boolean {
+  puedeEliminar(post: any): boolean {
     const autorObj = post.usuario;
     if (!autorObj) return false;
     const autorId = String(autorObj._id || autorObj.id || autorObj);
-    return autorId === this.usuarioLogueadoId;
+
+    // 1. ¿Es el dueño del post?
+    const esDueño = autorId === this.usuarioLogueadoId;
+
+    // 2. ¿Es administrador? (asumiendo que guardas el rol en alguna variable o lo sacas del token)
+    const esAdmin = this.rolUsuario === 'admin' || this.rolUsuario === 'administrador';
+
+    // Puede eliminar si es suyo O si es admin
+    return esDueño || esAdmin;
   }
 
   // 4. Eliminar publicación
