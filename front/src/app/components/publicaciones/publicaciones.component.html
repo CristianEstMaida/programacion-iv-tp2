@@ -75,7 +75,7 @@
           (click)="toggleMeGusta(post)">
           <span *ngIf="post.likedByMe">❤️ Ya no me gusta</span>
           <span *ngIf="!post.likedByMe">🤍 Me gusta</span>
-          ({{ post.likesCount ?? post.likes?.length || 0 }})
+          ({{ (post.likesCount ?? post.likes?.length) || 0 }})
         </button>
         
         <button class="action-btn" (click)="toggleComentarios(post)">
