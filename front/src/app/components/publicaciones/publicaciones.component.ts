@@ -1,15 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, HostListener, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { PublicacionesService } from '../../services/publicaciones.service';
+import { FormsModule } from '@angular/forms';
+
 
 @Component({
   selector: 'app-publicaciones',
   standalone: true,
-  imports: [
-    CommonModule
-  ],
+  imports: [CommonModule, FormsModule],
   templateUrl: './publicaciones.component.html',
   styleUrls: ['./publicaciones.component.css']
 })
@@ -17,6 +17,20 @@ export class PublicacionesComponent implements OnInit {
 
   publicaciones: any[] = [];
   usuarioLogueadoId: string = '';
+  usuarioNombre: string = '';
+
+  // Controladores del Modal
+  isModalOpen: boolean = false;
+  nuevoTitulo: string = '';
+  nuevaDescripcion: string = '';
+  nuevaImagenUrl: string = '';
+
+  // Variables de control para la paginación / scroll infinito
+  limite: number = 10;
+  offset: number = 0;
+  cargando: boolean = false;
+
+  todasCargadas: boolean = false;
 
   constructor(
     private publicacionesService: PublicacionesService,
@@ -28,18 +42,37 @@ export class PublicacionesComponent implements OnInit {
     // (O puedes decodificar el token / leer los datos del usuario guardados en el login)
     const usuarioData = JSON.parse(localStorage.getItem('usuario') || '{}');
     this.usuarioLogueadoId = usuarioData.id || '';
+    this.usuarioNombre = usuarioData.nombre || 'Usuario';
 
     this.cargarPublicaciones();
   }
 
+  @HostListener('window:scroll', ['$event']) // Pasamos el evento correctamente
+  onScroll(event: Event): void {
+    const threshold = 300;
+    const pos = (window.innerHeight + window.scrollY) >= (document.documentElement.scrollHeight - threshold);
+    if (pos && !this.cargando && !this.todasCargadas) {
+      this.cargarPublicaciones();
+    }
+  }
+
   cargarPublicaciones() {
-    this.publicacionesService.obtenerPublicaciones().subscribe({
+    if (this.cargando || this.todasCargadas) return; // Si ya cargó todo, no hace nada
+    this.cargando = true;
+
+    this.publicacionesService.obtenerPublicaciones({ limit: this.limite, offset: this.offset }).subscribe({
       next: (data: any) => {
         console.log("DATOS QUE LLEGAN DEL BACK:", data);
         const rawList = Array.isArray(data) ? data : (data.publicaciones || data.data || []);
         
+        if (rawList.length === 0) {
+          this.todasCargadas = true;
+          this.cargando = false;
+          return;
+        }
+
         // Mapeamos para asegurar tipos de datos limpios en los likes
-        this.publicaciones = rawList.map((post: any) => {
+        const nuevasPublicaciones = rawList.map((post: any) => {
           const likesAsStrings = (post.likes || []).map((id: any) => String(id));
           return {
             ...post,
@@ -48,6 +81,10 @@ export class PublicacionesComponent implements OnInit {
           };
         });
 
+        this.publicaciones = [...this.publicaciones, ...nuevasPublicaciones];
+        
+        this.offset += this.limite; // Incrementamos el offset para la próxima llamada
+        this.cargando = false;
         // Forzamos a Angular a pintar la vista inmediatamente
         this.cdr.detectChanges();
       },
@@ -58,11 +95,40 @@ export class PublicacionesComponent implements OnInit {
   }
 
   // 1. Abrir modal para crear publicación (Aquí conectas tu lógica de modales que ya tenías)
+  // Abrir y cerrar el Modal estético
   abrirModalCrear() {
-    console.log('Abriendo modal para nueva publicación...');
-    // Llama aquí a tu modal o formulario de creación
+    this.isModalOpen = true;
   }
 
+  cerrarModal() {
+    this.isModalOpen = false;
+    this.nuevoTitulo = '';
+    this.nuevaDescripcion = '';
+    this.nuevaImagenUrl = '';
+  }
+
+  // Enviar los datos al backend
+  guardarPublicacion() {
+    if (!this.nuevoTitulo || !this.nuevaDescripcion) return;
+
+    const nuevaPublicacion = {
+      titulo: this.nuevoTitulo,
+      descripcion: this.nuevaDescripcion,
+      imagenUrl: this.nuevaImagenUrl
+    };
+
+    this.publicacionesService.crearPublicacion(nuevaPublicacion).subscribe({
+      next: (res) => {
+        console.log('Publicación creada con éxito:', res);
+        this.cargarPublicaciones(); // Recarga la lista para mostrar la nueva
+        this.cerrarModal();         // Cierra y limpia el modal
+      },
+      error: (err) => {
+        console.error('Error al crear la publicación:', err);
+        alert('No se pudo crear la publicación');
+      }
+    });
+  }
   // 2. Dar o quitar Me Gusta
   toggleMeGusta(post: any) {
     if (post.likedByMe) {

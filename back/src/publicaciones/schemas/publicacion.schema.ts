@@ -24,6 +24,9 @@ export class Publicacion {
   // Array que almacena los IDs de los usuarios que dieron "me gusta"
   @Prop({ type: [{ type: Types.ObjectId, ref: 'Usuario' }], default: [] })
   likes: Types.ObjectId[];
+
+  @Prop({ default: 0 })
+  likesCount: number;
 }
 
 export const PublicacionSchema = SchemaFactory.createForClass(Publicacion);

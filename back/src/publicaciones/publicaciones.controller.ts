@@ -56,7 +56,8 @@ export class PublicacionesController {
   @UseGuards(JwtAuthGuard)
   @Post(':id/like')
   darLike(@Param('id') id: string, @Req() req: express.Request) {
-    const userId = (req as any).user.id;
+    const user = (req as any).user;
+    const userId = user?.userId || user?.id || user?._id || user?.sub;
     return this.publicacionesService.darLike(id, userId);
   }
 
@@ -64,7 +65,8 @@ export class PublicacionesController {
   @UseGuards(JwtAuthGuard)
   @Delete(':id/like')
   quitarLike(@Param('id') id: string, @Req() req: express.Request) {
-    const userId = (req as any).user.id;
+    const user = (req as any).user;
+    const userId = user?.userId || user?.id || user?._id || user?.sub;
     return this.publicacionesService.quitarLike(id, userId);
   }
 }

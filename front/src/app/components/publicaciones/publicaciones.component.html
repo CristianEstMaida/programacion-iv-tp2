@@ -8,6 +8,21 @@
     <button class="btn-primary" (click)="abrirModalCrear()">
       <span class="icon">+</span> Nueva Publicación
     </button>
+    <!-- <div class="create-post-card">
+      <div class="create-input-row" (click)="abrirModalCrear()">
+        <div class="avatar-small">
+          {{ usuarioNombre?.charAt(0).toUpperCase() || 'U' }}
+        </div>
+        <div class="fake-input">
+          Comparte una actualización, caso de éxito o discusión técnica...
+        </div>
+      </div>
+      <div class="create-actions-row">
+        <button class="action-chip" (click)="abrirModalCrear()">📷 Multimedia</button>
+        <button class="action-chip" (click)="abrirModalCrear()">💻 Código</button>
+        <button class="btn-post-submit" (click)="abrirModalCrear()">Publicar</button>
+      </div>
+    </div> -->
   </header>
 
   <!-- Listado de Publicaciones -->
@@ -67,5 +82,59 @@
       </div>
 
     </div>
+  </div>
+</div>
+
+<!-- Modal Estético de Creación -->
+<div class="modal-overlay" *ngIf="isModalOpen" (click)="cerrarModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    
+    <div class="modal-header">
+      <h3>Crear nueva publicación</h3>
+      <button class="close-btn" (click)="cerrarModal()">✕</button>
+    </div>
+
+    <div class="modal-body">
+      <div class="form-group">
+        <label for="titulo">Título de la publicación</label>
+        <input 
+          type="text" 
+          id="titulo" 
+          [(ngModel)]="nuevoTitulo" 
+          placeholder="Ej: Implementando arquitectura limpia..." 
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="descripcion">Descripción</label>
+        <textarea 
+          id="descripcion" 
+          [(ngModel)]="nuevaDescripcion" 
+          rows="4" 
+          placeholder="¿Qué quieres compartir con la comunidad técnica?">
+        </textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="imagenUrl">URL de la imagen (Opcional)</label>
+        <input 
+          type="text" 
+          id="imagenUrl" 
+          [(ngModel)]="nuevaImagenUrl" 
+          placeholder="https://images.unsplash.com/..." 
+        />
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn-secondary" (click)="cerrarModal()">Cancelar</button>
+      <button 
+        class="btn-primary" 
+        (click)="guardarPublicacion()" 
+        [disabled]="!nuevoTitulo || !nuevaDescripcion">
+        Publicar
+      </button>
+    </div>
+
   </div>
 </div>

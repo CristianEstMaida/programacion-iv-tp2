@@ -43,10 +43,10 @@ export class PublicacionesService {
     // Aquí ordenamos directamente por la longitud del array de likes si está estructurado así, o por fecha.
     return await this.publicacionModel
       .find(filtro)
-      .sort(params?.orden === 'likes' ? { likes: -1 } : { createdAt: -1 })
+      .sort(ordenQuery)
       .skip(offset)
       .limit(limit)
-      .populate('usuario', 'nombre email avatar') // Opcional: trae datos básicos del usuario
+      .populate('usuario', 'nombre apellido imagenPerfil') // Opcional: trae datos básicos del usuario
       .exec();
   }
 
@@ -85,7 +85,10 @@ export class PublicacionesService {
   async darLike(id: string, userId: string) {
     const publicacion = await this.publicacionModel.findByIdAndUpdate(
       id,
-      { $addToSet: { likes: userId } }, // Agrega el ID solo si no está en el array
+      { 
+        $addToSet: { likes: userId },
+        $inc: { likesCount: 1 } // Incrementa el contador en 1 automáticamente
+      },
       { new: true }
     ).exec();
 
@@ -100,7 +103,11 @@ export class PublicacionesService {
   async quitarLike(id: string, userId: string) {
     const publicacion = await this.publicacionModel.findByIdAndUpdate(
       id,
-      { $pull: { likes: userId } }, // Remueve el ID del array de likes
+      { 
+        $pull: { likes: userId },
+        $inc: { likesCount: -1 } 
+      }, // Remueve el ID del array de likes
+      
       { new: true }
     ).exec();
 

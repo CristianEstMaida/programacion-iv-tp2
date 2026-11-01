@@ -201,3 +201,205 @@
   color: #666;
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08);
 }
+
+.create-post-card {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08);
+  padding: 16px 20px;
+  margin-bottom: 16px;
+}
+.create-input-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  margin-bottom: 12px;
+}
+.avatar-small {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #0a66c2;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+.fake-input {
+  flex: 1;
+  background-color: #f3f2ef;
+  border: 1px solid #ccc;
+  border-radius: 35px;
+  padding: 10px 16px;
+  color: #666;
+  font-size: 0.9rem;
+  transition: background-color 0.2s;
+}
+.fake-input:hover {
+  background-color: #e9e8e5;
+}
+.create-actions-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid #f0f0f0;
+  padding-top: 10px;
+}
+.action-chip {
+  background: transparent;
+  border: none;
+  color: #666;
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+  padding: 6px 10px;
+  border-radius: 4px;
+}
+.action-chip:hover {
+  background-color: rgba(0,0,0,0.05);
+}
+.btn-post-submit {
+  background-color: #0a66c2;
+  color: white;
+  border: none;
+  padding: 6px 16px;
+  border-radius: 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.btn-post-submit:hover {
+  background-color: #004182;
+}
+
+/* Estilos del Modal Estético */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.modal-content {
+  background: #ffffff;
+  width: 100%;
+  max-width: 520px;
+  border-radius: 14px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  animation: scaleUp 0.2s ease-out;
+}
+
+@keyframes scaleUp {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.modal-header {
+  padding: 16px 24px;
+  border-bottom: 1px solid #ebebeb;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-header h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #111;
+}
+
+.close-btn {
+  background: transparent;
+  border: none;
+  font-size: 1.2rem;
+  color: #666;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.close-btn:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  color: #111;
+}
+
+.modal-body {
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-group label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.form-group input,
+.form-group textarea {
+  padding: 10px 14px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: #0a66c2;
+  box-shadow: 0 0 0 2px rgba(10, 102, 194, 0.15);
+}
+
+.modal-footer {
+  padding: 14px 24px;
+  border-top: 1px solid #ebebeb;
+  background-color: #fcfcfc;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.btn-secondary {
+  background: transparent;
+  border: 1px solid #ccc;
+  color: #444;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-secondary:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.btn-primary:disabled {
+  background-color: #b0b0b0;
+  cursor: not-allowed;
+}
