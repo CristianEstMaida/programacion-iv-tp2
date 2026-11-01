@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
 
 @Component({
   imports: [CommonModule, FormsModule],
@@ -39,7 +40,7 @@ export class MiPerfilComponent implements OnInit {
     };
 
     // 1. Petición al backend para traer el perfil real de la BD
-    this.http.get(`http://localhost:3000/api/usuarios/${usuarioId}`, { headers }).subscribe({
+    this.http.get(`${environment.apiUrl}/usuarios/${usuarioId}`, { headers }).subscribe({
       next: (response: any) => {
         console.log("Datos reales del usuario desde la BD:", response);
         const userData = response.data || response;
@@ -65,7 +66,7 @@ export class MiPerfilComponent implements OnInit {
     });
 
     // 2. Traer las últimas 3 publicaciones
-    this.http.get<any[]>(`http://localhost:3000/api/publicaciones?usuarioId=${usuarioId}&limit=3&offset=0&orden=fecha`, { headers }).subscribe({
+    this.http.get<any[]>(`${environment.apiUrl}/publicaciones?usuarioId=${usuarioId}&limit=3&offset=0&orden=fecha`, { headers }).subscribe({
       next: (pubs) => {
         console.log("Publicaciones recibidas:", pubs);
         this.ultimasPublicaciones = pubs;
@@ -88,7 +89,7 @@ export class MiPerfilComponent implements OnInit {
 
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     
-    this.http.put(`http://localhost:3000/api/usuarios/${this.usuario._id}`, this.usuario, { headers }).subscribe({
+    this.http.put(`${environment.apiUrl}/usuarios/${this.usuario._id}`, this.usuario, { headers }).subscribe({
       next: () => alert('Perfil actualizado correctamente'),
       error: (err) => console.error('Error al actualizar', err)
     });
