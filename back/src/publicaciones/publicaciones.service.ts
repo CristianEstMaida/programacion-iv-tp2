@@ -83,20 +83,34 @@ export class PublicacionesService {
 
   // 4. DAR LIKE: Un usuario solo puede dar un me gusta (usamos $addToSet para evitar duplicados)
   async darLike(id: string, userId: string) {
-    const publicacion = await this.publicacionModel.findByIdAndUpdate(
+    // 1. Buscamos la publicación primero para verificar si el usuario ya dio like
+    const publicacionActual = await this.publicacionModel.findById(id).exec();
+    
+    if (!publicacionActual) {
+      throw new NotFoundException(`Publicación #${id} no encontrada`);
+    }
+
+    // 2. Verificamos si el userId ya está en el array de likes
+    const yaDioLike = publicacionActual.likes.some(
+      (uid) => String(uid) === String(userId)
+    );
+
+    // Si ya dio like, no hacemos nada o retornamos la publicación sin modificar
+    if (yaDioLike) {
+      return publicacionActual; 
+    }
+
+    // 3. Si no dio like, usamos $addToSet y $inc de forma segura
+    const publicacionActualizada = await this.publicacionModel.findByIdAndUpdate(
       id,
       { 
-        $addToSet: { likes: userId },
-        $inc: { likesCount: 1 } // Incrementa el contador en 1 automáticamente
+        $addToSet: { likes: userId }, // Garantiza que el ID nunca se repita en el array
+        $inc: { likesCount: 1 }      // Solo incrementa una vez
       },
       { new: true }
     ).exec();
 
-    if (!publicacion) {
-      throw new NotFoundException(`Publicación #${id} no encontrada`);
-    }
-
-    return publicacion;
+    return publicacionActualizada;
   }
 
   // 5. QUITAR LIKE: Elimina el like del usuario si previamente lo había hecho ($pull)

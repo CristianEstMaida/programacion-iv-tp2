@@ -38,12 +38,21 @@ export class PublicacionesComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // Obtenemos el ID del usuario logueado desde el token o localStorage si lo guardaste ahí
-    // (O puedes decodificar el token / leer los datos del usuario guardados en el login)
-    const usuarioData = JSON.parse(localStorage.getItem('usuario') || '{}');
-    this.usuarioLogueadoId = usuarioData.id || '';
-    this.usuarioNombre = usuarioData.nombre || 'Usuario';
+   try {
+    const token = localStorage.getItem('access_token');
+    if (token) {
+        // Decodificamos la parte del payload del JWT (la segunda sección separada por puntos)
+        const payloadPayload = token.split('.')[1];
+        const decodedPayload = JSON.parse(atob(payloadPayload));
+        
+        // Extraemos el ID del token (probando sub, id o _id)
+        this.usuarioLogueadoId = String(decodedPayload.sub || decodedPayload.id || decodedPayload._id || '');
+      }
+    } catch (e) {
+      console.error('Error al decodificar el token:', e);
+    }
 
+    console.log("ID del usuario extraído del token:", this.usuarioLogueadoId);
     this.cargarPublicaciones();
   }
 
@@ -54,6 +63,10 @@ export class PublicacionesComponent implements OnInit {
     if (pos && !this.cargando && !this.todasCargadas) {
       this.cargarPublicaciones();
     }
+  }
+
+  trackByPublicacionId(index: number, post: any): string {
+   return post._id; // 👈 Esto le dice a Angular exactamente qué elemento es cuál, evitando que se mezclen
   }
 
   cargarPublicaciones() {
@@ -71,13 +84,26 @@ export class PublicacionesComponent implements OnInit {
           return;
         }
 
+        const currentUserId = String(this.usuarioLogueadoId).trim();
         // Mapeamos para asegurar tipos de datos limpios en los likes
         const nuevasPublicaciones = rawList.map((post: any) => {
-          const likesAsStrings = (post.likes || []).map((id: any) => String(id));
+          // Extraemos los IDs de los likes de manera ultra robusta
+          const likesAsStrings = (post.likes || []).map((likeItem: any) => {
+            if (!likeItem) return '';
+            // Si el like es un objeto poblado (ej: { _id: '...', nombre: '...' }) o un ObjectId
+            if (typeof likeItem === 'object') {
+              return String(likeItem._id || likeItem.id || likeItem);
+            }
+            return String(likeItem).trim();
+          });
+
+          // Comparamos limpiando espacios y asegurando que ambos sean strings
+          const likedByMe = likesAsStrings.includes(currentUserId);
+
           return {
             ...post,
             likes: likesAsStrings,
-            likedByMe: likesAsStrings.includes(this.usuarioLogueadoId)
+            likedByMe: likedByMe
           };
         });
 
@@ -135,6 +161,7 @@ export class PublicacionesComponent implements OnInit {
       this.publicacionesService.quitarMegusta(post._id).subscribe({
         next: () => {
           post.likedByMe = false;
+          post.likesCount = Math.max(0, (post.likesCount || post.likes.length) - 1);
           post.likes = post.likes.filter((id: string) => id !== this.usuarioLogueadoId);
           this.cdr.detectChanges();
         },
@@ -144,9 +171,10 @@ export class PublicacionesComponent implements OnInit {
       this.publicacionesService.darMegusta(post._id).subscribe({
         next: () => {
           post.likedByMe = true;
+          post.likesCount = (post.likesCount || post.likes.length) + 1;
           if (!post.likes) post.likes = [];
           if (!post.likes.includes(this.usuarioLogueadoId)) {
-            post.likes.push(this.usuarioLogueadoId);
+            post.likes.push(String(this.usuarioLogueadoId));
           }
           this.cdr.detectChanges();
         },

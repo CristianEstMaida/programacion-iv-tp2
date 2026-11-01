@@ -34,7 +34,7 @@
     </div>
 
     <!-- Tarjeta de Publicación -->
-    <div class="post-card" *ngFor="let post of publicaciones"> 
+    <div class="post-card" *ngFor="let post of publicaciones; trackBy: trackByPublicacionId"> 
       
       <!-- Cabecera del post (Autor y Fecha) -->
       <div class="post-header">
@@ -73,7 +73,9 @@
           class="action-btn" 
           [class.liked]="post.likedByMe" 
           (click)="toggleMeGusta(post)">
-          ❤️ <span>Me gusta</span> ({{ post.likes?.length || 0 }})
+          <span *ngIf="post.likedByMe">❤️ Ya no me gusta</span>
+          <span *ngIf="!post.likedByMe">🤍 Me gusta</span>
+          ({{ post.likesCount ?? post.likes?.length || 0 }})
         </button>
         
         <button class="action-btn" (click)="toggleComentarios(post)">
