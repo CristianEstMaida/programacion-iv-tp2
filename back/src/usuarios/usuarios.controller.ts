@@ -6,7 +6,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { CloudinaryService } from '../cloudinary/cloudinary.service.js';
 
-@Controller('autenticacion')
+@Controller('usuarios')
 export class UsuariosController {
   constructor(
     private readonly usuariosService: UsuariosService,

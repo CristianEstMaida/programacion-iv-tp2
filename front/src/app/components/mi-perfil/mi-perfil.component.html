@@ -1,19 +1,28 @@
-<div class="perfil-container">
+<div class="perfil-container" *ngIf="usuario">
   <div class="perfil-card">
     <h2>Mi Perfil</h2>
     
-    <!-- Sección del Avatar corregida -->
-    <div class="avatar-section">
+    <!-- Avatar -->
+    <div class="avatar-section" style="text-align: center; margin-bottom: 20px;">
       <ng-container *ngIf="usuario.imagenPerfil; else sinImagen">
-        <img [src]="usuario.imagenPerfil" alt="Foto de perfil" class="avatar-img">
+        <img [src]="usuario.imagenPerfil" alt="Foto de perfil" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover;">
       </ng-container>
       <ng-template #sinImagen>
-        <div class="avatar-inicial">
+        <div class="avatar-inicial" style="width: 80px; height: 80px; border-radius: 50%; background: #5c6bc0; color: white; display: flex; align-items: center; justify-content: center; font-size: 32px; margin: 0 auto;">
           {{ usuario.nombre ? usuario.nombre.charAt(0).toUpperCase() : 'C' }}
         </div>
       </ng-template>
     </div>
 
+    <!-- Datos -->
+    <div class="card-usuario" style="text-align: center; margin-bottom: 20px;">
+      <h3>{{ usuario.nombre }} {{ usuario.apellido }}</h3>
+      <p><strong>Usuario:</strong> @{{ usuario.username }}</p>
+      <p><strong>Correo:</strong> {{ usuario.correo || usuario.email }}</p>
+      <p><strong>Descripción:</strong> {{ usuario.descripcion || 'Sin descripción' }}</p>
+    </div>
+
+    <!-- Formulario -->
     <form (submit)="actualizarPerfil()">
       <div class="form-group">
         <label>Nombre:</label>
@@ -35,7 +44,24 @@
         <textarea [(ngModel)]="usuario.descripcion" name="descripcion"></textarea>
       </div>
 
-      <button type="submit" class="submit-btn">Guardar Cambios</button>
+      <button type="submit" class="submit-btn" style="margin-top: 15px;">Guardar Cambios</button>
     </form>
+  </div>
+
+  <!-- Mis últimas 3 publicaciones (Requisito del Sprint 2) -->
+  <div class="mis-publicaciones-seccion" style="margin-top: 30px; padding: 20px;">
+    <h3>Mis Últimas Publicaciones</h3>
+    
+    <!-- Mensaje si está vacío -->
+    <div *ngIf="!ultimasPublicaciones || ultimasPublicaciones.length === 0" class="no-posts">
+      <p>No tienes publicaciones todavía.</p>
+    </div>
+
+    <!-- Listado de publicaciones -->
+    <div *ngFor="let post of ultimasPublicaciones" class="post-mini-card" style="border: 1px solid #e0e0e0; padding: 15px; margin-bottom: 15px; border-radius: 8px; background: #ffffff;">
+      <h4 style="margin: 0 0 5px 0; color: #333;">{{ post.titulo }}</h4>
+      <p style="color: #666; margin: 5px 0;">{{ post.descripcion }}</p>
+      <small style="color: #666;">{{ post.createdAt | date:'short' }} | ❤️ Likes: {{ post.likesCount }}</small>
+    </div>
   </div>
 </div>

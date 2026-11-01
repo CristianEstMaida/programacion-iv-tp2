@@ -20,6 +20,11 @@ async function bootstrap() {
   //   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   //   credentials: true,
   // });
+  // app.enableCors({
+  //   origin: ['https://programacion-iv-tp2-front.vercel.app', 'http://localhost:4200'],
+  //   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  //   credentials: true,
+  // });
   app.enableCors();
 
   app.setGlobalPrefix('api');
