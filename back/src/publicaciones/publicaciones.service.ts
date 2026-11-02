@@ -24,20 +24,19 @@ export class PublicacionesService {
 
   // 2. LISTAR: Permite filtrar por usuario, ordenar por fecha o cantidad de likes, y paginar
   async findAll(params?: { usuarioId?: string; orden?: 'fecha' | 'likes'; limit?: number; offset?: number }) {
+    // Desestructuramos con valores por defecto de manera limpia
+    const { usuarioId, orden = 'fecha', limit = 10, offset = 0 } = params || {};
     const filtro: any = { activo: true }; // Solo publicaciones activas (baja lógica)
 
-    if (params?.usuarioId) {
-      filtro.usuario = params.usuarioId;
+    if (usuarioId) {
+      filtro.usuario = usuarioId;
     }
 
     // Definir el criterio de ordenamiento
     let ordenQuery: any = { createdAt: -1 }; // Por defecto por fecha descendente
-    if (params?.orden === 'likes') {
-      ordenQuery = { 'likesCount': -1 }; // Asumiendo campo calculado o se puede ordenar por tamaño de array
+    if (orden === 'likes') {
+      ordenQuery = { likesCount: -1, createdAt: -1 }; // Mayor cantidad de likes primero, y si empatan, por más reciente
     }
-
-    const limit = params?.limit ?? 10;
-    const offset = params?.offset ?? 0;
 
     // Si ordenamos por likes en Mongoose, podemos usar el tamaño del array o un campo contador. 
     // Aquí ordenamos directamente por la longitud del array de likes si está estructurado así, o por fecha.

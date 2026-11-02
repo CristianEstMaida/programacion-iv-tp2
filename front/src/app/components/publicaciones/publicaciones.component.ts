@@ -33,6 +33,8 @@ export class PublicacionesComponent implements OnInit {
 
   todasCargadas: boolean = false;
 
+  ordenSeleccionado: 'fecha' | 'likes' = 'fecha';
+
   constructor(
     private publicacionesService: PublicacionesService,
     private cdr: ChangeDetectorRef
@@ -71,7 +73,7 @@ export class PublicacionesComponent implements OnInit {
     const threshold = 300;
     const pos = (window.innerHeight + window.scrollY) >= (document.documentElement.scrollHeight - threshold);
     if (pos && !this.cargando && !this.todasCargadas) {
-      this.cargarPublicaciones();
+      this.cargarPublicaciones(this.ordenSeleccionado);
     }
   }
 
@@ -79,11 +81,26 @@ export class PublicacionesComponent implements OnInit {
    return post._id; // 👈 Esto le dice a Angular exactamente qué elemento es cuál, evitando que se mezclen
   }
 
-  cargarPublicaciones() {
+  cambiarOrden() {
+    // 1. Reseteamos la paginación y el estado para empezar desde el principio
+    this.publicaciones = [];
+    this.offset = 0;
+    this.todasCargadas = false;
+    
+    // Llama a tu método que recarga las publicaciones pasando el parámetro de orden
+    this.cargarPublicaciones(this.ordenSeleccionado);
+  }
+
+  cargarPublicaciones(orden?: 'fecha' | 'likes') {
+    // Si no se pasa un orden por parámetro, usamos el que tiene seleccionado el usuario en el select
+    const ordenAUsar = orden || this.ordenSeleccionado;
+
     if (this.cargando || this.todasCargadas) return; // Si ya cargó todo, no hace nada
     this.cargando = true;
 
-    this.publicacionesService.obtenerPublicaciones({ limit: this.limite, offset: this.offset }).subscribe({
+    console.log("Cargando publicaciones con orden:", ordenAUsar);
+
+    this.publicacionesService.obtenerPublicaciones({ limit: this.limite, offset: this.offset, orden: ordenAUsar }).subscribe({
       next: (data: any) => {
         console.log("DATOS QUE LLEGAN DEL BACK:", data);
         const rawList = Array.isArray(data) ? data : (data.publicaciones || data.data || []);
@@ -173,6 +190,11 @@ export class PublicacionesComponent implements OnInit {
           post.likedByMe = false;
           post.likesCount = Math.max(0, (post.likesCount || post.likes.length) - 1);
           post.likes = post.likes.filter((id: string) => id !== this.usuarioLogueadoId);
+
+          // Si está ordenado por likes, reordenamos la lista localmente de inmediato
+          if (this.ordenSeleccionado === 'likes') {
+            this.publicaciones.sort((a, b) => b.likesCount - a.likesCount);
+          }
           this.cdr.detectChanges();
         },
         error: (err) => console.error('Error al quitar like', err)
@@ -186,6 +208,12 @@ export class PublicacionesComponent implements OnInit {
           if (!post.likes.includes(this.usuarioLogueadoId)) {
             post.likes.push(String(this.usuarioLogueadoId));
           }
+
+          // Si está ordenado por likes, reordenamos la lista localmente de inmediato
+          if (this.ordenSeleccionado === 'likes') {
+            this.publicaciones.sort((a, b) => b.likesCount - a.likesCount);
+          }
+
           this.cdr.detectChanges();
         },
         error: (err) => console.error('Error al dar like', err)

@@ -5,6 +5,14 @@
       <h2>Muro de Publicaciones</h2>
       <p class="subtitle">Explora las últimas novedades de la comunidad</p>
     </div>
+
+
+    <!-- Selector de Ordenamiento -->
+    <select class="form-select" [(ngModel)]="ordenSeleccionado" (change)="cambiarOrden()">
+      <option value="fecha">Más recientes (Fecha)</option>
+      <option value="likes">Más populares (Me gusta)</option>
+    </select>
+    
     <button class="btn-primary" (click)="abrirModalCrear()">
       <span class="icon">+</span> Nueva Publicación
     </button>
