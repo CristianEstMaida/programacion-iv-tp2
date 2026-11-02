@@ -36,7 +36,8 @@ export class MiPerfilComponent implements OnInit {
       apellido: '',
       username: emailToken,
       correo: emailToken,
-      descripcion: 'Cargando perfil...'
+      descripcion: 'Cargando perfil...',
+      fechaNacimiento: ''
     };
 
     // 1. Petición al backend para traer el perfil real de la BD
@@ -55,7 +56,8 @@ export class MiPerfilComponent implements OnInit {
           ...userData,
           username: userData.username || userData.nombreUsuario || emailToken,
           correo: userData.email || userData.correo || emailToken,
-          descripcion: userData.descripcion || ''
+          descripcion: userData.descripcion || '',
+          fechaNacimiento: userData.fechaNacimiento ? userData.fechaNacimiento.substring(0, 10) : ''
         };
 
         this.cdr.detectChanges();

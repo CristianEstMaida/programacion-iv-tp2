@@ -16,10 +16,11 @@
 
     <!-- Datos -->
     <div class="card-usuario" style="text-align: center; margin-bottom: 20px;">
-      <h3>{{ usuario.nombre }} {{ usuario.apellido }}</h3>
-      <p><strong>Usuario:</strong> @{{ usuario.username }}</p>
-      <p><strong>Correo:</strong> {{ usuario.correo || usuario.email }}</p>
-      <p><strong>Descripción:</strong> {{ usuario.descripcion || 'Sin descripción' }}</p>
+      <h3 class="usuario-nombre">{{ usuario.nombre }} {{ usuario.apellido }}</h3>
+      <p class="info-texto"><strong>Usuario:</strong> @{{ usuario.username }}</p>
+      <p class="info-texto"><strong>Correo:</strong> {{ usuario.correo || usuario.email }}</p>
+      <p class="info-texto"><strong>Fecha de Nacimiento:</strong> {{ usuario.fechaNacimiento | date:'dd/MM/yyyy' }}</p>
+      <p class="info-texto"><strong>Descripción:</strong> {{ usuario.descripcion || 'Sin descripción' }}</p>
     </div>
 
     <!-- Formulario -->
@@ -37,6 +38,11 @@
       <div class="form-group">
         <label>Nombre de Usuario:</label>
         <input type="text" [(ngModel)]="usuario.username" name="username" disabled>
+      </div>
+
+      <div class="form-group">
+        <label for="fechaNacimiento">Fecha de Nacimiento:</label>
+        <input type="date" id="fechaNacimiento" name="fechaNacimiento" [(ngModel)]="usuario.fechaNacimiento" class="form-input">
       </div>
 
       <div class="form-group">
