@@ -17,20 +17,58 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 16px;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-bottom: 20px;
 }
 
-.header-titles h2 {
-  font-size: 1.25rem;
-  font-weight: 600;
+/* Forzamos a que el bloque de texto ocupe su espacio sin romper el título */
+.muro-info {
+  white-space: nowrap; /* Mantiene "Muro de Publicaciones" en una sola línea */
+}
+
+.muro-info  h2 {
+  font-size: 1.5rem;
+  font-weight: bold;
   margin: 0;
   color: #111;
 }
 
-.subtitle {
-  font-size: 0.85rem;
-  color: #666;
-  margin: 4px 0 0 0;
+.muro-info p {
+  margin: 0;
+  color: #6c757d;
+  font-size: 0.9rem;
+}
+
+/* Contenedor del selector y el botón alineados */
+.muro-controles {
+  display: flex;
+  align-items: center;
+  gap: 12px; /* Separa el select del botón sin amontonarse */
+  flex-shrink: 0;
+}
+
+/* Estilo personalizado y limpio para el select */
+.custom-select {
+  padding: 8px 36px 8px 12px;
+  font-size: 0.9rem;
+  font-family: inherit;
+  color: #333;
+  background-color: #fff;
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.custom-select:hover {
+  border-color: #b8c2cc;
+}
+
+.custom-select:focus {
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.15);
 }
 
 .btn-primary {
@@ -402,4 +440,29 @@
 .btn-primary:disabled {
   background-color: #b0b0b0;
   cursor: not-allowed;
+}
+
+.custom-select {
+  padding: 8px 36px 8px 12px;
+  font-size: 0.9rem;
+  font-family: inherit;
+  color: #333;
+  background-color: #fff;
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+  margin-right: 12px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+
+}
+
+.custom-select:hover {
+  border-color: #b8c2cc;
+}
+
+.custom-select:focus {
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.15);
 }

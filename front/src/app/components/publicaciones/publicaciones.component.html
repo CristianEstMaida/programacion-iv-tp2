@@ -1,21 +1,23 @@
 <div class="muro-container">
   
   <header class="muro-header">
-    <div class="header-titles">
+    <div class="muro-info">
       <h2>Muro de Publicaciones</h2>
-      <p class="subtitle">Explora las últimas novedades de la comunidad</p>
+      <p>Explora las últimas novedades de la comunidad</p>
     </div>
 
+    <!-- Controles (Selector y Botón) -->
+    <div class="muro-controles">
+      <!-- Selector de Ordenamiento -->
+      <select class="custom-select" [(ngModel)]="ordenSeleccionado" (change)="cambiarOrden()">
+        <option value="fecha">Más recientes (Fecha)</option>
+        <option value="likes">Más populares (Me gusta)</option>
+      </select>
 
-    <!-- Selector de Ordenamiento -->
-    <select class="form-select" [(ngModel)]="ordenSeleccionado" (change)="cambiarOrden()">
-      <option value="fecha">Más recientes (Fecha)</option>
-      <option value="likes">Más populares (Me gusta)</option>
-    </select>
-    
-    <button class="btn-primary" (click)="abrirModalCrear()">
-      <span class="icon">+</span> Nueva Publicación
-    </button>
+      <button class="btn-primary" (click)="abrirModalCrear()">
+        <span class="icon">+</span> Nueva Publicación
+      </button>
+    </div>
   </header>
 
   <!-- Listado de Publicaciones -->
