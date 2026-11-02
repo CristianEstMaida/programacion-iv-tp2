@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException, ForbiddenException } from '@nestjs/common';
+import { Injectable, NotFoundException, ForbiddenException, BadRequestException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { CreatePublicacioneDto } from './dto/create-publicacione.dto.js';
@@ -124,7 +124,26 @@ export class PublicacionesService {
 
   // 5. QUITAR LIKE: Elimina el like del usuario si previamente lo había hecho ($pull)
   async quitarLike(id: string, userId: string) {
-    const publicacion = await this.publicacionModel.findByIdAndUpdate(
+    // 1. Buscamos la publicación activa
+    const publicacionActual = await this.publicacionModel.findOne({ 
+      _id: id, 
+      activo: true 
+    }).exec();
+    
+    if (!publicacionActual) {
+      throw new NotFoundException(`Publicación #${id} no encontrada o inactiva`);
+    }
+
+    // 2. Verificamos si el usuario realmente había dado like antes
+    const yaDioLike = publicacionActual.likes.some(
+      (uid) => String(uid) === String(userId)
+    );
+
+    if (!yaDioLike) {
+      throw new BadRequestException('No habías dado like a esta publicación previamente');
+    }
+    
+    const publicacionActualizada = await this.publicacionModel.findByIdAndUpdate(
       id,
       { 
         $pull: { likes: userId },
@@ -134,10 +153,6 @@ export class PublicacionesService {
       { new: true }
     ).exec();
 
-    if (!publicacion) {
-      throw new NotFoundException(`Publicación #${id} no encontrada`);
-    }
-
-    return publicacion;
+    return publicacionActualizada;
   }
 }
