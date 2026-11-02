@@ -34,6 +34,8 @@ export class PublicacionesComponent implements OnInit {
   todasCargadas: boolean = false;
 
   ordenSeleccionado: 'fecha' | 'likes' = 'fecha';
+  mostrarModalConfirmacion: boolean = false;
+  publicacionAEliminarId: string | null = null;
 
   constructor(
     private publicacionesService: PublicacionesService,
@@ -150,14 +152,17 @@ export class PublicacionesComponent implements OnInit {
   // 1. Abrir modal para crear publicación (Aquí conectas tu lógica de modales que ya tenías)
   // Abrir y cerrar el Modal estético
   abrirModalCrear() {
+    this.mostrarModalConfirmacion = false;
     this.isModalOpen = true;
   }
 
   cerrarModal() {
     this.isModalOpen = false;
+    this.mostrarModalConfirmacion = false;
     this.nuevoTitulo = '';
     this.nuevaDescripcion = '';
     this.nuevaImagenUrl = '';
+    this.cdr.detectChanges();
   }
 
   // Enviar los datos al backend
@@ -237,21 +242,43 @@ export class PublicacionesComponent implements OnInit {
     return esDueño || esAdmin;
   }
 
-  // 4. Eliminar publicación
-  eliminarPublicacion(id: string) {
-    if (confirm('¿Estás seguro de que deseas eliminar esta publicación?')) {
-      this.publicacionesService.eliminarPublicacion(id).subscribe({
-        next: () => {
-          this.publicaciones = this.publicaciones.filter(p => p._id !== id);
-          this.cdr.detectChanges();
-        },
-        error: (err) => console.error('Error al eliminar publicación', err)
-      });
-    }
+
+  // 2. Esta función la llamas desde el botón de la papelera en tu HTML (ej: (click)="prepararEliminacion(pub._id)")
+  prepararEliminacion(id: string) {
+    this.isModalOpen = false;
+    this.publicacionAEliminarId = id;
+    this.mostrarModalConfirmacion = true;
+    this.cdr.detectChanges();
+  }
+
+  cerrarModalConfirmacion() {
+    this.mostrarModalConfirmacion = false;
+    this.isModalOpen = false;
+    this.publicacionAEliminarId = null;
+    this.cdr.detectChanges();
+  }
+
+  // 3. Esta es la función que se ejecuta cuando el usuario hace clic en "Eliminar" DENTRO del modal
+  confirmarEliminacion() {
+    if (!this.publicacionAEliminarId) return;
+
+    this.publicacionesService.eliminarPublicacion(this.publicacionAEliminarId).subscribe({
+      next: () => {
+        this.publicaciones = this.publicaciones.filter(p => p._id !== this.publicacionAEliminarId);
+        this.cerrarModalConfirmacion();
+        this.cdr.detectChanges();
+      },
+      error: (err) => {
+        console.error('Error al eliminar publicación', err);
+        this.cerrarModalConfirmacion();
+      }
+    });
   }
 
   // 5. Toggle comentarios (Placeholder para cuando abras la sección de comentarios)
   toggleComentarios(post: any) {
     console.log('Ver comentarios de la publicación:', post._id);
   }
+
+
 }

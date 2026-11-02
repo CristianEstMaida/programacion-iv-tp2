@@ -45,11 +45,8 @@
           </div>
         </div>
 
-        <!-- Botón de eliminar -->
-        <!-- <button *ngIf="esMiPost(post)" class="btn-delete" (click)="eliminarPublicacion(post._id)" title="Eliminar publicación">
-          🗑️
-        </button> -->
-        <button *ngIf="puedeEliminar(post)" class="btn-delete" (click)="eliminarPublicacion(post._id)" title="Eliminar publicación">
+        
+        <button *ngIf="puedeEliminar(post)" class="btn-delete" (click)="prepararEliminacion(post._id)" title="Eliminar publicación">
           🗑️
         </button>
       </div>
@@ -86,7 +83,7 @@
 </div>
 
 <!-- Modal Estético de Creación -->
-<div class="modal-overlay" *ngIf="isModalOpen" (click)="cerrarModal()">
+<div class="modal-overlay-creacion" *ngIf="isModalOpen" (click)="cerrarModal()">
   <div class="modal-content" (click)="$event.stopPropagation()">
     
     <div class="modal-header">
@@ -136,5 +133,18 @@
       </button>
     </div>
 
+  </div>
+  
+</div>
+<!-- 2. Modal de Confirmación de Eliminación (El nuevo que agregamos) -->
+<div class="modal-overlay-eliminacion" *ngIf="mostrarModalConfirmacion" (click)="cerrarModalConfirmacion()">
+  <div class="modal-card" (click)="$event.stopPropagation()">
+    <h3>Confirmar eliminación</h3>
+    <p>¿Estás seguro de que deseas eliminar esta publicación?</p>
+    
+    <div class="modal-acciones">
+      <button class="btn-cancelar" (click)="cerrarModalConfirmacion()">Cancelar</button>
+      <button class="btn-eliminar" (click)="confirmarEliminacion()">Eliminar</button>
+    </div>
   </div>
 </div>
