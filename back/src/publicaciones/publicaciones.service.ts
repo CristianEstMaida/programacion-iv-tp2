@@ -89,11 +89,14 @@ export class PublicacionesService {
 
   // 4. DAR LIKE: Un usuario solo puede dar un me gusta (usamos $addToSet para evitar duplicados)
   async darLike(id: string, userId: string) {
-    // 1. Buscamos la publicación primero para verificar si el usuario ya dio like
-    const publicacionActual = await this.publicacionModel.findById(id).exec();
+    // 1. Buscamos la publicación asegurándonos de que EXISTA y esté ACTIVA
+    const publicacionActual = await this.publicacionModel.findOne({ 
+      _id: id, 
+      activo: true 
+    }).exec();
     
     if (!publicacionActual) {
-      throw new NotFoundException(`Publicación #${id} no encontrada`);
+      throw new NotFoundException(`Publicación #${id} no encontrada o inactiva`);
     }
 
     // 2. Verificamos si el userId ya está en el array de likes
