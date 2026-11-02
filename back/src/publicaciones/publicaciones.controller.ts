@@ -29,6 +29,7 @@ export class PublicacionesController {
   }
 
   // 2. LISTAR CON FILTROS, ORDENAMIENTO Y PAGINACIÓN
+  @UseGuards(JwtAuthGuard)
   @Get()
   findAll(
     @Query('usuarioId') usuarioId?: string,

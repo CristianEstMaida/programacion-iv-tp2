@@ -1,10 +1,11 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, HttpCode, HttpStatus, UseInterceptors, BadRequestException, UploadedFile } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, HttpCode, HttpStatus, UseInterceptors, UseGuards, BadRequestException, UploadedFile } from '@nestjs/common';
 import { UsuariosService } from './usuarios.service.js';
 import { CreateUsuarioDto } from './dto/create-usuario.dto.js';
 import { UpdateUsuarioDto } from './dto/update-usuario.dto.js';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { CloudinaryService } from '../cloudinary/cloudinary.service.js';
+import { JwtAuthGuard } from '../guards/jwt-auth/jwt-auth.guard.js';
 
 @Controller('usuarios')
 export class UsuariosController {
@@ -47,6 +48,7 @@ export class UsuariosController {
     return this.usuariosService.findAll();
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.usuariosService.findOne(id);
