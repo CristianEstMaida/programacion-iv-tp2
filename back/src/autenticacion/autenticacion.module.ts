@@ -13,7 +13,8 @@ import { JwtStrategy } from './jwt.strategy.js';
     MongooseModule.forFeature([{ name: Usuario.name, schema: UsuarioSchema }]),
     JwtModule.register({
       secret: 'MI_CLAVE_SECRETA_SUPER_SEGURA',
-      signOptions: { expiresIn: '15m' },
+      // signOptions: { expiresIn: '15m' },
+      signOptions: { expiresIn: '20s' },
     }),
   ],
   controllers: [AutenticacionController],
