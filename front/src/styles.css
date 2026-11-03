@@ -402,3 +402,71 @@ body {
   margin-left: 0.25rem;
   font-weight: 500;
 }
+
+/* ==========================================
+   TEMA GLOBAL: AGRONOMÍA / CAMPO
+   ================================---------- */
+
+:root {
+  --primary-green: #2c5e3a;      /* Verde bosque principal */
+  --primary-hover: #1e3f26;      /* Verde oscuro para hovers */
+  --accent-green: #4e8753;       /* Verde claro / secundario */
+  --bg-color: #f4f6f3;           /* Fondo gris verdoso muy sutil y elegante */
+  --card-bg: #ffffff;            /* Blanco para tarjetas y formularios */
+  --text-main: #2d3748;          /* Texto principal oscuro */
+  --text-muted: #718096;         /* Texto secundario */
+  --border-color: #cbd5e0;       /* Bordes suaves */
+}
+
+/* Fondo general para TODAS tus páginas */
+body {
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Contenedor estándar para Login, Registro, MiPerfil y Publicaciones */
+.container, .auth-container, .profile-container, .publicaciones-container {
+  max-width: 800px;
+  margin: 40px auto;
+  background: var(--card-bg);
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.1);
+  border-top: 4px solid var(--primary-green); /* Toque agrónomo sutil */
+}
+
+/* Botones principales unificados */
+button:not(.btn-delete):not(.btn-cancelar) {
+  background-color: var(--primary-green);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+button:not(.btn-delete):not(.btn-cancelar):hover {
+  background-color: var(--primary-hover);
+}
+
+/* Inputs y formularios estandarizados */
+input, textarea, select {
+  width: 100%;
+  padding: 10px;
+  margin-top: 6px;
+  margin-bottom: 16px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  box-sizing: border-box;
+}
+
+input:focus, textarea:focus {
+  outline: none;
+  border-color: var(--primary-green);
+  box-shadow: 0 0 0 3px rgba(44, 94, 58, 0.1);
+}
