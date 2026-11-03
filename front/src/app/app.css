@@ -3,19 +3,7 @@
    ================================---------- */
 
 /* Fondo oscuro semitransparente que cubre toda la pantalla */
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5); /* Oscurece el fondo */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000; /* Asegura que quede por encima de todo */
-  backdrop-filter: blur(2px); /* Efeoto sutil de desenfoque opcional */
-}
+
 
 /* Caja contenedora del modal */
 .modal-content {

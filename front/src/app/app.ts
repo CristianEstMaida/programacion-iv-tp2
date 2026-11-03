@@ -24,6 +24,7 @@ export class App implements OnInit, OnDestroy{
       filter(event => event instanceof NavigationEnd)
     ).forEach((event: any) => {
       this.verificarRuta(event.urlAfterRedirects);
+      this.iniciarMonitoreoToken();
     });
   }
 
@@ -32,6 +33,12 @@ export class App implements OnInit, OnDestroy{
   }
 
   iniciarMonitoreoToken() {
+    // Si estamos en login o registro, no monitoreamos nada
+    if (this.router.url.includes('/login') || this.router.url.includes('/registro')) {
+      if (this.expirationTimer) clearTimeout(this.expirationTimer);
+      return;
+    }
+    
     const expiration = localStorage.getItem('token_expiration');
     if (!expiration) return;
 

@@ -470,3 +470,17 @@ input:focus, textarea:focus {
   border-color: var(--primary-green);
   box-shadow: 0 0 0 3px rgba(44, 94, 58, 0.1);
 }
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5); /* Oscurece el fondo */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999; /* Asegura que quede por encima de todo */
+  backdrop-filter: blur(2px); /* Efeoto sutil de desenfoque opcional */
+}
