@@ -84,4 +84,23 @@ export class App implements OnInit, OnDestroy{
     // Oculta el navbar únicamente si estamos en login o registro
     this.mostrarNavbar = !url.includes('/login') && !url.includes('/registro');
   }
+
+  logout() {
+    // 1. Limpiar los timers activos si los hubiera
+    if (this.expirationTimer) {
+      clearTimeout(this.expirationTimer);
+    }
+
+    // 2. Borrar las credenciales y datos del localStorage
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('token_expiration');
+    // Si guardaste datos del usuario (como nombre o rol), bórralos también:
+    // localStorage.removeItem('user_data');
+
+    // 3. Ocultar cualquier modal que haya quedado abierto
+    this.mostrarModalExpiracion = false;
+
+    // 4. Redirigir al login
+    this.router.navigate(['/login']);
+  }
 }
