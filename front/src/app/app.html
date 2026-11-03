@@ -28,3 +28,13 @@
     <router-outlet></router-outlet>
   </main>
 </div>
+<div class="modal-overlay" *ngIf="mostrarModalExpiracion">
+  <div class="modal-content">
+    <h3>⚠️ Tu sesión está por expirar</h3>
+    <p>Por seguridad, tu sesión caducará en unos segundos. ¿Deseas extenderla?</p>
+    <div class="modal-actions">
+      <button (click)="extendSession()" class="btn-primary">Extender Sesión</button>
+      <button (click)="cerrarSesionPorExpiracion()" class="btn-secondary">Cerrar Sesión</button>
+    </div>
+  </div>
+</div>

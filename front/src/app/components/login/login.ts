@@ -47,12 +47,17 @@ errorMessage = signal('');
       this.authService.login(this.loginForm.value).subscribe({
         next: (res: any) => {
           localStorage.setItem('access_token', res.access_token);
+
+          // 2. Calcular y guardar el tiempo de expiración (extraído del payload del JWT)
+          const tokenData = JSON.parse(atob(res.access_token.split('.')[1]));
+          const expirationTime = tokenData.exp * 1000; // Convertir a milisegundos
+          localStorage.setItem('token_expiration', expirationTime.toString());
+
           this.router.navigate(['/publicaciones']);
         },
         error: (err) => {
-          console.log('👉 Entró al bloque de error:', err);
+          console.log('Entró al bloque de error:', err);
           this.errorMessage.set('Credenciales incorrectas');
-          // alert(err.error.message || 'Credenciales incorrectas'); // Recuerda cambiar por un modal si prefieres
         }
       });
     }
