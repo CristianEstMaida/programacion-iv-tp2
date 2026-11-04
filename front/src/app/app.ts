@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef, Component, OnDestroy, OnInit, signal } from '@angular/core';
 import { NavigationEnd, Router, RouterLink, RouterOutlet } from '@angular/router';
 import { filter } from 'rxjs';
+import { Auth } from '../app/services/auth.service';
 
 @Component({
   imports: [CommonModule, RouterOutlet, RouterLink],
@@ -15,7 +16,7 @@ export class App implements OnInit, OnDestroy{
   private expirationTimer: any;
   public mostrarModalExpiracion = false;
 
-  constructor(private router: Router, private cdr: ChangeDetectorRef) {
+  constructor(private router: Router, private cdr: ChangeDetectorRef, private authService: Auth) {
     // 1. Verificamos la ruta actual apenas carga la aplicación
     this.verificarRuta(this.router.url);
 
@@ -38,7 +39,7 @@ export class App implements OnInit, OnDestroy{
       if (this.expirationTimer) clearTimeout(this.expirationTimer);
       return;
     }
-    
+
     const expiration = localStorage.getItem('token_expiration');
     if (!expiration) return;
 
@@ -67,12 +68,35 @@ export class App implements OnInit, OnDestroy{
   extendSession() {
     // Aquí puedes llamar a un endpoint de refresh token en tu backend, 
     // o simular renovando la fecha en el localStorage si tu práctico es más simple:
-    const nuevoTiempo = Date.now() + 20000; // Extiende 20 segundos más para la prueba
+    /*const nuevoTiempo = Date.now() + 20000; 
     localStorage.setItem('token_expiration', nuevoTiempo.toString());
     this.mostrarModalExpiracion = false;
 
     this.cdr.detectChanges();
-    this.iniciarMonitoreoToken();
+    this.iniciarMonitoreoToken();*/
+    this.authService.refreshToken().subscribe({
+      next: (res: any) => {
+        // El backend devuelve el nuevo token
+        const nuevoToken = res.access_token; // O res.token (según cómo lo devuelva tu API)
+        localStorage.setItem('access_token', nuevoToken);
+
+        // Extraemos la nueva expiración del payload del token renovado
+        const tokenData = JSON.parse(atob(nuevoToken.split('.')[1]));
+        const expirationTime = tokenData.exp * 1000; 
+        localStorage.setItem('token_expiration', expirationTime.toString());
+
+        // Ocultamos el modal y reiniciamos el temporizador
+        this.mostrarModalExpiracion = false;
+        this.cdr.detectChanges();
+        this.iniciarMonitoreoToken();
+      },
+      error: (err: any) => {
+        console.error('Error al refrescar el token:', err);
+        // Si el token ya expiró por completo en el backend, cerramos sesión
+        this.cerrarSesionPorExpiracion();
+      }
+    });
+
   }
 
   cerrarSesionPorExpiracion() {

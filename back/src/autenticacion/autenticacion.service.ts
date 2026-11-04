@@ -85,6 +85,21 @@ export class AutenticacionService {
     return 'This action adds a new autenticacion';
   }
 
+  refreshToken(user: any) {
+    // Definimos el payload con los datos esenciales (id/correo y rol) tal como en tu login
+    const payload = { 
+      sub: user.sub || user.id, 
+      correo: user.correo, 
+      nombre: user.nombre, 
+      rol: user.rol 
+    };
+
+    // Firmamos y devolvemos un nuevo token (aquí mantienes el tiempo de expiración, ej: '15m' o '20s')
+    return {
+      access_token: this.jwtService.sign(payload, { expiresIn: '15m' }),
+    };
+  }
+
   findAll() {
     return `This action returns all autenticacion`;
   }

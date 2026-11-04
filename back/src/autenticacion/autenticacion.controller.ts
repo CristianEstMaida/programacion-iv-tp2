@@ -29,6 +29,23 @@ export class AutenticacionController {
     return this.autenticacionService.create(createAutenticacionDto);
   }
 
+  @UseGuards(JwtAuthGuard) // El guard que ya uses para proteger rutas
+  @Post('autorizar')
+  autorizarToken(@Req() req: Request & { user: { userId: string; email: string; perfil: string } }) {
+    // Si pasó el Guard, el token es válido. Devolvemos los datos del usuario.
+    return { 
+      ok: true, 
+      user: req.user // o la info del usuario decodificada del token
+    };
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Post('refrescar')
+  refrescarToken(@Req() req: Request & { user: { userId: string; email: string; perfil: string } }) {
+    // Llamas a tu AuthService para generar un nuevo token con el mismo payload
+    return this.autenticacionService.refreshToken(req.user);
+  }
+
   @Get()
   findAll() {
     return this.autenticacionService.findAll();
