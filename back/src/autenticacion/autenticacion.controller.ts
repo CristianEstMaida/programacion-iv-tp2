@@ -1,13 +1,17 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, HttpCode, HttpStatus, UseGuards, Req } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, HttpCode, HttpStatus, UseGuards, Req, UseInterceptors, BadRequestException, UploadedFile } from '@nestjs/common';
 import { AutenticacionService } from './autenticacion.service.js';
 import { CreateAutenticacionDto } from './dto/create-autenticacion.dto.js';
 import { UpdateAutenticacionDto } from './dto/update-autenticacion.dto.js';
 import { LoginDto } from './dto/login.dto.js';
 import { JwtAuthGuard } from '../guards/jwt-auth/jwt-auth.guard.js';
+import { FileInterceptor } from '@nestjs/platform-express/multer/interceptors/index.js';
+import { CreateUsuarioDto } from '../usuarios/dto/create-usuario.dto.js';
+import { CloudinaryService } from '../cloudinary/cloudinary.service.js';
+import { UsuariosService } from '../usuarios/usuarios.service.js';
 
 @Controller('autenticacion')
 export class AutenticacionController {
-  constructor(private readonly autenticacionService: AutenticacionService) {}
+  constructor(private readonly autenticacionService: AutenticacionService, private readonly cloudinaryService: CloudinaryService, private readonly usuariosService: UsuariosService,) {}
 
   @UseGuards(JwtAuthGuard)
   @Get('perfil')
@@ -22,6 +26,35 @@ export class AutenticacionController {
   @HttpCode(HttpStatus.OK)
   async login(@Body() loginDto: LoginDto) {
     return await this.autenticacionService.login(loginDto);
+  }
+
+  @Post('registro')
+  @HttpCode(HttpStatus.CREATED)
+  @UseInterceptors(
+    FileInterceptor('imagenPerfil', {
+      limits: { fileSize: 2 * 1024 * 1024 },
+      fileFilter: (req, file, callback) => {
+        if (!file.mimetype.match(/\/(jpg|jpeg|png|webp)$/)) {
+          return callback(new BadRequestException('Solo se permiten imágenes (jpg, jpeg, png, webp)'), false);
+        }
+        callback(null, true);
+      },
+    }),
+  )
+  async registrar(
+    @Body() createUsuarioDto: CreateUsuarioDto,
+    @UploadedFile() file?: Express.Multer.File,
+  ) {
+    let imagenUrl: string | undefined = undefined;
+
+    // Si el usuario subió una imagen, la mandamos a Cloudinary en lugar de guardar en disco
+    if (file) {
+      const uploadResult: any = await this.cloudinaryService.uploadImage(file);
+      imagenUrl = uploadResult.secure_url; // Obtenemos la URL pública de la nube
+    }
+
+    // Le pasamos la URL de Cloudinary al servicio en lugar del nombre de archivo local
+    return await this.usuariosService.registrar(createUsuarioDto, imagenUrl);
   }
 
   @Post()

@@ -6,6 +6,9 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { JwtModule } from '@nestjs/jwt';
 import { Usuario, UsuarioSchema } from '../usuarios/schemas/usuario.schema.js';
 import { JwtStrategy } from './jwt.strategy.js';
+import { CloudinaryService } from '../cloudinary/cloudinary.service.js';
+import { UsuariosModule } from '../usuarios/usuarios.module.js';
+
 
 @Module({
   imports: [
@@ -16,9 +19,10 @@ import { JwtStrategy } from './jwt.strategy.js';
       // signOptions: { expiresIn: '15m' },
       signOptions: { expiresIn: '20s' },
     }),
+    UsuariosModule,
   ],
   controllers: [AutenticacionController],
-  providers: [AutenticacionService, JwtStrategy],
+  providers: [AutenticacionService, CloudinaryService, JwtStrategy],
   exports: [JwtStrategy, PassportModule, JwtModule],
 })
 export class AutenticacionModule {}
