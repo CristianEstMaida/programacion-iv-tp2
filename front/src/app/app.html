@@ -1,4 +1,9 @@
-<div class="app-layout">
+<div *ngIf="cargando" class="splash-screen">
+  <div class="spinner"></div> <!-- O tu mat-spinner si usas Angular Material -->
+  <p>Verificando sesión, por favor espere...</p>
+</div>
+
+<div class="app-layout" *ngIf="!cargando">
   <!-- Barra Lateral (Sidebar) -->
   <aside class="sidebar" *ngIf="mostrarNavbar">
     <div class="sidebar-brand">

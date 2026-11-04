@@ -3,6 +3,7 @@ import { ChangeDetectorRef, Component, OnDestroy, OnInit, signal } from '@angula
 import { NavigationEnd, Router, RouterLink, RouterOutlet } from '@angular/router';
 import { filter } from 'rxjs';
 import { Auth } from '../app/services/auth.service';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
   imports: [CommonModule, RouterOutlet, RouterLink],
@@ -15,8 +16,10 @@ export class App implements OnInit, OnDestroy{
   mostrarNavbar = true;
   private expirationTimer: any;
   public mostrarModalExpiracion = false;
+  public cargando = true; 
+  private apiUrl = 'http://localhost:3000/api';
 
-  constructor(private router: Router, private cdr: ChangeDetectorRef, private authService: Auth) {
+  constructor(private router: Router, private cdr: ChangeDetectorRef, private authService: Auth, private http: HttpClient) {
     // 1. Verificamos la ruta actual apenas carga la aplicación
     this.verificarRuta(this.router.url);
 
@@ -30,7 +33,49 @@ export class App implements OnInit, OnDestroy{
   }
 
   ngOnInit() {
-    this.iniciarMonitoreoToken();
+    this.verificarTokenInicial();
+  }
+
+  verificarTokenInicial() {
+    const token = localStorage.getItem('access_token');
+    
+    // 1. Definimos un tiempo mínimo de visualización (ej: 1.5 segundos / 1500ms)
+    const tiempoMinimoCarga = new Promise(resolve => setTimeout(resolve, 1500));
+
+    // Si ni siquiera hay token guardado, apagamos el cargando y mandamos al login
+    if (!token) {
+      tiempoMinimoCarga.then(() => {
+        this.cargando = false;
+        this.cdr.detectChanges();
+        if (!this.router.url.includes('/login') && !this.router.url.includes('/registro')) {
+          this.router.navigate(['/login']);
+        }
+      });
+      return;
+    }
+
+    // Si hay token, consultamos la ruta /autorizar del backend (con el header correspondiente)
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    
+    // 2. Ejecutamos la petición al backend y el tiempo mínimo en paralelo con Promise.all
+    const peticionBackend = this.http.post(`${this.apiUrl}/autenticacion/autorizar`, {}, { headers });
+
+    Promise.all([tiempoMinimoCarga, peticionBackend.toPromise()]).then(
+      ([_, res]: [any, any]) => {
+        // Token válido: pasaron los 1500ms y el backend respondió OK
+        this.cargando = false;
+        this.cdr.detectChanges();
+        this.iniciarMonitoreoToken();
+      }
+    ).catch((err) => {
+      // Token inválido o error de red: pasaron los 1500ms y falló
+      console.error("Error al autorizar token:", err);
+      localStorage.removeItem('access_token');
+      localStorage.removeItem('token_expiration');
+      this.cargando = false;
+      this.cdr.detectChanges();
+      this.router.navigate(['/login']);
+    });
   }
 
   iniciarMonitoreoToken() {
@@ -66,14 +111,8 @@ export class App implements OnInit, OnDestroy{
   }
 
   extendSession() {
-    // Aquí puedes llamar a un endpoint de refresh token en tu backend, 
-    // o simular renovando la fecha en el localStorage si tu práctico es más simple:
-    /*const nuevoTiempo = Date.now() + 20000; 
-    localStorage.setItem('token_expiration', nuevoTiempo.toString());
-    this.mostrarModalExpiracion = false;
-
-    this.cdr.detectChanges();
-    this.iniciarMonitoreoToken();*/
+    // Aquí puedes llamar a un endpoint de refresh token en tu backend
+   
     this.authService.refreshToken().subscribe({
       next: (res: any) => {
         // El backend devuelve el nuevo token
