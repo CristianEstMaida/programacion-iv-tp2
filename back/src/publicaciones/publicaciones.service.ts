@@ -12,9 +12,10 @@ export class PublicacionesService {
   ) {}
 
   // 1. CREAR: Guarda la publicación asociada al usuario logueado
-  async create(createPublicacioneDto: CreatePublicacioneDto, userId: string) {
+  async create(createPublicacioneDto: CreatePublicacioneDto, userId: string, imagenUrl?: string) {
     const nuevaPublicacion = new this.publicacionModel({
       ...createPublicacioneDto,
+      imagenUrl: imagenUrl,
       usuario: userId,
       activo: true,
       likes: [],

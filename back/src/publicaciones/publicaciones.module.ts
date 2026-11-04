@@ -5,6 +5,7 @@ import { PublicacionesController } from './publicaciones.controller.js';
 import { Publicacion, PublicacionSchema } from './schemas/publicacion.schema.js'; // 👈 2. Importar tu esquema
 import { AutenticacionModule } from '../autenticacion/autenticacion.module.js';
 import { Usuario, UsuarioSchema } from '../usuarios/schemas/usuario.schema.js';
+import { CloudinaryService } from '../cloudinary/cloudinary.service.js';
 
 @Module({
   imports: [
@@ -16,6 +17,6 @@ import { Usuario, UsuarioSchema } from '../usuarios/schemas/usuario.schema.js';
     AutenticacionModule,
   ],
   controllers: [PublicacionesController],
-  providers: [PublicacionesService],
+  providers: [PublicacionesService, CloudinaryService], // Asegúrate de que CloudinaryService esté importado y registrado
 })
 export class PublicacionesModule {}

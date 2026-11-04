@@ -1,25 +1,15 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environment } from '../../environments/environment';
+import { environment } from '../../environments/environment'; // O tu ruta de environment
 
 @Injectable({
   providedIn: 'root'
 })
 export class PublicacionesService {
-    private API_URL = `${environment.apiUrl}/publicaciones`;
-  //private API_URL = 'http://localhost:3000/api/publicaciones'; // Ajusta tu URL base
+  private API_URL = `${environment.apiUrl}/publicaciones`;
 
   constructor(private http: HttpClient) {}
-
-  private getAuthHeaders() {
-    const token = localStorage.getItem('access_token'); // O la clave con la que guardes tu JWT en el login
-    return {
-      headers: new HttpHeaders({
-        'Authorization': `Bearer ${token}`
-      })
-    };
-  }
 
   obtenerPublicaciones(params?: { 
     usuarioId?: string; 
@@ -27,8 +17,6 @@ export class PublicacionesService {
     limit?: number; 
     offset?: number 
   }): Observable<any> {
-    
-    // Construimos los parámetros HTTP dinámicamente si los envías
     let queryParams = '';
     if (params) {
       const queryParts: string[] = [];
@@ -42,23 +30,25 @@ export class PublicacionesService {
       }
     }
 
-    // Realiza la petición GET enviando la URL con los parámetros y el token JWT
-    return this.http.get(`${this.API_URL}${queryParams}`, this.getAuthHeaders());
+    // El interceptor global le inyecta el token solo
+    return this.http.get(`${this.API_URL}${queryParams}`);
   }
 
-  crearPublicacion(data: any): Observable<any> {
-    return this.http.post(this.API_URL, data, this.getAuthHeaders()); // 👈 ¡No olvides pasar los headers aquí!
+  crearPublicacion(data: FormData): Observable<any> {
+    // Al mandar el FormData directamente y sin headers manuales, 
+    // el interceptor añade el token y el navegador calcula el archivo perfecto.
+    return this.http.post(this.API_URL, data);
   }
 
   darMegusta(id: string): Observable<any> {
-    return this.http.post(`${this.API_URL}/${id}/like`, {}, this.getAuthHeaders());
+    return this.http.post(`${this.API_URL}/${id}/like`, {});
   }
 
   quitarMegusta(id: string): Observable<any> {
-    return this.http.delete(`${this.API_URL}/${id}/like`, this.getAuthHeaders());
+    return this.http.delete(`${this.API_URL}/${id}/like`);
   }
 
   eliminarPublicacion(id: string): Observable<any> {
-    return this.http.delete(`${this.API_URL}/${id}`, this.getAuthHeaders());
+    return this.http.delete(`${this.API_URL}/${id}`);
   }
 }

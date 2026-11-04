@@ -37,6 +37,8 @@ export class PublicacionesComponent implements OnInit {
   mostrarModalConfirmacion: boolean = false;
   publicacionAEliminarId: string | null = null;
 
+  public archivoSeleccionado: File | null = null;
+
   constructor(
     private publicacionesService: PublicacionesService,
     private cdr: ChangeDetectorRef
@@ -165,21 +167,39 @@ export class PublicacionesComponent implements OnInit {
     this.cdr.detectChanges();
   }
 
+  // Método que se dispara cuando el usuario selecciona un archivo
+  onFileSelected(event: any) {
+    const file: File = event.target.files[0];
+    if (file) {
+      this.archivoSeleccionado = file;
+    }
+  }
+
   // Enviar los datos al backend
+  // Asegúrate de tener una variable en tu clase que guarde el archivo, por ejemplo: 
+  // public archivoSeleccionado: File | null = null;
+
   guardarPublicacion() {
     if (!this.nuevoTitulo || !this.nuevaDescripcion) return;
 
-    const nuevaPublicacion = {
-      titulo: this.nuevoTitulo,
-      descripcion: this.nuevaDescripcion,
-      imagenUrl: this.nuevaImagenUrl
-    };
+    // 1. Creamos un FormData en lugar de un objeto JSON plano
+    const formData = new FormData();
+    formData.append('titulo', this.nuevoTitulo);
+    formData.append('descripcion', this.nuevaDescripcion);
 
-    this.publicacionesService.crearPublicacion(nuevaPublicacion).subscribe({
+    // 2. Si el usuario seleccionó un archivo físico, lo adjuntamos con la clave 'imagen'
+    if (this.archivoSeleccionado) {
+      formData.append('imagen', this.archivoSeleccionado);
+    }
+
+    // 3. Enviamos el FormData al servicio
+    this.publicacionesService.crearPublicacion(formData).subscribe({
       next: (res) => {
         console.log('Publicación creada con éxito:', res);
+        this.publicaciones.unshift(res); // Agrega la nueva publicación al inicio de la lista
         this.cargarPublicaciones(); // Recarga la lista para mostrar la nueva
         this.cerrarModal();         // Cierra y limpia el modal
+        this.archivoSeleccionado = null; // Limpiamos el archivo
       },
       error: (err) => {
         console.error('Error al crear la publicación:', err);

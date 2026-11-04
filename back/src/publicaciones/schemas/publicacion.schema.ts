@@ -11,7 +11,7 @@ export class Publicacion {
   @Prop({ required: true, trim: true })
   descripcion: string;
 
-  @Prop({ trim: true })
+ @Prop({ trim: true })
   imagenUrl?: string;
 
   // Relación con el modelo de Usuario

@@ -20,10 +20,12 @@ export class Auth {
   }
 
   refreshToken() {
-    const token = localStorage.getItem('access_token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    //const token = localStorage.getItem('access_token');
+    //const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     
     // Asumiendo que tu ruta de refrescar por POST es algo como /auth/refrescar o /refresh
-    return this.http.post(`${this.apiUrl}/refrescar`, {}, { headers });
+    //return this.http.post(`${this.apiUrl}/refrescar`, {}, { headers });
+
+    return this.http.post(`${this.apiUrl}/refrescar`, {});
   }
 }

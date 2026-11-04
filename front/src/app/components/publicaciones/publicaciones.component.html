@@ -114,12 +114,16 @@
 
       <div class="form-group">
         <label for="imagenUrl">URL de la imagen (Opcional)</label>
-        <input 
+        <input type="file" (change)="onFileSelected($event)" accept="image/*">
+        <!-- <input 
           type="text" 
           id="imagenUrl" 
           [(ngModel)]="nuevaImagenUrl" 
           placeholder="https://images.unsplash.com/..." 
-        />
+        /> -->
+        <small *ngIf="archivoSeleccionado" class="text-success">
+          Archivo seleccionado correctamente.
+        </small>
       </div>
     </div>
 
