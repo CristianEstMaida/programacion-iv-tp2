@@ -53,7 +53,10 @@ errorMessage = signal('');
           const expirationTime = tokenData.exp * 1000; // Convertir a milisegundos
           localStorage.setItem('token_expiration', expirationTime.toString());
 
-          this.router.navigate(['/publicaciones']);
+          // this.router.navigate(['/publicaciones']);
+          // Usamos window.location.href en lugar de router.navigate para forzar 
+          // la recarga limpia y que el App Component inicie el temporizador al instante.
+          window.location.href = '/publicaciones';
         },
         error: (err) => {
           console.log('Entró al bloque de error:', err);

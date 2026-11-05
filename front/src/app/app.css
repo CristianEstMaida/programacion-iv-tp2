@@ -90,6 +90,22 @@
   margin-bottom: 15px;
 }
 
+/* Estilo limpio para el botón de cancelar del modal de expiración */
+.btn-cancelar {
+  background-color: #f3f4f6; /* Gris clarito */
+  color: #374151;            /* Texto gris oscuro */
+  border: 1px solid #d1d5db; /* Borde sutil */
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn-cancelar:hover {
+  background-color: #e5e7eb; /* Gris un poco más oscuro al pasar el mouse */
+}
+
 @keyframes girar {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }

@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef, Component, OnDestroy, OnInit, signal } from '@angular/core';
 import { NavigationEnd, Router, RouterLink, RouterOutlet } from '@angular/router';
-import { filter } from 'rxjs';
+import { filter, firstValueFrom } from 'rxjs';
 import { Auth } from '../app/services/auth.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
@@ -15,9 +15,11 @@ export class App implements OnInit, OnDestroy{
   protected readonly title = signal('red-social-front');
   mostrarNavbar = true;
   private expirationTimer: any;
+  private finalLogoutTimer: any;
   public mostrarModalExpiracion = false;
   public cargando = true; 
-  private apiUrl = 'http://localhost:3000/api';
+  mostrarModalInactividad = false;
+  // private apiUrl = 'https://programacion-iv-tp2-back.vercel.app/api';
 
   constructor(private router: Router, private cdr: ChangeDetectorRef, private authService: Auth, private http: HttpClient) {
     // 1. Verificamos la ruta actual apenas carga la aplicación
@@ -28,7 +30,7 @@ export class App implements OnInit, OnDestroy{
       filter(event => event instanceof NavigationEnd)
     ).forEach((event: any) => {
       this.verificarRuta(event.urlAfterRedirects);
-      this.iniciarMonitoreoToken();
+
     });
   }
 
@@ -36,7 +38,7 @@ export class App implements OnInit, OnDestroy{
     this.verificarTokenInicial();
   }
 
-  verificarTokenInicial() {
+  async verificarTokenInicial() {
     const token = localStorage.getItem('access_token');
     
     // 1. Definimos un tiempo mínimo de visualización (ej: 1.5 segundos / 1500ms)
@@ -57,57 +59,67 @@ export class App implements OnInit, OnDestroy{
     // Si hay token, consultamos la ruta /autorizar del backend (con el header correspondiente)
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     
-    // 2. Ejecutamos la petición al backend y el tiempo mínimo en paralelo con Promise.all
-    const peticionBackend = this.http.post(`${this.apiUrl}/autenticacion/autorizar`, {}, { headers });
+    // 2. Ejecutamos la petición al backend y el tiempo mínimo en paralelo con Promise.all// En lugar de llamar a `this.http.post` a mano, usas el servicio:
+    const peticionBackend = this.authService.autorizarToken(token);
+    //const peticionBackend = this.http.post(`${this.apiUrl}/autenticacion/autorizar`, {}, { headers });
 
-    Promise.all([tiempoMinimoCarga, peticionBackend.toPromise()]).then(
-      ([_, res]: [any, any]) => {
-        // Token válido: pasaron los 1500ms y el backend respondió OK
-        this.cargando = false;
-        this.cdr.detectChanges();
-        this.iniciarMonitoreoToken();
-      }
-    ).catch((err) => {
-      // Token inválido o error de red: pasaron los 1500ms y falló
-      console.error("Error al autorizar token:", err);
-      localStorage.removeItem('access_token');
-      localStorage.removeItem('token_expiration');
+    try {
+      await Promise.all([tiempoMinimoCarga, firstValueFrom(peticionBackend)]);
+      // Token válido
       this.cargando = false;
       this.cdr.detectChanges();
-      this.router.navigate(['/login']);
-    });
+      this.iniciarMonitoreoToken();
+    } catch (err) {
+      console.error("Error al autorizar token:", err);
+      this.cerrarSesionPorExpiracion();
+    }
+
   }
 
   iniciarMonitoreoToken() {
     // Si estamos en login o registro, no monitoreamos nada
     if (this.router.url.includes('/login') || this.router.url.includes('/registro')) {
-      if (this.expirationTimer) clearTimeout(this.expirationTimer);
+      this.limpiarTimers();
       return;
     }
 
     const expiration = localStorage.getItem('token_expiration');
-    if (!expiration) return;
+    if (!expiration) {
+      console.warn("⚠️ No hay 'token_expiration' en el localStorage");
+      return;
+    }
 
     const tiempoRestante = Number(expiration) - Date.now();
-    
-    // Queremos que el aviso salte 5 segundos antes de que expire el token
-    const tiempoParaAviso = tiempoRestante - 5000; 
+    console.log(`⏱️ Tiempo restante calculado para el token: ${tiempoRestante} ms`);
 
-    if (tiempoParaAviso > 0) {
-      if (this.expirationTimer) clearTimeout(this.expirationTimer);
+    this.limpiarTimers();
 
-      // Programa el temporizador exacto
-      this.expirationTimer = setTimeout(() => {
-        this.mostrarModalExpiracion = true;
-
-        // 2. FORZAS la actualización de la vista aquí mismo
-        this.cdr.detectChanges();
-      }, tiempoParaAviso);
-    } else {
-      // Si ya pasó el tiempo, lo muestra de inmediato
-      this.mostrarModalExpiracion = true;
-      this.cdr.detectChanges();
+    if (tiempoRestante <= 0) {
+      // Si el token ya venció por completo, chau sesión
+      console.warn("❌ El token ya expiró según el localStorage.");
+      this.cerrarSesionPorExpiracion();
+      return;
     }
+
+    // Queremos que el aviso salte 5 segundos antes de que expire el token
+    const tiempoParaAviso = Math.floor(tiempoRestante / 2);
+    const tiempoRestanteParaLogout = tiempoRestante - tiempoParaAviso;
+
+    // Programa el temporizador exacto
+    this.expirationTimer = setTimeout(() => {
+      console.log("📢 ¡Disparando modal de expiración!");
+      this.mostrarModalExpiracion = true;
+
+      // 2. FORZAS la actualización de la vista aquí mismo
+      this.cdr.detectChanges();
+
+      // Si el usuario ignora o cancela el modal, corren los últimos 5 minutos hasta expirar por completo
+      this.finalLogoutTimer = setTimeout(() => {
+        console.log("🚪 Tiempo agotado tras el modal. Cerrando sesión...");
+        this.cerrarSesionPorExpiracion();
+      }, tiempoRestanteParaLogout);
+    }, tiempoParaAviso);
+  
   }
 
   extendSession() {
@@ -135,19 +147,33 @@ export class App implements OnInit, OnDestroy{
         this.cerrarSesionPorExpiracion();
       }
     });
+  }
 
+  // Si el usuario presiona "Cancelar" en el modal
+  cancelarExtension() {
+    this.mostrarModalExpiracion = false;
+    this.cdr.detectChanges();
+    // El temporizador de los 5 minutos restantes ya está corriendo en segundo plano gracias a `this.logoutSub`. 
+    // Cuando termine, se ejecutará `cerrarSesionPorExpiracion()`.
   }
 
   cerrarSesionPorExpiracion() {
-    if (this.expirationTimer) clearTimeout(this.expirationTimer);
+    this.limpiarTimers();
     localStorage.removeItem('access_token');
     localStorage.removeItem('token_expiration');
     this.mostrarModalExpiracion = false;
+    this.cargando = false;
+    this.cdr.detectChanges();
     this.router.navigate(['/login']);
   }
 
+  private limpiarTimers() {
+    if (this.expirationTimer) clearTimeout(this.expirationTimer); // Corregido el typo por seguridad
+    if (this.finalLogoutTimer) clearTimeout(this.finalLogoutTimer);
+  }
+
   ngOnDestroy() {
-    if (this.expirationTimer) clearTimeout(this.expirationTimer);
+    this.limpiarTimers();
   }
 
   private verificarRuta(url: string) {
@@ -156,21 +182,6 @@ export class App implements OnInit, OnDestroy{
   }
 
   logout() {
-    // 1. Limpiar los timers activos si los hubiera
-    if (this.expirationTimer) {
-      clearTimeout(this.expirationTimer);
-    }
-
-    // 2. Borrar las credenciales y datos del localStorage
-    localStorage.removeItem('access_token');
-    localStorage.removeItem('token_expiration');
-    // Si guardaste datos del usuario (como nombre o rol), bórralos también:
-    // localStorage.removeItem('user_data');
-
-    // 3. Ocultar cualquier modal que haya quedado abierto
-    this.mostrarModalExpiracion = false;
-
-    // 4. Redirigir al login
-    this.router.navigate(['/login']);
+    this.cerrarSesionPorExpiracion();
   }
 }
