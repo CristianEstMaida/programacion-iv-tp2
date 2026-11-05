@@ -6,17 +6,21 @@ import { Publicacion, PublicacionSchema } from './schemas/publicacion.schema.js'
 import { AutenticacionModule } from '../autenticacion/autenticacion.module.js';
 import { Usuario, UsuarioSchema } from '../usuarios/schemas/usuario.schema.js';
 import { CloudinaryService } from '../cloudinary/cloudinary.service.js';
+import { ComentariosController } from './comentarios.controller.js'; // Asegúrate de que la ruta sea correcta
+import { ComentariosService } from './comentarios.service.js'; // Asegúrate de que la ruta sea correcta
+import { Comentario, ComentarioSchema } from './schemas/comentario.schema.js';
 
 @Module({
   imports: [
     // 3. Registrar el esquema para que funcione el @InjectModel en el servicio
     MongooseModule.forFeature([
+      { name: Comentario.name, schema: ComentarioSchema },
       { name: Publicacion.name, schema: PublicacionSchema },
       { name: Usuario.name, schema: UsuarioSchema }
     ]),
     AutenticacionModule,
   ],
-  controllers: [PublicacionesController],
-  providers: [PublicacionesService, CloudinaryService], // Asegúrate de que CloudinaryService esté importado y registrado
+  controllers: [PublicacionesController, ComentariosController], // Asegúrate de que ComentariosController esté importado
+  providers: [PublicacionesService, CloudinaryService, ComentariosService], // Asegúrate de que CloudinaryService y ComentariosService estén importados y registrados
 })
 export class PublicacionesModule {}
