@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
@@ -19,6 +19,8 @@ export class PublicacionCardComponent {
   @Output() onDelete = new EventEmitter<string>();
   @Output() onVerComentarios = new EventEmitter<any>();
 
+  constructor(private cdr: ChangeDetectorRef) {}
+
   // 1. Validar si puede eliminar (Lógica que tenías en el padre)
   puedeEliminar(): boolean {
     const autorObj = this.publicacion.usuario;
@@ -34,6 +36,7 @@ export class PublicacionCardComponent {
   // 2. Acciones que disparan los eventos hacia el componente principal
   toggleMeGusta() {
     this.onToggleLike.emit(this.publicacion);
+    this.cdr.detectChanges();
   }
 
   // prepararEliminacion() {
@@ -44,6 +47,7 @@ export class PublicacionCardComponent {
   eliminar() {
     const id = this.publicacion._id || this.publicacion.id;
     this.onDelete.emit(id);
+    this.cdr.detectChanges();
   }
 
   verComentarios() {
