@@ -27,11 +27,18 @@
     <div *ngIf="!publicaciones || publicaciones.length === 0" class="empty-feed">
       <p>No hay publicaciones todavía. ¡Sé el primero en compartir algo!</p>
     </div>
-
+    <app-publicacion-card 
+      *ngFor="let post of publicaciones; trackBy: trackByPublicacionId" 
+      [publicacion]="post"
+      [usuarioLogueadoId]="usuarioLogueadoId"
+      [rolUsuario]="rolUsuario"
+      (onToggleLike)="manejarToggleLike($event)"
+      (onDelete)="prepararEliminacion($event)"
+      (onVerComentarios)="verComentarios($event)">
+    ></app-publicacion-card>
     <!-- Tarjeta de Publicación -->
-    <div class="post-card" *ngFor="let post of publicaciones; trackBy: trackByPublicacionId"> 
+    <!-- <div class="post-card" *ngFor="let post of publicaciones; trackBy: trackByPublicacionId"> 
       
-      <!-- Cabecera del post (Autor y Fecha) -->
       <div class="post-header">
         <div class="author-info">
           <div class="avatar-placeholder">
@@ -51,18 +58,18 @@
         </button>
       </div>
 
-      <!-- Contenido del Post -->
+      
       <div class="post-body">
         <h3 class="post-title">{{ post.titulo }}</h3>
         <p class="post-text">{{ post.descripcion }}</p>
         
-        <!-- Imagen opcional -->
+      
         <div *ngIf="post.imagenUrl" class="post-image-container">
           <img [src]="post.imagenUrl" alt="Imagen de publicación" class="post-image">
         </div>
       </div>
 
-      <!-- Acciones (Me gusta / Comentarios) -->
+      
       <div class="post-actions">
         <button 
           class="action-btn" 
@@ -78,7 +85,7 @@
         </button>
       </div>
 
-    </div>
+    </div> -->
   </div>
 </div>
 

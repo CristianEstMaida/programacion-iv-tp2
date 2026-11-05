@@ -1,0 +1,46 @@
+<div class="post-card"> 
+  <!-- Cabecera del post (Autor y Fecha) -->
+  <div class="post-header">
+    <div class="author-info">
+      <div class="avatar-placeholder">
+        {{ publicacion.usuario?.nombre ? publicacion.usuario.nombre.charAt(0).toUpperCase() : 'U' }}
+      </div>
+      <div>
+        <h4 class="author-name">
+          {{ publicacion.usuario?.nombre || 'Usuario' }} {{ publicacion.usuario?.apellido || '' }}
+        </h4>
+        <span class="fecha">{{ publicacion.createdAt | date:'dd/MM/yyyy HH:mm' }}</span>
+      </div>
+    </div>
+
+    <button *ngIf="puedeEliminar()" class="btn-delete" (click)="eliminar()" title="Eliminar publicación">
+      🗑️
+    </button>
+  </div>
+
+  <!-- Contenido del Post -->
+  <div class="post-body">
+    <h3 class="post-title">{{ publicacion.titulo }}</h3>
+    <p class="post-text">{{ publicacion.descripcion }}</p>
+    
+    <div *ngIf="publicacion.imagenUrl" class="post-image-container">
+      <img [src]="publicacion.imagenUrl" alt="Imagen de publicación" class="post-image">
+    </div>
+  </div>
+
+  <!-- Acciones (Me gusta / Comentarios) -->
+  <div class="post-actions">
+    <button 
+      class="action-btn" 
+      [class.liked]="publicacion.likedByMe" 
+      (click)="toggleMeGusta()">
+      <span *ngIf="publicacion.likedByMe">❤️ Ya no me gusta</span>
+      <span *ngIf="!publicacion.likedByMe">🤍 Me gusta</span>
+      ({{ (publicacion.likesCount ?? publicacion.likes?.length) || 0 }})
+    </button>
+    
+    <button class="action-btn" (click)="verComentarios()">
+      💬 <span>Comentarios</span>
+    </button>
+  </div>
+</div>

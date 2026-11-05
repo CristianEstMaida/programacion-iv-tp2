@@ -4,12 +4,13 @@ import { ChangeDetectorRef, Component, HostListener, OnInit } from '@angular/cor
 import { Observable } from 'rxjs';
 import { PublicacionesService } from '../../services/publicaciones.service';
 import { FormsModule } from '@angular/forms';
+import { PublicacionCardComponent } from '../publicacion-card/publicacion-card';
 
 
 @Component({
   selector: 'app-publicaciones',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, PublicacionCardComponent],
   templateUrl: './publicaciones.component.html',
   styleUrls: ['./publicaciones.component.css']
 })
@@ -17,27 +18,25 @@ export class PublicacionesComponent implements OnInit {
 
   publicaciones: any[] = [];
   usuarioLogueadoId: string = '';
-  usuarioNombre: string = '';
+  //usuarioNombre: string = '';
   rolUsuario: string = '';
 
   // Controladores del Modal
   isModalOpen: boolean = false;
   nuevoTitulo: string = '';
   nuevaDescripcion: string = '';
-  nuevaImagenUrl: string = '';
+  //nuevaImagenUrl: string = '';
+  archivoSeleccionado: File | null = null;
 
   // Variables de control para la paginación / scroll infinito
   limite: number = 10;
   offset: number = 0;
   cargando: boolean = false;
-
   todasCargadas: boolean = false;
 
   ordenSeleccionado: 'fecha' | 'likes' = 'fecha';
   mostrarModalConfirmacion: boolean = false;
   publicacionAEliminarId: string | null = null;
-
-  public archivoSeleccionado: File | null = null;
 
   constructor(
     private publicacionesService: PublicacionesService,
@@ -163,7 +162,7 @@ export class PublicacionesComponent implements OnInit {
     this.mostrarModalConfirmacion = false;
     this.nuevoTitulo = '';
     this.nuevaDescripcion = '';
-    this.nuevaImagenUrl = '';
+    //this.nuevaImagenUrl = '';
     this.cdr.detectChanges();
   }
 
@@ -208,7 +207,7 @@ export class PublicacionesComponent implements OnInit {
     });
   }
   // 2. Dar o quitar Me Gusta
-  toggleMeGusta(post: any) {
+  manejarToggleLike(post: any) {
     if (post.likedByMe) {
       this.publicacionesService.quitarMegusta(post._id).subscribe({
         next: () => {
@@ -295,10 +294,8 @@ export class PublicacionesComponent implements OnInit {
     });
   }
 
-  // 5. Toggle comentarios (Placeholder para cuando abras la sección de comentarios)
-  toggleComentarios(post: any) {
+  // 5. Ver comentarios (Placeholder para cuando abras la sección de comentarios)
+  verComentarios(post: any) {
     console.log('Ver comentarios de la publicación:', post._id);
   }
-
-
 }
