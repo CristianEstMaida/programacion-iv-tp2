@@ -5,6 +5,16 @@ import { catchError, throwError } from 'rxjs';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const router = inject(Router);
+
+  // Si la ruta es de autenticación (login, registro o refrescar), la dejamos pasar directo sin tocarla
+  if (
+    req.url.includes('/autenticacion/login') || 
+    req.url.includes('/autenticacion/registro') || 
+    req.url.includes('/autenticacion/refrescar')
+  ) {
+    return next(req);
+  }
+
   const token = localStorage.getItem('access_token');
 
   // 1. Si hay token, lo clonamos y lo inyectamos en los headers automáticamente
