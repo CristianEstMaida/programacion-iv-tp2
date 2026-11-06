@@ -1,5 +1,6 @@
 import { Controller, Get, Post, Put, Param, Body, Query, UseGuards, Req } from '@nestjs/common';
 import { ComentariosService } from './comentarios.service.js';
+import { JwtAuthGuard } from '../guards/jwt-auth/jwt-auth.guard.js';
 
 @Controller('publicaciones') // Las rutas base empiezan con /publicaciones
 export class ComentariosController {
@@ -7,6 +8,7 @@ export class ComentariosController {
 
   // GET: Traer comentarios de una publicación con paginación y ordenados por más recientes
   @Get(':publicacionId/comentarios')
+  @UseGuards(JwtAuthGuard)
   async obtenerComentarios(
     @Param('publicacionId') publicacionId: string,
     @Query('page') page: number = 1,
@@ -17,7 +19,7 @@ export class ComentariosController {
 
   // POST: Agregar un comentario a una publicación
   @Post(':publicacionId/comentarios')
-  // @UseGuards(JwtAuthGuard) // Tu guardia si lo usas
+  @UseGuards(JwtAuthGuard) // Tu guardia si lo usas
   async agregarComentario(
     @Param('publicacionId') publicacionId: string,
     @Body() body: { mensaje: string },
@@ -30,7 +32,7 @@ export class ComentariosController {
 
   // PUT: Modificar el mensaje y marcar modificado: true
   @Put('comentarios/:id')
-  // @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)
   async modificarComentario(
     @Param('id') id: string,
     @Body() body: { mensaje: string },

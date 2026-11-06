@@ -6,7 +6,7 @@ export class Comentario extends Document {
   @Prop({ type: Types.ObjectId, ref: 'Publicacion', required: true })
   publicacion: Types.ObjectId;
 
-  @Prop({ type: Types.ObjectId, ref: 'User', required: true }) // Cambia 'User' por el nombre de tu modelo de usuario
+  @Prop({ type: Types.ObjectId, ref: 'Usuario', required: true }) // Cambia 'User' por el nombre de tu modelo de usuario
   usuario: Types.ObjectId;
 
   @Prop({ required: true, trim: true })

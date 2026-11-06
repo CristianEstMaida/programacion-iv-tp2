@@ -38,6 +38,17 @@ export class PublicacionesComponent implements OnInit {
   mostrarModalConfirmacion: boolean = false;
   publicacionAEliminarId: string | null = null;
 
+  // --- VARIABLES PARA EL MANEJO DE COMENTARIOS ---
+  publicacionSeleccionada: any = null; // Si tiene objeto, se abre el modal/detalle
+  comentarios: any[] = [];
+  page: number = 1;
+  limit: number = 5; // Límite inicial de comentarios por tanda
+  hasMore: boolean = true;
+  nuevoComentarioTexto: string = '';
+  comentarioEnEdicionId: string | null = null;
+  textoEditado: string = '';
+
+
   constructor(
     private publicacionesService: PublicacionesService,
     private cdr: ChangeDetectorRef
@@ -295,7 +306,101 @@ export class PublicacionesComponent implements OnInit {
   }
 
   // 5. Ver comentarios (Placeholder para cuando abras la sección de comentarios)
+  // verComentarios(post: any) {
+  //   console.log('Ver comentarios de la publicación:', post._id);
+  // }
+  
+  // 1. Cuando hacen clic en "Comentarios" en la card, abrimos el detalle y cargamos los primeros comentarios
   verComentarios(post: any) {
-    console.log('Ver comentarios de la publicación:', post._id);
+    this.publicacionSeleccionada = post;
+    this.cargarComentarios(true);
+  }
+
+  cerrarDetalleComentarios() {
+    this.publicacionSeleccionada = null;
+    this.comentarios = [];
+    this.page = 1;
+    this.hasMore = true;
+    this.cdr.detectChanges();
+  }
+
+  // 2. GET: Cargar comentarios con paginación (ordenados por fecha descendente desde el back)
+  cargarComentarios(reiniciar: boolean = false) {
+    if (!this.publicacionSeleccionada) return;
+    const postId = this.publicacionSeleccionada._id || this.publicacionSeleccionada.id;
+
+    if (reiniciar) {
+      this.page = 1;
+      this.comentarios = [];
+    }
+
+    // Llamada a tu servicio backend (ajusta el nombre del método según tu service)
+    this.publicacionesService.obtenerComentarios(postId, this.page, this.limit).subscribe({
+      next: (res: any) => {
+        const nuevos = res.data ? res.data : res;
+        
+        if (reiniciar) {
+          this.comentarios = nuevos;
+        } else {
+          this.comentarios = [...this.comentarios, ...nuevos];
+        }
+
+        // Si trae menos del límite o llegamos al final, ocultamos el botón "Cargar más"
+        if (nuevos.length < this.limit || (res.totalPages && this.page >= res.totalPages)) {
+          this.hasMore = false;
+        }
+        this.cdr.detectChanges();
+      },
+      error: (err: any) => console.error('Error al cargar comentarios', err)
+    });
+  }
+
+  cargarMasComentarios() {
+    this.page++;
+    this.cargarComentarios(false);
+  }
+
+  // 3. POST: Agregar nuevo comentario
+  agregarComentario() {
+    if (!this.nuevoComentarioTexto.trim() || !this.publicacionSeleccionada) return;
+    const postId = this.publicacionSeleccionada._id || this.publicacionSeleccionada.id;
+
+    this.publicacionesService.crearComentario(postId, { mensaje: this.nuevoComentarioTexto }).subscribe({
+      next: () => {
+        this.nuevoComentarioTexto = '';
+        this.cargarComentarios(true); // Recargamos desde la página 1 para ver el nuevo arriba
+      },
+      error: (err: any) => console.error('Error al crear comentario', err)
+    });
+  }
+
+  // 4. Validar si el comentario es propio para mostrar el botón de Editar
+  esComentarioPropio(c: any): boolean {
+    const autorId = c.usuario?._id || c.usuario?.id || c.usuario;
+    return String(autorId) === String(this.usuarioLogueadoId);
+  }
+
+  iniciarEdicion(c: any) {
+    this.comentarioEnEdicionId = c._id || c.id;
+    this.textoEditado = c.mensaje;
+  }
+
+  cancelarEdicion() {
+    this.comentarioEnEdicionId = null;
+    this.textoEditado = '';
+  }
+
+  // 5. PUT: Guardar edición de comentario (el backend se encarga de poner modificado: true)
+  guardarEdicion(comentarioId: string) {
+    if (!this.textoEditado.trim()) return;
+
+    this.publicacionesService.editarComentario(comentarioId, { mensaje: this.textoEditado }).subscribe({
+      next: () => {
+        this.comentarioEnEdicionId = null;
+        this.textoEditado = '';
+        this.cargarComentarios(true); // Refrescamos para ver el cartel de (Editado)
+      },
+      error: (err: any) => console.error('Error al editar comentario', err)
+    });
   }
 }
