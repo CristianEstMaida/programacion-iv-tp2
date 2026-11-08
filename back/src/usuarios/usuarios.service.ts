@@ -90,4 +90,27 @@ export class UsuariosService {
     }
     return { message: 'Usuario eliminado correctamente', id };
   }
+
+  // 2. Método para la baja lógica (cambiar activo a false)
+  async bajaLogica(id: string) {
+    return await this.usuarioModel.findByIdAndUpdate(
+      id, 
+      { activo: false }, 
+      { new: true }
+    );
+  }
+
+  // 3. Método para la alta lógica (rehabilitar, cambiar activo a true)
+  async rehabilitar(id: string) {
+    return await this.usuarioModel.findByIdAndUpdate(
+      id, 
+      { activo: true }, 
+      { new: true }
+    );
+  }
+
+  // (Tus otros métodos como findAll, registrar, etc.)
+  // async findAll() {
+  //   return await this.usuarioModel.find();
+  // }
 }

@@ -6,6 +6,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { CloudinaryService } from '../cloudinary/cloudinary.service.js';
 import { JwtAuthGuard } from '../guards/jwt-auth/jwt-auth.guard.js';
+import { AdminGuard } from '../guards/jwt-auth/admin.guard.js';
 
 @Controller('usuarios')
 export class UsuariosController {
@@ -59,8 +60,19 @@ export class UsuariosController {
     return this.usuariosService.update(id, updateUsuarioDto);
   }
 
+  // Baja lógica (Solo Admin)
+  @UseGuards(JwtAuthGuard, AdminGuard)
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.usuariosService.remove(id);
+    return this.usuariosService.bajaLogica(id);
   }
+
+
+  // Alta lógica / Rehabilitar (Solo Admin)
+  @UseGuards(JwtAuthGuard, AdminGuard)
+  @Patch(':id/activar')
+  rehabilitar(@Param('id') id: string) {
+    return this.usuariosService.rehabilitar(id); // Llamas al método del servicio
+  }
+  
 }
