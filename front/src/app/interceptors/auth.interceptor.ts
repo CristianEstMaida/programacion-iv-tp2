@@ -34,6 +34,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
         // Token vencido o rechazo del backend: limpiamos y mandamos al login
         localStorage.removeItem('access_token');
         localStorage.removeItem('token_expiration');
+        localStorage.removeItem('rol');
         router.navigate(['/login']);
       }
       return throwError(() => error);

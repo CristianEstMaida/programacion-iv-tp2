@@ -23,7 +23,7 @@ import { FadeInDirective } from '../../directives/fade-in.directive';
 })
 export class DashboardUsuariosComponent implements OnInit {
   usuarios: any[] = [];
-  private apiUrl = 'http://localhost:3000/api/usuarios'; // Ajusta tu URL del back
+  private apiUrl = 'https://programacion-iv-tp2-back.vercel.app/api/usuarios'; // Ajusta tu URL del back
 
   constructor(private http: HttpClient) {}
 
@@ -32,10 +32,8 @@ export class DashboardUsuariosComponent implements OnInit {
   }
 
   cargarUsuarios() {
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-
-    this.http.get<any[]>(this.apiUrl, { headers }).subscribe({
+    
+    this.http.get<any[]>(this.apiUrl).subscribe({
       next: (data) => this.usuarios = data,
       error: (err) => console.error('Error al cargar usuarios:', err)
     });
@@ -43,10 +41,7 @@ export class DashboardUsuariosComponent implements OnInit {
 
   // Baja lógica (DELETE /usuarios/:id)
   darDeBaja(id: string) {
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-
-    this.http.delete(`${this.apiUrl}/${id}`, { headers }).subscribe({
+    this.http.delete(`${this.apiUrl}/${id}`).subscribe({
       next: () => this.cargarUsuarios(), // Recarga la lista
       error: (err) => console.error('Error al dar de baja:', err)
     });
@@ -54,10 +49,7 @@ export class DashboardUsuariosComponent implements OnInit {
 
   // Alta lógica (PATCH /usuarios/:id/activar)
   activarUsuario(id: string) {
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-
-    this.http.patch(`${this.apiUrl}/${id}/activar`, {}, { headers }).subscribe({
+    this.http.patch(`${this.apiUrl}/${id}/activar`, {}).subscribe({
       next: () => this.cargarUsuarios(), // Recarga la lista
       error: (err) => console.error('Error al activar usuario:', err)
     });
