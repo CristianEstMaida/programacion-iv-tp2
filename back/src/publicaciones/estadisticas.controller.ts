@@ -1,4 +1,4 @@
-import { Controller, Get, UseGuards } from '@nestjs/common';
+import { Controller, Get, Query, UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from '../guards/jwt-auth/jwt-auth.guard.js';
 import { AdminGuard } from '../guards/jwt-auth/admin.guard.js';
 import { PublicacionesService } from './publicaciones.service.js';
@@ -8,15 +8,30 @@ import { PublicacionesService } from './publicaciones.service.js';
 export class EstadisticasController {
   constructor(private readonly publicacionesService: PublicacionesService) {}
 
-  // GET: Total de publicaciones y métricas generales
-  @Get('resumen')
-  async getResumen() {
-    return await this.publicacionesService.obtenerResumenEstadisticas();
+ // 1. Cantidad de publicaciones por usuario en un lapso de tiempo
+  @Get('publicaciones-por-usuario')
+  async getPublicacionesPorUsuario(
+    @Query('inicio') inicio: string,
+    @Query('fin') fin: string,
+  ) {
+    return await this.publicacionesService.obtenerPublicacionesPorUsuario(inicio, fin);
   }
 
-  // GET: Publicaciones agrupadas por mes o por día (ideal para gráficos de líneas/barras)
-  @Get('por-fecha')
-  async getPublicacionesPorFecha() {
-    return await this.publicacionesService.obtenerPublicacionesPorFecha();
+  // 2. Cantidad total de comentarios realizados en un lapso de tiempo
+  @Get('total-comentarios')
+  async getTotalComentarios(
+    @Query('inicio') inicio: string,
+    @Query('fin') fin: string,
+  ) {
+    return await this.publicacionesService.obtenerTotalComentariosPorTiempo(inicio, fin);
+  }
+
+  // 3. Cantidad de comentarios en cada publicación en un lapso de tiempo
+  @Get('comentarios-por-publicacion')
+  async getComentariosPorPublicacion(
+    @Query('inicio') inicio: string,
+    @Query('fin') fin: string,
+  ) {
+    return await this.publicacionesService.obtenerComentariosPorPublicacion(inicio, fin);
   }
 }

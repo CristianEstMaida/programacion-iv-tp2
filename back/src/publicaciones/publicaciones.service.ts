@@ -4,11 +4,13 @@ import { Model } from 'mongoose';
 import { CreatePublicacioneDto } from './dto/create-publicacione.dto.js';
 import { UpdatePublicacioneDto } from './dto/update-publicacione.dto.js';
 import { Publicacion, PublicacionDocument } from './schemas/publicacion.schema.js'; // Ajusta la ruta a tu esquema si es necesario
+import { Comentario, ComentarioDocument } from './schemas/comentario.schema.js';
 
 @Injectable()
 export class PublicacionesService {
   constructor(
     @InjectModel(Publicacion.name) private publicacionModel: Model<PublicacionDocument>,
+    @InjectModel(Comentario.name) private comentarioModel: Model<ComentarioDocument>,
   ) {}
 
   // 1. CREAR: Guarda la publicación asociada al usuario logueado
@@ -156,28 +158,74 @@ export class PublicacionesService {
     return publicacionActualizada;
   }
 
-  // 1. Resumen básico de totales
-  async obtenerResumenEstadisticas() {
-    const totalPublicaciones = await this.publicacionModel.countDocuments();
-    // Si también quieres sumar usuarios, puedes inyectar el modelo de usuario o mantenerlo acotado a publicaciones
-    return {
-      totalPublicaciones,
-      // Puedes agregar más métricas clave aquí según lo que muestre tu gráfico
-    };
-  }
+  // 1. Publicaciones por cada usuario en un lapso de tiempo
+  async obtenerPublicacionesPorUsuario(fechaInicio: string, fechaFin: string) {
+    // Convertimos las fechas a objetos Date (si no mandan nada, podemos poner un rango amplio o validar)
+    const inicio = fechaInicio ? new Date(fechaInicio) : new Date('2000-01-01');
+    const fin = fechaFin ? new Date(fechaFin) : new Date();
+    fin.setHours(23, 59, 59, 999); // Para que incluya todo el último día
 
-  // 2. Agregación para gráficos (ej: cantidad de publicaciones por fecha de creación)
-  async obtenerPublicacionesPorFecha() {
     return await this.publicacionModel.aggregate([
       {
-        $group: {
-          _id: {
-            $dateToString: { format: "%Y-%m-%d", date: "$createdAt" } // Agrupa por año-mes-día
-          },
-          cantidad: { $sum: 1 } // Cuenta cuántas se hicieron en esa fecha
+        $match: {
+          createdAt: { $gte: inicio, $lte: fin } //  Filtra por el lapso de tiempo
         }
       },
-      { $sort: { "_id": 1 } } // Ordena cronológicamente
+      {
+        $group: {
+          _id: "$usuario", // Agrupa por el ID del usuario creador
+          totalPublicaciones: { $sum: 1 }
+        }
+      },
+      {
+        $lookup: { // Opcional: para traer el nombre del usuario en vez de ver solo el ID
+          from: 'usuarios',
+          localField: '_id',
+          foreignField: '_id',
+          as: 'usuarioInfo'
+        }
+      }
+    ]);
+  }
+
+  // 2. Comentarios en cada publicación en un lapso de tiempo
+  async obtenerComentariosPorPublicacion(fechaInicio: string, fechaFin: string) {
+    const inicio = fechaInicio ? new Date(fechaInicio) : new Date('2000-01-01');
+    const fin = fechaFin ? new Date(fechaFin) : new Date();
+    fin.setHours(23, 59, 59, 999);
+
+    // Si manejas los comentarios en su propio modelo (ComentarioModel):
+    return await this.comentarioModel.aggregate([
+      {
+        $match: {
+          createdAt: { $gte: inicio, $lte: fin } //  Filtra comentarios en ese lapso
+        }
+      },
+      {
+        $group: {
+          _id: "$publicacion", // Agrupa por ID de la publicación
+          totalComentarios: { $sum: 1 }
+        }
+      }
+    ]);
+  }
+
+  // 3. Cantidad total de comentarios realizados en un lapso de tiempo
+  async obtenerTotalComentariosPorTiempo(fechaInicio: string, fechaFin: string) {
+    const inicio = fechaInicio ? new Date(fechaInicio) : new Date('2000-01-01');
+    const fin = fechaFin ? new Date(fechaFin) : new Date();
+    fin.setHours(23, 59, 59, 999);
+
+    // Cuenta cuántos comentarios se hicieron en total en ese período
+    return await this.comentarioModel.aggregate([
+      {
+        $match: {
+          createdAt: { $gte: inicio, $lte: fin }
+        }
+      },
+      {
+        $count: "totalComentarios"
+      }
     ]);
   }
 }
