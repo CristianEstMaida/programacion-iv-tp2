@@ -19,6 +19,10 @@
       <a routerLink="/perfil" routerLinkActive="active" class="nav-item">
         <span class="material-symbols-outlined">person</span> Mi Perfil
       </a>
+
+      <a *ngIf="esAdmin" routerLink="/dashboard/usuarios" routerLinkActive="active" class="nav-item admin-link">
+        <span class="material-symbols-outlined">admin_panel_settings</span> Dashboard Usuarios
+      </a>
     </nav>
 
     <div class="sidebar-footer">

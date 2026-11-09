@@ -19,6 +19,7 @@ export class App implements OnInit, OnDestroy{
   public mostrarModalExpiracion = false;
   public cargando = true; 
   mostrarModalInactividad = false;
+  esAdmin = false;
   // private apiUrl = 'https://programacion-iv-tp2-back.vercel.app/api';
 
   constructor(private router: Router, private cdr: ChangeDetectorRef, private authService: Auth, private http: HttpClient) {
@@ -35,7 +36,20 @@ export class App implements OnInit, OnDestroy{
   }
 
   ngOnInit() {
+    this.verificarRolAdmin();
     this.verificarTokenInicial();
+  }
+
+  verificarRolAdmin() {
+    // Leemos el rol que guardamos en el localStorage al hacer login
+    const rol = localStorage.getItem('rol');
+    
+    // Comprobamos si coincide con admin o administrador
+    if (rol === 'admin' || rol === 'administrador') {
+      this.esAdmin = true;
+    } else {
+      this.esAdmin = false;
+    }
   }
 
   async verificarTokenInicial() {
