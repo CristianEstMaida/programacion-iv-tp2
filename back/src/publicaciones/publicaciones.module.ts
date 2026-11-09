@@ -9,6 +9,7 @@ import { CloudinaryService } from '../cloudinary/cloudinary.service.js';
 import { ComentariosController } from './comentarios.controller.js'; // Asegúrate de que la ruta sea correcta
 import { ComentariosService } from './comentarios.service.js'; // Asegúrate de que la ruta sea correcta
 import { Comentario, ComentarioSchema } from './schemas/comentario.schema.js';
+import { EstadisticasController } from './estadisticas.controller.js';
 
 @Module({
   imports: [
@@ -20,7 +21,7 @@ import { Comentario, ComentarioSchema } from './schemas/comentario.schema.js';
     ]),
     AutenticacionModule,
   ],
-  controllers: [PublicacionesController, ComentariosController], // Asegúrate de que ComentariosController esté importado
+  controllers: [PublicacionesController, ComentariosController, EstadisticasController], // Asegúrate de que ComentariosController y EstadisticasController estén importados
   providers: [PublicacionesService, CloudinaryService, ComentariosService], // Asegúrate de que CloudinaryService y ComentariosService estén importados y registrados
 })
 export class PublicacionesModule {}

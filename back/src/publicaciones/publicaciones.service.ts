@@ -155,4 +155,29 @@ export class PublicacionesService {
 
     return publicacionActualizada;
   }
+
+  // 1. Resumen básico de totales
+  async obtenerResumenEstadisticas() {
+    const totalPublicaciones = await this.publicacionModel.countDocuments();
+    // Si también quieres sumar usuarios, puedes inyectar el modelo de usuario o mantenerlo acotado a publicaciones
+    return {
+      totalPublicaciones,
+      // Puedes agregar más métricas clave aquí según lo que muestre tu gráfico
+    };
+  }
+
+  // 2. Agregación para gráficos (ej: cantidad de publicaciones por fecha de creación)
+  async obtenerPublicacionesPorFecha() {
+    return await this.publicacionModel.aggregate([
+      {
+        $group: {
+          _id: {
+            $dateToString: { format: "%Y-%m-%d", date: "$createdAt" } // Agrupa por año-mes-día
+          },
+          cantidad: { $sum: 1 } // Cuenta cuántas se hicieron en esa fecha
+        }
+      },
+      { $sort: { "_id": 1 } } // Ordena cronológicamente
+    ]);
+  }
 }
