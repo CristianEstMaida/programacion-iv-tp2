@@ -13,34 +13,36 @@
         </tr>
       </thead>
       <tbody>
-        <!-- Mostramos los usuarios usando la Pipe filtroActivos (ej: solo los activos, o quítala si quieres ver todos) -->
-        <tr *ngFor="let usuario of usuarios | filtroActivos:true" appHover="#f8fafc">
-          <td>{{ usuario.nombre | capitalize }} {{ usuario.apellido | capitalize }}</td>
-          <td>{{ usuario.email }}</td>
+        <!-- Iteramos directamente el array completo con tu directiva de hover -->
+        <tr *ngFor="let u of usuarios" appHover="#f8fafc">
+          <td>{{ u.nombre | capitalize }} {{ u.apellido | capitalize }}</td>
+          <td>{{ u.email }}</td>
           
-          <!-- Usando la Directiva RolStyle -->
           <td>
-            <span class="badge" [appRolStyle]="usuario.perfil">
-              {{ usuario.perfil | capitalize }}
+            <span class="badge" [appRolStyle]="u.perfil">
+              {{ u.perfil | capitalize }}
             </span>
           </td>
 
           <td>
-            <span [ngClass]="usuario.activo ? 'text-success fw-bold' : 'text-danger'">
-              {{ usuario.activo ? 'Activo' : 'Inactivo' }}
+            <span [class.text-activo]="u.activo" [class.text-inactivo]="!u.activo">
+              {{ u.activo ? 'Activo' : 'Inactivo' }}
             </span>
           </td>
 
           <td>
-            <!-- Botón de baja lógica si está activo -->
-            <button *ngIf="usuario.activo" class="btn btn-danger" (click)="darDeBaja(usuario._id)">
+            <button *ngIf="u.activo" class="btn-custom btn-baja" (click)="darDeBaja(u._id)">
               Dar de baja
             </button>
-            <!-- Botón de reactivación si está inactivo -->
-            <button *ngIf="!usuario.activo" class="btn btn-success" (click)="activarUsuario(usuario._id)">
-              Reactivar
+            <button *ngIf="!u.activo" class="btn-custom btn-activar" (click)="activarUsuario(u._id)">
+              Activar
             </button>
           </td>
+        </tr>
+
+        <!-- Mensaje si la lista está completamente vacía -->
+        <tr *ngIf="!usuarios || usuarios.length === 0">
+          <td colspan="5" class="empty-message">No hay usuarios registrados.</td>
         </tr>
       </tbody>
     </table>
