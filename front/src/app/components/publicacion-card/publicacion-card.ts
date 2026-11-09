@@ -1,11 +1,13 @@
 import { Component, Input, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { TruncatePipe } from '../../pipes/truncate.pipe';
+import { CapitalizePipe } from '../../pipes/capitalize.pipe';
 
 @Component({
   selector: 'app-publicacion-card',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, TruncatePipe, CapitalizePipe],
   templateUrl: './publicacion-card.html',
   styleUrls: ['./publicacion-card.css']
 })

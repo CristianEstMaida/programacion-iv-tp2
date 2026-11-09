@@ -47,6 +47,7 @@ errorMessage = signal('');
       this.authService.login(this.loginForm.value).subscribe({
         next: (res: any) => {
           localStorage.setItem('access_token', res.access_token);
+          localStorage.setItem('rol', res.usuario.perfil);
 
           // 2. Calcular y guardar el tiempo de expiración (extraído del payload del JWT)
           const tokenData = JSON.parse(atob(res.access_token.split('.')[1]));

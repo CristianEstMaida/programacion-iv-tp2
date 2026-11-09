@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { MiPerfilComponent } from './components/mi-perfil/mi-perfil.component';
+import { AdminGuard } from './components/guards/admin.guard';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -19,7 +19,12 @@ export const routes: Routes = [
   },
   { 
     path: 'perfil', 
-    loadComponent: () => import('./components/mi-perfil/mi-perfil.component').then(m => MiPerfilComponent) 
+    loadComponent: () => import('./components/mi-perfil/mi-perfil.component').then(m => m.MiPerfilComponent) 
+  },
+  {
+    path: 'dashboard/usuarios',
+    loadComponent: () => import('./components/dashboard-usuarios/dashboard-usuarios.component').then(m => m.DashboardUsuariosComponent),
+    canActivate: [AdminGuard] // Solo los administradores pueden entrar aquí
   },
 
   { path: '**', redirectTo: 'login' }

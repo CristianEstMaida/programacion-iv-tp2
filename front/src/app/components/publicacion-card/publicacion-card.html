@@ -7,7 +7,7 @@
       </div>
       <div>
         <h4 class="author-name">
-          {{ publicacion.usuario?.nombre || 'Usuario' }} {{ publicacion.usuario?.apellido || '' }}
+          {{ publicacion.usuario?.nombre || 'Usuario' | capitalize }} {{ publicacion.usuario?.apellido || '' | capitalize }}
         </h4>
         <span class="fecha">{{ publicacion.createdAt | date:'dd/MM/yyyy HH:mm' }}</span>
       </div>
@@ -21,7 +21,7 @@
   <!-- Contenido del Post -->
   <div class="post-body">
     <h3 class="post-title">{{ publicacion.titulo }}</h3>
-    <p class="post-text">{{ publicacion.descripcion }}</p>
+    <p class="post-text">{{ publicacion.descripcion | truncate:40 }}</p>
     
     <div *ngIf="publicacion.imagenUrl" class="post-image-container">
       <img [src]="publicacion.imagenUrl" alt="Imagen de publicación" class="post-image">

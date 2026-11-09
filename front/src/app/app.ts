@@ -161,6 +161,7 @@ export class App implements OnInit, OnDestroy{
     this.limpiarTimers();
     localStorage.removeItem('access_token');
     localStorage.removeItem('token_expiration');
+    localStorage.removeItem('rol');
     this.mostrarModalExpiracion = false;
     this.cargando = false;
     this.cdr.detectChanges();

@@ -9,7 +9,7 @@
       </ng-container>
       <ng-template #sinImagen>
         <div class="avatar-inicial" style="width: 80px; height: 80px; border-radius: 50%; background: #5c6bc0; color: white; display: flex; align-items: center; justify-content: center; font-size: 32px; margin: 0 auto;">
-          {{ usuario.nombre ? usuario.nombre.charAt(0).toUpperCase() : 'C' }}
+          {{ usuario.nombre | capitalize }}
         </div>
       </ng-template>
     </div>

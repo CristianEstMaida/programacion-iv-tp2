@@ -1,0 +1,48 @@
+<div class="container">
+  <h2>Panel de Gestión de Usuarios (Administrador)</h2>
+
+  <div class="card" appFadeIn>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Nombre y Apellido</th>
+          <th>Email</th>
+          <th>Perfil / Rol</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Mostramos los usuarios usando la Pipe filtroActivos (ej: solo los activos, o quítala si quieres ver todos) -->
+        <tr *ngFor="let usuario of usuarios | filtroActivos:true" appHover="#f8fafc">
+          <td>{{ usuario.nombre | capitalize }} {{ usuario.apellido | capitalize }}</td>
+          <td>{{ usuario.email }}</td>
+          
+          <!-- Usando la Directiva RolStyle -->
+          <td>
+            <span class="badge" [appRolStyle]="usuario.perfil">
+              {{ usuario.perfil | capitalize }}
+            </span>
+          </td>
+
+          <td>
+            <span [ngClass]="usuario.activo ? 'text-success fw-bold' : 'text-danger'">
+              {{ usuario.activo ? 'Activo' : 'Inactivo' }}
+            </span>
+          </td>
+
+          <td>
+            <!-- Botón de baja lógica si está activo -->
+            <button *ngIf="usuario.activo" class="btn btn-danger" (click)="darDeBaja(usuario._id)">
+              Dar de baja
+            </button>
+            <!-- Botón de reactivación si está inactivo -->
+            <button *ngIf="!usuario.activo" class="btn btn-success" (click)="activarUsuario(usuario._id)">
+              Reactivar
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
