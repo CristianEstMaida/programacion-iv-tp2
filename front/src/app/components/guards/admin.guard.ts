@@ -5,7 +5,7 @@ export const AdminGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
   
   // Verificamos si el usuario está logueado y si su rol es admin
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem('access_token');
   const rolGuardado = localStorage.getItem('rol');
   
   // Limpiamos el rol: pasamos a minúsculas y sacamos espacios por si acaso
