@@ -34,7 +34,10 @@ export class DashboardUsuariosComponent implements OnInit {
   cargarUsuarios() {
     
     this.http.get<any[]>(this.apiUrl).subscribe({
-      next: (data) => this.usuarios = data,
+      next: (data) => {
+        this.usuarios = data;
+        console.log('Usuarios guardados en la variable:', this.usuarios); // 👈 Mira esto en la consola del navegador (F12)
+        },
       error: (err) => console.error('Error al cargar usuarios:', err)
     });
   }
