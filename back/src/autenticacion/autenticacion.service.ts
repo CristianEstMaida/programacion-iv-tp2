@@ -89,9 +89,8 @@ export class AutenticacionService {
     // Definimos el payload con los datos esenciales (id/correo y rol) tal como en tu login
     const payload = { 
       sub: user.sub || user.id, 
-      correo: user.correo, 
-      nombre: user.nombre, 
-      rol: user.rol 
+      identificador: user.identificador || user.correo || user.email, 
+      perfil: user.perfil || user.rol, 
     };
 
     // Firmamos y devolvemos un nuevo token (aquí mantienes el tiempo de expiración, ej: '15m' o '20s')
