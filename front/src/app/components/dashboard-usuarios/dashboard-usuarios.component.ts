@@ -6,6 +6,7 @@ import { CapitalizePipe } from '../../pipes/capitalize.pipe';
 import { RolStyleDirective } from '../../directives/rol-style.directive';
 import { HoverDirective } from '../../directives/hover.directive';
 import { FadeInDirective } from '../../directives/fade-in.directive';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-dashboard-usuarios',
@@ -16,7 +17,8 @@ import { FadeInDirective } from '../../directives/fade-in.directive';
     CapitalizePipe, 
     RolStyleDirective,
     HoverDirective,
-    FadeInDirective
+    FadeInDirective,
+    FormsModule
   ],
   templateUrl: './dashboard-usuarios.component.html',
   styleUrls: ['./dashboard-usuarios.component.css']
