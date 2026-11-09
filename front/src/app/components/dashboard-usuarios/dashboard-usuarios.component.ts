@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { FiltroActivosPipe } from '../../pipes/filtro-activos.pipe';
@@ -25,7 +25,7 @@ export class DashboardUsuariosComponent implements OnInit {
   usuarios: any[] = [];
   private apiUrl = 'https://programacion-iv-tp2-back.vercel.app/api/usuarios'; // Ajusta tu URL del back
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this.cargarUsuarios();
@@ -37,7 +37,8 @@ export class DashboardUsuariosComponent implements OnInit {
       next: (data) => {
         this.usuarios = data;
         console.log('Usuarios guardados en la variable:', this.usuarios); // 👈 Mira esto en la consola del navegador (F12)
-        },
+        this.cdr.detectChanges(); // Forzar la detección de cambios
+      },
       error: (err) => console.error('Error al cargar usuarios:', err)
     });
   }
