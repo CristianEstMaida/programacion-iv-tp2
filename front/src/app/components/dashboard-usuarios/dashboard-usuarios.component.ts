@@ -25,6 +25,18 @@ export class DashboardUsuariosComponent implements OnInit {
   usuarios: any[] = [];
   private apiUrl = 'https://programacion-iv-tp2-back.vercel.app/api/usuarios'; // Ajusta tu URL del back
 
+  mostrarFormulario: boolean = false;
+
+  // Objeto para capturar los datos del formulario (mismos campos que el registro)
+  nuevoUsuario = {
+    nombre: '',
+    apellido: '',
+    email: '',
+    username: '',
+    password: '',
+    perfil: 'usuario' // Valor por defecto para los radio buttons
+  };
+
   constructor(private http: HttpClient, private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
@@ -56,6 +68,29 @@ export class DashboardUsuariosComponent implements OnInit {
     this.http.patch(`${this.apiUrl}/${id}/activar`, {}).subscribe({
       next: () => this.cargarUsuarios(), // Recarga la lista
       error: (err) => console.error('Error al activar usuario:', err)
+    });
+  }
+
+  crearUsuario() {
+    // Aseguramos que el username tome el email si no se llena aparte
+    this.nuevoUsuario.username = this.nuevoUsuario.email;
+
+    // Ajusta la URL según tu endpoint de registro o creación de usuarios del backend
+    const urlRegistro = 'https://programacion-iv-tp2-back.vercel.app/api/autenticacion/registro'; 
+    // o 'https://programacion-iv-tp2-back.vercel.app/api/usuarios' si creas usuarios directo como admin
+
+    this.http.post(urlRegistro, this.nuevoUsuario).subscribe({
+      next: (res) => {
+        console.log('Usuario creado con éxito', res);
+        this.mostrarFormulario = false;
+        this.cargarUsuarios(); // Recargamos la tabla para ver el nuevo registro
+        // Limpiar formulario
+        this.nuevoUsuario = { nombre: '', apellido: '', email: '', username: '', password: '', perfil: 'usuario' };
+      },
+      error: (err) => {
+        console.error('Error al crear usuario:', err);
+        alert('No se pudo crear el usuario. Revisa los datos.');
+      }
     });
   }
 }
