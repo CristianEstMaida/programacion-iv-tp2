@@ -1,0 +1,75 @@
+.estadisticas-container {
+  padding: 24px;
+  background-color: #f8fafc;
+  min-height: 100vh;
+}
+
+.estadisticas-container h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 20px;
+}
+
+/* Filtro de tiempo */
+.filtro-tiempo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+  background: #ffffff;
+  padding: 16px;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.filtro-tiempo label {
+  font-weight: 600;
+  color: #475569;
+  font-size: 0.95rem;
+}
+
+.input-control {
+  padding: 8px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  outline: none;
+  background-color: #fff;
+  transition: border-color 0.2s;
+}
+
+.input-control:focus {
+  border-color: #3b82f6;
+}
+
+/* Grilla de gráficos */
+.graficos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 20px;
+}
+
+.card-grafico {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.card-grafico h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #334155;
+  margin-top: 0;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+/* Ajuste para los canvas de Chart.js */
+canvas {
+  max-width: 100% !important;
+  height: auto !important;
+}

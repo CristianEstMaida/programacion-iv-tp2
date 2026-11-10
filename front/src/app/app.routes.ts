@@ -26,6 +26,12 @@ export const routes: Routes = [
     loadComponent: () => import('./components/dashboard-usuarios/dashboard-usuarios.component').then(m => m.DashboardUsuariosComponent),
     canActivate: [AdminGuard] // Solo los administradores pueden entrar aquí
   },
+  {
+    path: 'dashboard/estadisticas',
+    loadComponent: () => import('./components/dashboard-estadisticas/dashboard-estidisticas.component').then(m => m.DashboardEstadisticasComponent),
+    canActivate: [AdminGuard] // Solo los administradores pueden entrar aquí
+  },
+
 
   { path: '**', redirectTo: 'login' }
 ];
