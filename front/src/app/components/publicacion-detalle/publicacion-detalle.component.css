@@ -1,0 +1,23 @@
+.detalle-container {
+  padding: 20px;
+  max-width: 900px; /* Limitamos el ancho máximo de la pantalla de detalle */
+  margin: 0 auto;
+}
+
+.imagen-grande-container {
+  width: 100%;
+  max-height: 450px; /* 👈 Aquí limitamos la altura para que no sea gigante */
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  margin: 20px 0;
+}
+
+.imagen-grande {
+  width: 100%;
+  height: 100%;
+  max-height: 450px;
+  object-fit: contain; /* 👈 Hace que la imagen se adapte sin deformarse ni estirarse de más */
+}

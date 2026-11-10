@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
@@ -16,7 +16,8 @@ export class PublicacionDetalleComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private http: HttpClient
+    private http: HttpClient,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -31,6 +32,7 @@ export class PublicacionDetalleComponent implements OnInit {
     this.http.get<any>(`${this.apiUrl}/${id}`).subscribe({
       next: (data) => {
         this.publicacion = data;
+        this.cdr.detectChanges();
       },
       error: (err) => {
         console.error('Error al cargar el detalle de la publicación', err);

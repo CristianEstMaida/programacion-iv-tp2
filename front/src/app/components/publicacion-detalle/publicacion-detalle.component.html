@@ -1,11 +1,17 @@
 <div class="detalle-container" *ngIf="publicacion; else cargando">
-  <button routerLink="/feed" class="btn-volver">← Volver al Feed</button>
-
+  
   <div class="detalle-card">
     <h1>{{ publicacion.titulo }}</h1>
     
     <div class="autor-info" *ngIf="publicacion.usuario">
-      <p>Publicado por: <strong>{{ publicacion.usuario.nombre }} {{ publicacion.usuario.apellido }}</strong></p>
+      <p>
+        Publicado por: 
+        <strong>
+          <!-- Si 'usuario' es un objeto con nombre -->
+          {{ publicacion.usuario?.nombre || publicacion.usuario?.email || 'Usuario Anónimo' }}
+          {{ publicacion.usuario?.apellido || '' }}
+        </strong>
+      </p>
       <p class="fecha">{{ publicacion.createdAt | date:'dd/MM/yyyy HH:mm' }}</p>
     </div>
 

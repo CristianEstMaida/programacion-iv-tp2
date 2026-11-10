@@ -53,7 +53,11 @@ export class PublicacionesService {
   }
 
   async findOne(id: string) {
-    const pub = await this.publicacionModel.findById(id).exec();
+    const pub = await this.publicacionModel
+      .findById(id)
+      .populate('usuario', 'nombre apellido imagenPerfil')
+      .exec();
+      
     if (!pub || !pub.activo) {
       throw new NotFoundException(`Publicación con ID ${id} no encontrada`);
     }
