@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { AdminGuard } from './components/guards/admin.guard';
+import { PublicacionDetalleComponent } from './components/publicacion-detalle/publicacion-detalle.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -16,6 +17,10 @@ export const routes: Routes = [
   { 
     path: 'publicaciones', 
     loadComponent: () => import('./components/publicaciones/publicaciones.component').then(m => m.PublicacionesComponent) 
+  },
+  { 
+  path: 'publicaciones/:id', 
+    component: PublicacionDetalleComponent 
   },
   { 
     path: 'perfil', 

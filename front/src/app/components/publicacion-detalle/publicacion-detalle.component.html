@@ -1,0 +1,26 @@
+<div class="detalle-container" *ngIf="publicacion; else cargando">
+  <button routerLink="/feed" class="btn-volver">← Volver al Feed</button>
+
+  <div class="detalle-card">
+    <h1>{{ publicacion.titulo }}</h1>
+    
+    <div class="autor-info" *ngIf="publicacion.usuario">
+      <p>Publicado por: <strong>{{ publicacion.usuario.nombre }} {{ publicacion.usuario.apellido }}</strong></p>
+      <p class="fecha">{{ publicacion.createdAt | date:'dd/MM/yyyy HH:mm' }}</p>
+    </div>
+
+    <!-- Imagen en tamaño grande -->
+    <div class="imagen-grande-container" *ngIf="publicacion.imagenUrl">
+      <img [src]="publicacion.imagenUrl" alt="Imagen en detalle" class="imagen-grande">
+    </div>
+
+    <!-- Descripción completa sin recortes -->
+    <div class="descripcion-completa">
+      <p>{{ publicacion.descripcion }}</p>
+    </div>
+  </div>
+</div>
+
+<ng-template #cargando>
+  <p class="loading">Cargando detalles de la publicación...</p>
+</ng-template>

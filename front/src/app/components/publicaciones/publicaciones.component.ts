@@ -291,7 +291,7 @@ export class PublicacionesComponent implements OnInit {
   // 3. Esta es la función que se ejecuta cuando el usuario hace clic en "Eliminar" DENTRO del modal
   confirmarEliminacion() {
     if (!this.publicacionAEliminarId) return;
-
+    
     this.publicacionesService.eliminarPublicacion(this.publicacionAEliminarId).subscribe({
       next: () => {
         this.publicaciones = this.publicaciones.filter(p => p._id !== this.publicacionAEliminarId);

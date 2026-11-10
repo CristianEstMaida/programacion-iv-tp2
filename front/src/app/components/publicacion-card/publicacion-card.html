@@ -23,6 +23,13 @@
     <h3 class="post-title">{{ publicacion.titulo }}</h3>
     <p class="post-text">{{ publicacion.descripcion | truncate:40 }}</p>
     
+    <!-- Botón para ir a la pantalla grande de detalle -->
+    <div class="read-more-container">
+      <a [routerLink]="['/publicaciones', publicacion._id]" class="btn-ver-mas">
+        Ver más / Detalle completo
+      </a>
+    </div>
+
     <div *ngIf="publicacion.imagenUrl" class="post-image-container">
       <img [src]="publicacion.imagenUrl" alt="Imagen de publicación" class="post-image">
     </div>

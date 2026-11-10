@@ -58,6 +58,12 @@ export class PublicacionesController {
     });
   }
 
+  @UseGuards(JwtAuthGuard)
+  @Get(':id')
+  findOne(@Param('id') id: string) {
+    return this.publicacionesService.findOne(id);
+  }
+
   // 3. BAJA LÓGICA (Solo dueño o admin)
   @UseGuards(JwtAuthGuard)
   @Delete(':id')
