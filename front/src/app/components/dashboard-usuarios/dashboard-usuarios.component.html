@@ -11,14 +11,8 @@
   <div class="card form-card" *ngIf="mostrarFormulario" appFadeIn>
     <h3>Crear Nuevo Usuario</h3>
     
-    <!-- 🚨 CAJA DE ERRORES VISUAL (CSS Nativo) -->
-    <div class="alert-error" *ngIf="erroresFormulario.length > 0">
-      <p class="alert-title">Por favor corrige los siguientes errores:</p>
-      <ul>
-        <li *ngFor="let error of erroresFormulario">{{ error }}</li>
-      </ul>
-    </div>
     
+
     <form (ngSubmit)="crearUsuario()" class="custom-form">
       <div class="form-group">
         <label>Nombre</label>
@@ -78,6 +72,14 @@
             Administrador
           </label>
         </div>
+      </div>
+
+      <!-- 🚨 CAJA DE ERRORES VISUAL (CSS Nativo) -->
+      <div class="alert-error" *ngIf="erroresFormulario.length > 0">
+        <p class="alert-title">Por favor corrige los siguientes errores:</p>
+        <ul>
+            <li *ngFor="let error of erroresFormulario">{{ error }}</li>
+        </ul>
       </div>
 
       <button type="submit" class="btn-custom btn-activar">Guardar Usuario</button>

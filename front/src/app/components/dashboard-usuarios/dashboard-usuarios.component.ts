@@ -82,6 +82,12 @@ export class DashboardUsuariosComponent implements OnInit {
   crearUsuario() {
     this.erroresFormulario = [];
 
+    // Validación en frontend para evitar viajes inútiles al backend si falta algo clave
+    if (!this.nuevoUsuario.nombre || !this.nuevoUsuario.apellido || !this.nuevoUsuario.email || !this.nuevoUsuario.fechaNacimiento) {
+      this.erroresFormulario = ['Por favor complete los campos obligatorios principales, incluyendo la fecha de nacimiento.'];
+      return;
+    }
+
     // Validamos que las contraseñas coincidan antes de enviar
     if (this.nuevoUsuario.password !== this.nuevoUsuario.repetirPassword) {
       this.erroresFormulario = ['Las contraseñas no coinciden.'];
