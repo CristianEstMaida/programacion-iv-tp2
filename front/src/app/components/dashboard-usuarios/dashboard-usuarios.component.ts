@@ -29,6 +29,8 @@ export class DashboardUsuariosComponent implements OnInit {
 
   mostrarFormulario: boolean = false;
 
+  erroresFormulario: string[] = [];
+
   // Objeto para capturar los datos del formulario (mismos campos que el registro)
   nuevoUsuario = {
     nombre: '',
@@ -36,7 +38,11 @@ export class DashboardUsuariosComponent implements OnInit {
     email: '',
     username: '',
     password: '',
-    perfil: 'usuario' // Valor por defecto para los radio buttons
+    repetirPassword: '',
+    fechaNacimiento: '',   // Obligatorio
+    descripcion: '',       // Opcional o requerido según tu backend
+    imagenPerfil: '',      // Opcional o string por defecto
+    perfil: 'usuario',
   };
 
   constructor(private http: HttpClient, private cdr: ChangeDetectorRef) {}
@@ -74,8 +80,18 @@ export class DashboardUsuariosComponent implements OnInit {
   }
 
   crearUsuario() {
+    this.erroresFormulario = [];
+
+    // Validamos que las contraseñas coincidan antes de enviar
+    if (this.nuevoUsuario.password !== this.nuevoUsuario.repetirPassword) {
+      this.erroresFormulario = ['Las contraseñas no coinciden.'];
+      return;
+    }
+
     // Aseguramos que el username tome el email si no se llena aparte
-    this.nuevoUsuario.username = this.nuevoUsuario.email;
+    if (!this.nuevoUsuario.username) {
+      this.nuevoUsuario.username = this.nuevoUsuario.email;
+    }
 
     // Ajusta la URL según tu endpoint de registro o creación de usuarios del backend
     const urlRegistro = 'https://programacion-iv-tp2-back.vercel.app/api/autenticacion/registro'; 
@@ -85,13 +101,33 @@ export class DashboardUsuariosComponent implements OnInit {
       next: (res) => {
         console.log('Usuario creado con éxito', res);
         this.mostrarFormulario = false;
+        this.erroresFormulario = [];
         this.cargarUsuarios(); // Recargamos la tabla para ver el nuevo registro
         // Limpiar formulario
-        this.nuevoUsuario = { nombre: '', apellido: '', email: '', username: '', password: '', perfil: 'usuario' };
+        this.nuevoUsuario = {
+          nombre: '',
+          apellido: '',
+          email: '',
+          username: '',
+          password: '',
+          repetirPassword: '',
+          fechaNacimiento: '',
+          descripcion: '',
+          imagenPerfil: '',
+          perfil: 'usuario'
+        };
       },
       error: (err) => {
         console.error('Error al crear usuario:', err);
-        alert('No se pudo crear el usuario. Revisa los datos.');
+        const erroresBackend = err.error?.message;
+        
+        if (Array.isArray(erroresBackend)) {
+          this.erroresFormulario = erroresBackend; // Guardamos los errores para mostrarlos en el HTML
+        } else if (typeof erroresBackend === 'string') {
+          this.erroresFormulario = [erroresBackend];
+        } else {
+          this.erroresFormulario = ['No se pudo crear el usuario. Revisa los datos ingresados.'];
+        }
       }
     });
   }

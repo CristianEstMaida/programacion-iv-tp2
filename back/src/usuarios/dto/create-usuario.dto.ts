@@ -10,11 +10,11 @@ export class CreateUsuarioDto {
   apellido: string;
 
   @IsEmail({}, { message: 'El formato del email no es válido' })
-  @IsNotEmpty()
+  @IsNotEmpty({ message: 'El correo electrónico es obligatorio' })
   email: string;
 
   @IsString()
-  @IsNotEmpty({ message: 'El username es obligatorio' })
+  @IsNotEmpty({ message: 'El nombre de usuario es obligatorio' })
   username: string;
 
   @IsString()
@@ -29,7 +29,7 @@ export class CreateUsuarioDto {
   repetirPassword: string;
 
   @IsDateString({}, { message: 'La fecha de nacimiento debe tener un formato válido' })
-  @IsNotEmpty()
+  @IsNotEmpty({ message: 'La fecha de nacimiento es obligatoria' })
   fechaNacimiento: string;
 
   @IsString()
