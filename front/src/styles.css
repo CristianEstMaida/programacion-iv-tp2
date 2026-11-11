@@ -7,8 +7,12 @@
 }
 
 body {
-  background-color: #f2f4f8;
-  color: #333;
+  background-color: #f4f6f8; /* Un gris clarísimo muy profesional tipo dashboard */
+  color: #333333;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
 }
 
 /* --- MATERIAL SYMBOLS --- */
@@ -55,6 +59,17 @@ body {
   gap: 10px;
   margin-bottom: 30px;
   padding-left: 8px;
+}
+
+
+.logo-icon {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+  padding: 8px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .sidebar-nav {
