@@ -1,17 +1,23 @@
 <div class="container">
   <h2>Panel de Gestión de Usuarios (Administrador)</h2>
 
-  <div class="action-bar">
-    <button class="btn-custom btn-activar" (click)="mostrarFormulario = !mostrarFormulario">
-      {{ mostrarFormulario ? 'Cancelar' : '+ Registrar Nuevo Usuario' }}
+  <!-- 1. Barra de acciones superior limpia: Solo el botón para desplegar el formulario -->
+  <div class="action-bar" style="margin-bottom: 20px;" *ngIf="!mostrarFormulario">
+    <button class="btn-custom btn-activar" (click)="mostrarFormulario = true">
+      + Registrar Nuevo Usuario
     </button>
   </div>
 
-  <!-- FORMULARIO DE NUEVO USUARIO (Diseño con CSS Nativo) -->
-  <div class="card form-card" *ngIf="mostrarFormulario" appFadeIn>
-    <h3>Crear Nuevo Usuario</h3>
+  <!-- 2. FORMULARIO (Solo aparece cuando haces clic en registrar) -->
+  <div class="card form-card" *ngIf="mostrarFormulario" appFadeIn style="margin-bottom: 25px;">
     
-    
+    <!-- Cabecera interna del formulario con su propio botón de cerrar/cancelar -->
+    <!-- <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+      <h3 style="margin: 0;">Crear Nuevo Usuario</h3>
+      <button type="button" class="btn-custom" style="background: #e0e0e0; color: #333; padding: 6px 12px; font-size: 14px;" (click)="mostrarFormulario = false">
+        ✕ Cancelar
+      </button>
+    </div> -->
 
     <form (ngSubmit)="crearUsuario()" class="custom-form">
       <div class="form-group">
@@ -55,11 +61,11 @@
       </div>
 
       <div class="form-group">
-        <label>URL de Imagen de Perfil (Opcional)</label>
-        <input type="text" class="input-control" [(ngModel)]="nuevoUsuario.imagenPerfil" name="imagenPerfil">
+        <label>Foto de Perfil (Opcional)</label>
+        <input type="file" class="input-control" (change)="onFileSelected($event)" accept="image/*">
       </div>
 
-      <!-- RADIO BUTTONS CON CSS PURO -->
+      <!-- RADIO BUTTONS -->
       <div class="form-group">
         <label class="label-block">Perfil / Rol:</label>
         <div class="radio-group">
@@ -74,7 +80,7 @@
         </div>
       </div>
 
-      <!-- 🚨 CAJA DE ERRORES VISUAL (CSS Nativo) -->
+      <!-- CAJA DE ERRORES -->
       <div class="alert-error" *ngIf="erroresFormulario.length > 0">
         <p class="alert-title">Por favor corrige los siguientes errores:</p>
         <ul>
@@ -82,11 +88,23 @@
         </ul>
       </div>
 
-      <button type="submit" class="btn-custom btn-activar">Guardar Usuario</button>
+      <!-- Botones inferiores de acción del formulario -->
+      <div style="display: flex; gap: 10px; margin-top: 15px;">
+        <button type="submit" class="btn-custom btn-activar">Guardar Usuario</button>
+        <button type="button" class="btn-custom" style="background: #e0e0e0; color: #333;" (click)="mostrarFormulario = false">Cancelar</button>
+      </div>
     </form>
   </div>
 
+  <!-- 3. BLOQUE DE LA TABLA CON TÍTULO CLARO -->
   <div class="card" appFadeIn>
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+      <h3 style="margin: 0; color: #333; font-size: 18px;">Listado de Usuarios Registrados</h3>
+      <span style="background: #e8f5e9; color: #2e7d32; padding: 4px 10px; border-radius: 12px; font-size: 12px; font-weight: bold;">
+        Total: {{ usuarios.length }}
+      </span>
+    </div>
+
     <table class="table">
       <thead>
         <tr>
@@ -98,7 +116,6 @@
         </tr>
       </thead>
       <tbody>
-        <!-- Iteramos directamente el array completo con tu directiva de hover -->
         <tr *ngFor="let u of usuarios" appHover="#f8fafc">
           <td>{{ u.nombre | capitalize }} {{ u.apellido | capitalize }}</td>
           <td>{{ u.email }}</td>
@@ -125,7 +142,6 @@
           </td>
         </tr>
 
-        <!-- Mensaje si la lista está completamente vacía -->
         <tr *ngIf="!usuarios || usuarios.length === 0">
           <td colspan="5" class="empty-message">No hay usuarios registrados.</td>
         </tr>

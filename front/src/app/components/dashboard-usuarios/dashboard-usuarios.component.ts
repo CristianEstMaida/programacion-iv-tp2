@@ -7,6 +7,7 @@ import { RolStyleDirective } from '../../directives/rol-style.directive';
 import { HoverDirective } from '../../directives/hover.directive';
 import { FadeInDirective } from '../../directives/fade-in.directive';
 import { FormsModule } from '@angular/forms';
+import { environment } from '../../../environments/environment.prod';
 
 @Component({
   selector: 'app-dashboard-usuarios',
@@ -25,8 +26,6 @@ import { FormsModule } from '@angular/forms';
 })
 export class DashboardUsuariosComponent implements OnInit {
   usuarios: any[] = [];
-  private apiUrl = 'https://programacion-iv-tp2-back.vercel.app/api/usuarios'; // Ajusta tu URL del back
-
   mostrarFormulario: boolean = false;
 
   erroresFormulario: string[] = [];
@@ -45,6 +44,9 @@ export class DashboardUsuariosComponent implements OnInit {
     perfil: 'usuario',
   };
 
+  // 1. Declarar esta variable para almacenar el archivo seleccionado
+  selectedFile: File | null = null;
+
   constructor(private http: HttpClient, private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
@@ -53,7 +55,7 @@ export class DashboardUsuariosComponent implements OnInit {
 
   cargarUsuarios() {
     
-    this.http.get<any[]>(this.apiUrl).subscribe({
+    this.http.get<any[]>(`${environment.apiUrl}/usuarios`).subscribe({
       next: (data) => {
         this.usuarios = data;
         console.log('Usuarios guardados en la variable:', this.usuarios); // 👈 Mira esto en la consola del navegador (F12)
@@ -63,9 +65,18 @@ export class DashboardUsuariosComponent implements OnInit {
     });
   }
 
+  // 2. Método para capturar el archivo cuando el admin lo selecciona
+  onFileSelected(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      this.selectedFile = file;
+      console.log("Archivo seleccionado para el nuevo usuario:", file.name);
+    }
+  }
+
   // Baja lógica (DELETE /usuarios/:id)
   darDeBaja(id: string) {
-    this.http.delete(`${this.apiUrl}/${id}`).subscribe({
+    this.http.delete(`${environment.apiUrl}/usuarios/${id}`).subscribe({
       next: () => this.cargarUsuarios(), // Recarga la lista
       error: (err) => console.error('Error al dar de baja:', err)
     });
@@ -73,7 +84,7 @@ export class DashboardUsuariosComponent implements OnInit {
 
   // Alta lógica (PATCH /usuarios/:id/activar)
   activarUsuario(id: string) {
-    this.http.patch(`${this.apiUrl}/${id}/activar`, {}).subscribe({
+    this.http.patch(`${environment.apiUrl}/usuarios/${id}/activar`, {}).subscribe({
       next: () => this.cargarUsuarios(), // Recarga la lista
       error: (err) => console.error('Error al activar usuario:', err)
     });
@@ -82,7 +93,7 @@ export class DashboardUsuariosComponent implements OnInit {
   crearUsuario() {
     this.erroresFormulario = [];
 
-    // Validación en frontend para evitar viajes inútiles al backend si falta algo clave
+    // Validación en frontend para evitar viajes inútiles si falta algo clave
     if (!this.nuevoUsuario.nombre || !this.nuevoUsuario.apellido || !this.nuevoUsuario.email || !this.nuevoUsuario.fechaNacimiento) {
       this.erroresFormulario = ['Por favor complete los campos obligatorios principales, incluyendo la fecha de nacimiento.'];
       return;
@@ -99,16 +110,34 @@ export class DashboardUsuariosComponent implements OnInit {
       this.nuevoUsuario.username = this.nuevoUsuario.email;
     }
 
-    // Ajusta la URL según tu endpoint de registro o creación de usuarios del backend
-    const urlRegistro = 'https://programacion-iv-tp2-back.vercel.app/api/autenticacion/registro'; 
-    // o 'https://programacion-iv-tp2-back.vercel.app/api/usuarios' si creas usuarios directo como admin
+    // Creamos el FormData para empaquetar textos y el archivo juntos
+    const formData = new FormData();
+    formData.append('nombre', this.nuevoUsuario.nombre || '');
+    formData.append('apellido', this.nuevoUsuario.apellido || '');
+    formData.append('email', this.nuevoUsuario.email || '');
+    formData.append('username', this.nuevoUsuario.username || '');
+    formData.append('password', this.nuevoUsuario.password || '');
+    formData.append('repetirPassword', this.nuevoUsuario.repetirPassword || '');
+    formData.append('fechaNacimiento', this.nuevoUsuario.fechaNacimiento || '');
+    formData.append('descripcion', this.nuevoUsuario.descripcion || '');
+    formData.append('perfil', this.nuevoUsuario.perfil || 'usuario');
 
-    this.http.post(urlRegistro, this.nuevoUsuario).subscribe({
+    // Si se seleccionó un archivo de imagen, lo adjuntamos
+    if (this.selectedFile) {
+      formData.append('imagenPerfil', this.selectedFile);
+    }
+
+    // Usamos tu variable de entorno en lugar de la URL quemada
+    const urlRegistro = `${environment.apiUrl}/autenticacion/registro`; 
+
+    this.http.post(urlRegistro, formData).subscribe({
       next: (res) => {
         console.log('Usuario creado con éxito', res);
         this.mostrarFormulario = false;
         this.erroresFormulario = [];
+        this.selectedFile = null; // Limpiamos el archivo temporal
         this.cargarUsuarios(); // Recargamos la tabla para ver el nuevo registro
+        
         // Limpiar formulario
         this.nuevoUsuario = {
           nombre: '',
@@ -128,7 +157,7 @@ export class DashboardUsuariosComponent implements OnInit {
         const erroresBackend = err.error?.message;
         
         if (Array.isArray(erroresBackend)) {
-          this.erroresFormulario = erroresBackend; // Guardamos los errores para mostrarlos en el HTML
+          this.erroresFormulario = erroresBackend;
         } else if (typeof erroresBackend === 'string') {
           this.erroresFormulario = [erroresBackend];
         } else {
