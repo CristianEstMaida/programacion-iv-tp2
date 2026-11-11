@@ -25,6 +25,41 @@
       <p>{{ publicacion.descripcion }}</p>
     </div>
   </div>
+  <!-- SECCIÓN DE COMENTARIOS -->
+  <div class="comentarios-section">
+    <h3>Comentarios</h3>
+
+    <!-- Formulario para agregar comentario -->
+    <div class="nuevo-comentario-form">
+      <textarea 
+        [(ngModel)]="nuevoComentarioTexto" 
+        placeholder="Escribe un comentario..." 
+        rows="2"
+        class="form-control">
+      </textarea>
+      <button class="btn btn-success mt-2" (click)="agregarComentario()">Comentar</button>
+    </div>
+
+    <!-- Listado de comentarios -->
+    <div class="lista-comentarios" *ngIf="comentarios && comentarios.length > 0; else sinComentarios">
+      <div class="comentario-card" *ngFor="let com of comentarios">
+        <div class="comentario-header">
+          <strong>{{ com.usuario?.nombre || 'Usuario' }} {{ com.usuario?.apellido || '' }}</strong>
+          <span class="fecha">{{ com.createdAt | date:'dd/MM/yyyy HH:mm' }}</span>
+        </div>
+        <p>{{ com.mensaje || com.texto }}</p>
+      </div>
+
+      <!-- Botón de paginación "Cargar más" -->
+      <div class="text-center mt-3" *ngIf="hayMasComentarios">
+        <button class="btn btn-outline-secondary" (click)="cargarMasComentarios()">Cargar más comentarios</button>
+      </div>
+    </div>
+
+    <ng-template #sinComentarios>
+      <p class="text-muted mt-3">No hay comentarios aún. ¡Sé el primero en comentar!</p>
+    </ng-template>
+  </div>
 </div>
 
 <ng-template #cargando>
