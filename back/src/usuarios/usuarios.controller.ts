@@ -74,6 +74,7 @@ export class UsuariosController {
     @UploadedFile() file?: Express.Multer.File,
   ) {
     // Le pasamos el ID, el DTO y el archivo opcional al servicio unificado
+    console.log("Archivo recibido en backend:", file);
     return await this.usuariosService.update(id, updateUsuarioDto, file);
   }
   // Baja lógica (Solo Admin)
