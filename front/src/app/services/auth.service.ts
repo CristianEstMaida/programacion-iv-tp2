@@ -31,4 +31,12 @@ export class Auth {
     // Asumiendo que tu ruta de refrescar por POST es algo como /auth/refrescar o /refresh
     return this.http.post(`${this.apiUrl}/refrescar`, {}, { headers });
   }
+
+  // Retorna true si hay un token guardado en el localStorage
+  isLoggedIn(): boolean {
+    const token = localStorage.getItem('access_token'); // O 'token' según cómo lo guardes
+    // Opcional: también podría validar si no está expirado, 
+    // pero con verificar que exista alcanza para el AuthGuard básico.
+    return !!token; 
+  }
 }

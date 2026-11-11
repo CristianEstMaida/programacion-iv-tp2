@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { AdminGuard } from './components/guards/admin.guard';
-import { PublicacionDetalleComponent } from './components/publicacion-detalle/publicacion-detalle.component';
+import { AuthGuard } from './components/guards/auth.guard';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -28,7 +28,8 @@ export const routes: Routes = [
   },
   { 
     path: 'perfil', 
-    loadComponent: () => import('./components/mi-perfil/mi-perfil.component').then(m => m.MiPerfilComponent) 
+    loadComponent: () => import('./components/mi-perfil/mi-perfil.component').then(m => m.MiPerfilComponent),
+    canActivate: [AuthGuard] // Solo los usuarios logueados pueden acceder a su perfil
   },
   {
     path: 'dashboard/usuarios',
