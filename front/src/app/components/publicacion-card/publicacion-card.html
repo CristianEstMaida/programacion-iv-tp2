@@ -2,20 +2,19 @@
   <!-- Cabecera del post (Autor y Fecha) -->
   <div class="post-header">
     <div class="author-info">
-      <!-- <div class="avatar-placeholder">
-        {{ publicacion.usuario?.nombre ? publicacion.usuario.nombre.charAt(0).toUpperCase() : 'U' }}
-      </div> -->
-      <img *ngIf="publicacion.usuario?.imagenPerfil; else sinFoto" 
-       [src]="publicacion.usuario.imagenPerfil" 
-       alt="Foto de perfil" 
-       class="user-avatar-img">
+      <div class="avatar-circle">
+        <img *ngIf="publicacion.usuario?.imagenPerfil; else sinFoto" 
+        [src]="publicacion.usuario.imagenPerfil" 
+        alt="Foto de perfil" 
+        class="avatar-img">
 
-      <!-- OPCIÓN 2: Si no tiene, mostramos la inicial por defecto -->
-      <ng-template #sinFoto>
-        <div class="user-initial-fallback">
-          {{ publicacion.usuario?.nombre ? publicacion.usuario.nombre.charAt(0) : 'U' }}
-        </div>
-      </ng-template>
+        <!-- OPCIÓN 2: Si no tiene, mostramos la inicial por defecto -->
+        <ng-template #sinFoto>
+          <div class="avatar-initial">
+            {{ publicacion.usuario?.nombre ? publicacion.usuario.nombre.charAt(0) : 'U' }}
+          </div>
+        </ng-template>
+      </div>
       <div>
         <h4 class="author-name">
           {{ publicacion.usuario?.nombre || 'Usuario' | capitalize }} {{ publicacion.usuario?.apellido || '' | capitalize }}
