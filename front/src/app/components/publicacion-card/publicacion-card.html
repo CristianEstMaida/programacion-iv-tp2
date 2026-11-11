@@ -11,7 +11,7 @@
         <!-- OPCIÓN 2: Si no tiene, mostramos la inicial por defecto -->
         <ng-template #sinFoto>
           <div class="avatar-initial">
-            {{ publicacion.usuario?.nombre ? publicacion.usuario.nombre.charAt(0) : 'U' }}
+            {{ publicacion.usuario?.nombre ? publicacion.usuario.nombre.charAt(0) : 'U'  | uppercase }}{{ publicacion.usuario?.apellido ? publicacion.usuario.apellido.charAt(0) : '' | capitalize }}
           </div>
         </ng-template>
       </div>
