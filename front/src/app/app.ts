@@ -53,6 +53,11 @@ export class App implements OnInit, OnDestroy{
   }
 
   async verificarTokenInicial() {
+    // Apenas arranca, si está cargando, lo mandamos a la página de carga dedicada
+    if (this.cargando && !this.router.url.includes('/loading')) {
+      this.router.navigate(['/loading']);
+    }
+
     const token = localStorage.getItem('access_token');
     
     // 1. Definimos un tiempo mínimo de visualización (ej: 1.5 segundos / 1500ms)
@@ -83,6 +88,11 @@ export class App implements OnInit, OnDestroy{
       this.cargando = false;
       this.cdr.detectChanges();
       this.iniciarMonitoreoToken();
+
+      // Si el usuario estaba en la página de carga, lo mandamos a publicaciones por defecto
+      if (this.router.url.includes('/loading')) {
+        this.router.navigate(['/publicaciones']);
+      }
     } catch (err) {
       console.error("Error al autorizar token:", err);
       this.cerrarSesionPorExpiracion();
@@ -195,7 +205,7 @@ export class App implements OnInit, OnDestroy{
 
   private verificarRuta(url: string) {
     // Oculta el navbar únicamente si estamos en login o registro
-    this.mostrarNavbar = !url.includes('/login') && !url.includes('/registro');
+    this.mostrarNavbar = !url.includes('/login') && !url.includes('/registro') && !url.includes('/loading');
   }
 
   logout() {

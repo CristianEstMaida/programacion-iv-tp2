@@ -1,11 +1,7 @@
-<div *ngIf="cargando" class="splash-screen">
-  <div class="spinner"></div> <!-- O tu mat-spinner si usas Angular Material -->
-  <p>Verificando sesión, por favor espere...</p>
-</div>
 
-<div class="app-layout" *ngIf="!cargando">
+<div class="app-layout" *ngIf="mostrarNavbar">
   <!-- Barra Lateral (Sidebar) -->
-  <aside class="sidebar" *ngIf="mostrarNavbar">
+  <aside class="sidebar">
     <div class="sidebar-brand">
       <div class="logo-icon">
         <!-- Ícono SVG minimalista de un tractor -->
@@ -47,9 +43,13 @@
   </aside>
 
   <!-- Contenido Principal -->
-  <main class="main-content">
+  <main class="main-content" >
     <router-outlet></router-outlet>
   </main>
+</div>
+<!-- 2. Si SÍ estamos en login, registro o loading, se muestra ÚNICAMENTE este router-outlet de pantalla completa -->
+<div *ngIf="!mostrarNavbar" class="full-screen-container">
+  <router-outlet></router-outlet>
 </div>
 <div class="modal-overlay" *ngIf="mostrarModalExpiracion">
   <div class="modal-content">

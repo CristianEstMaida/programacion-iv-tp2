@@ -20,7 +20,11 @@ export const routes: Routes = [
   },
   { 
   path: 'publicaciones/:id', 
-    component: PublicacionDetalleComponent 
+    loadComponent: () => import('./components/publicacion-detalle/publicacion-detalle.component').then(m => m.PublicacionDetalleComponent)
+  },
+  { 
+    path: 'loading', 
+    loadComponent: () => import('./components/loading-page/loading-page.component').then(m => m.LoadingPageComponent) 
   },
   { 
     path: 'perfil', 
