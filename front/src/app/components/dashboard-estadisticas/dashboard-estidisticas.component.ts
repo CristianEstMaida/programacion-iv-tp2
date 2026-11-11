@@ -1,10 +1,10 @@
 import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Chart, registerables } from 'chart.js';
 
-Chart.register(...registerables); // Registramos los componentes de Chart.js
+Chart.register(...registerables);
 
 @Component({
   selector: 'app-dashboard-estadisticas',
@@ -13,12 +13,12 @@ Chart.register(...registerables); // Registramos los componentes de Chart.js
   templateUrl: './dashboard-estadisticas.component.html',
   styleUrls: ['./dashboard-estadisticas.component.css']
 })
-export class DashboardEstadisticasComponent implements OnInit/*, AfterViewInit*/ {
+export class DashboardEstadisticasComponent implements OnInit, AfterViewInit {
   
-  // Filtros de tiempo (pueden ser fechas o selector de rango)
-  lapsoTiempo: string = 'mes'; // ej: 'semana', 'mes', 'anio'
+  // 📅 Reemplazamos el lapso por los filtros de fecha Desde y Hasta
+  fechaDesde: string = '';
+  fechaHasta: string = '';
   
-  // Referencias a los canvas del HTML para los gráficos
   @ViewChild('graficoPublicaciones') graficoPublicacionesRef!: ElementRef;
   @ViewChild('graficoComentariosTiempo') graficoComentariosTiempoRef!: ElementRef;
   @ViewChild('graficoComentariosPubli') graficoComentariosPubliRef!: ElementRef;
@@ -30,100 +30,82 @@ export class DashboardEstadisticasComponent implements OnInit/*, AfterViewInit*/
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
-    // Aquí puedes llamar a tu servicio para traer los datos iniciales
+    // Opcional: podemos inicializar con fechas por defecto (ej: el último mes hasta hoy)
+    this.inicializarFechasPorDefecto();
   }
 
-     ngAfterViewInit(): void {
-        this.cargarEstadisticas();
-  }
-
-  // Método que se ejecuta al cambiar el filtro de tiempo
-  actualizarFiltro() {
-    console.log('Cambiando lapso de tiempo a:', this.lapsoTiempo);
-    // Aquí harías un fetch al backend pasando el filtro y actualizarías los gráficos
-    //this.renderizarGraficos();
+  ngAfterViewInit(): void {
     this.cargarEstadisticas();
   }
 
-  // Método que se ejecuta al iniciar y al cambiar el filtro
-  cargarEstadisticas() {
-
+  // Establece un rango por defecto al cargar (ej: últimos 30 días)
+  inicializarFechasPorDefecto() {
     const hoy = new Date();
-    let fechaInicio = new Date();
-    let fechaFin = new Date();
+    const haceUnMes = new Date();
+    haceUnMes.setMonth(hoy.getMonth() - 1);
 
-    // Calculamos el inicio según el lapso elegido
-    if (this.lapsoTiempo === 'semana') {
-      // Restamos 7 días
-      fechaInicio.setDate(hoy.getDate() - 7);
-    } else if (this.lapsoTiempo === 'mes') {
-      // Restamos 1 mes (o 30 días)
-      fechaInicio.setMonth(hoy.getMonth() - 1);
-    } else if (this.lapsoTiempo === 'anio') {
-      // Restamos 1 año
-      fechaInicio.setFullYear(hoy.getFullYear() - 1);
-    }
+    this.fechaFin = hoy.toISOString().split('T')[0];
+    this.fechaInicio = haceUnMes.toISOString().split('T')[0]; // o this.fechaDesde
+  }
 
-    // Formateamos a string YYYY-MM-DD que es lo que espera el backend
-    const inicio = fechaInicio.toISOString().split('T')[0];
-    const fin = fechaFin.toISOString().split('T')[0];
+  // Setter auxiliar para mantener compatibilidad con las variables que usabas
+  get fechaInicio(): string { return this.fechaDesde; }
+  set fechaInicio(val: string) { this.fechaDesde = val; }
 
-    console.log(`Calculando fechas para [${this.lapsoTiempo}] -> Inicio: ${inicio}, Fin: ${fin}`);
+  get fechaFin(): string { return this.fechaHasta; }
+  set fechaFin(val: string) { this.fechaHasta = val; }
 
-    // Suponiendo que tu backend tiene endpoints para estas estadísticas pasando el lapso:
+  // Método que se ejecuta al hacer clic en filtrar o cambiar las fechas
+  actualizarFiltro() {
+    console.log(`Filtrando estadísticas desde ${this.fechaDesde} hasta ${this.fechaHasta}`);
+    this.cargarEstadisticas();
+  }
+
+  // Método que trae los datos usando los inputs de fecha seleccionados
+  cargarEstadisticas() {
+    // Si todavía no hay fechas cargadas, salimos para evitar llamadas vacías
+    if (!this.fechaDesde || !this.fechaHasta) return;
+
+    const token = localStorage.getItem('access_token');
+    // Si tu backend requiere token por headers, agrégalo aquí o confía en el interceptor HTTP global que ya configuramos.
+
     // 1. Publicaciones por usuario
-    this.http.get<any>(`https://programacion-iv-tp2-back.vercel.app/api/publicaciones/estadisticas/publicaciones-por-usuario?inicio=${inicio}&fin=${fin}`,)
+    this.http.get<any>(`https://programacion-iv-tp2-back.vercel.app/api/publicaciones/estadisticas/publicaciones-por-usuario?inicio=${this.fechaDesde}&fin=${this.fechaHasta}`)
       .subscribe({
         next: (data) => {
-          // Mapeamos las etiquetas (eje X) usando una porción del _id de MongoDB por ahora
           const labels = data.map((item: any, index: number) => `Usuario ${index + 1}`);
-
-          // Mapeamos los valores numéricos (eje Y)
           const valores = data.map((item: any) => item.totalPublicaciones);
-
-          // Actualizamos el gráfico de barras
           this.actualizarGraficoPubli(labels, valores);
         },
         error: (err) => console.error('Error al cargar pubs:', err)
       });
 
     // 2. Comentarios en el tiempo
-    this.http.get<any>(`https://programacion-iv-tp2-back.vercel.app/api/publicaciones/estadisticas/total-comentarios?inicio=${inicio}&fin=${fin}`)
+    this.http.get<any>(`https://programacion-iv-tp2-back.vercel.app/api/publicaciones/estadisticas/total-comentarios?inicio=${this.fechaDesde}&fin=${this.fechaHasta}`)
       .subscribe({
         next: (data) => {
-          // Como viene en un array, sumamos o extraemos el totalComentarios (o tomamos el primer elemento)
           const total = data.length > 0 ? (data[0].totalComentarios || 0) : 0;
-
-          // Para que el gráfico de líneas lo dibuje bien, le pasamos una etiqueta de período y el valor numérico
-          const labels = [this.lapsoTiempo.toUpperCase()];
+          const labels = [`${this.fechaDesde} al ${this.fechaHasta}`];
           const valores = [total];
-
           this.actualizarGraficoComentarios(labels, valores);
         },
         error: (err) => console.error('Error al cargar comentarios tiempo:', err)
       });
 
     // 3. Comentarios por cada publicación
-    this.http.get<any>(`https://programacion-iv-tp2-back.vercel.app/api/publicaciones/estadisticas/comentarios-por-publicacion?inicio=${inicio}&fin=${fin}`)
+    this.http.get<any>(`https://programacion-iv-tp2-back.vercel.app/api/publicaciones/estadisticas/comentarios-por-publicacion?inicio=${this.fechaDesde}&fin=${this.fechaHasta}`)
       .subscribe({
         next: (data) => {
-          // En lugar del _id, usamos "Publicación 1", "Publicación 2", etc.
           const labels = data.map((item: any, index: number) => `Publicación ${index + 1}`);
-
-          // Mapeamos los valores numéricos correspondientes a los comentarios
           const valores = data.map((item: any) => item.totalComentarios);
-
-          // Actualizamos el gráfico de torta/doughnut
           this.actualizarGraficoComentariosPubli(labels, valores);
         },
         error: (err) => console.error('Error al cargar comentarios por pub:', err)
       });
   }
 
-  // 1. Método para actualizar el gráfico de publicaciones
   actualizarGraficoPubli(labels: string[], valores: number[]) {
     if (this.chartPubli) this.chartPubli.destroy();
-
     const ctx = this.graficoPublicacionesRef.nativeElement.getContext('2d');
     this.chartPubli = new Chart(ctx, {
       type: 'bar',
@@ -132,16 +114,18 @@ export class DashboardEstadisticasComponent implements OnInit/*, AfterViewInit*/
         datasets: [{
           label: 'Publicaciones realizadas',
           data: valores,
-          backgroundColor: '#3b82f6'
+          backgroundColor: '#2e7d32' // Manteniendo tu verde institucional
         }]
-      }
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false // 👈 Vital para que respete el contenedor sin estirarse mal
+        }
     });
   }
 
-  // 2. Método para actualizar el gráfico de comentarios en el tiempo
   actualizarGraficoComentarios(labels: string[], valores: number[]) {
     if (this.chartComentarios) this.chartComentarios.destroy();
-
     const ctx = this.graficoComentariosTiempoRef.nativeElement.getContext('2d');
     this.chartComentarios = new Chart(ctx, {
       type: 'line',
@@ -150,17 +134,21 @@ export class DashboardEstadisticasComponent implements OnInit/*, AfterViewInit*/
         datasets: [{
           label: 'Cantidad de comentarios',
           data: valores,
-          borderColor: '#10b981',
+          borderColor: '#2e7d32',
+          backgroundColor: 'rgba(46, 125, 50, 0.1)',
+          fill: true,
           tension: 0.1
         }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false
       }
     });
   }
 
-  // 3. Método para actualizar el gráfico de comentarios por publicación
   actualizarGraficoComentariosPubli(labels: string[], valores: number[]) {
     if (this.chartComentariosPubli) this.chartComentariosPubli.destroy();
-
     const ctx = this.graficoComentariosPubliRef.nativeElement.getContext('2d');
     this.chartComentariosPubli = new Chart(ctx, {
       type: 'doughnut',
@@ -169,8 +157,12 @@ export class DashboardEstadisticasComponent implements OnInit/*, AfterViewInit*/
         datasets: [{
           label: 'Comentarios por Publi',
           data: valores,
-          backgroundColor: ['#f59e0b', '#ef4444', '#8b5cf6', '#3b82f6', '#10b981']
+          backgroundColor: ['#2e7d32', '#4caf50', '#81c784', '#c8e6c9', '#1b5e20']
         }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false
       }
     });
   }

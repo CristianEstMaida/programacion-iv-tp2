@@ -1,17 +1,22 @@
 <div class="estadisticas-container">
   <h2>Panel de Estadísticas y Gráficos</h2>
 
-  <!-- Selector de Lapso de Tiempo exigido por la consigna -->
-  <div class="filtro-tiempo">
-    <label>Seleccionar lapso de tiempo:</label>
-    <select [(ngModel)]="lapsoTiempo" (change)="actualizarFiltro()" class="input-control">
-      <option value="semana">Última Semana</option>
-      <option value="mes">Último Mes</option>
-      <option value="anio">Último Año</option>
-    </select>
+  <!-- Filtros de Rango de Fechas (Desde / Hasta) -->
+  <div class="filtro-fechas-card">
+    <div class="input-group">
+      <label for="desde">Desde:</label>
+      <input type="date" id="desde" [(ngModel)]="fechaDesde" class="input-control">
+    </div>
+
+    <div class="input-group">
+      <label for="hasta">Hasta:</label>
+      <input type="date" id="hasta" [(ngModel)]="fechaHasta" class="input-control">
+    </div>
+
+    <button class="btn-filtrar" (click)="actualizarFiltro()">Aplicar Filtro</button>
   </div>
 
-  <!-- Contenedores de los Gráficos (Varían en tipo: barras, líneas, torta) -->
+  <!-- Contenedores de los Gráficos -->
   <div class="graficos-grid">
     <div class="card-grafico">
       <h3>Publicaciones por Usuario</h3>

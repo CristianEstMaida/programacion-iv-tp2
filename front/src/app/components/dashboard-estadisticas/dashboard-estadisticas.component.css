@@ -1,39 +1,50 @@
 .estadisticas-container {
-  padding: 24px;
-  background-color: #f8fafc;
-  min-height: 100vh;
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1.5rem;
+  font-family: inherit;
+  color: #333;
 }
 
 .estadisticas-container h2 {
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   font-weight: 700;
-  color: #1e293b;
-  margin-bottom: 20px;
+  margin-bottom: 1.5rem;
+  color: #1a1a1a;
 }
 
-/* Filtro de tiempo */
-.filtro-tiempo {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 24px;
+/* Tarjeta de filtros de fecha */
+.filtro-fechas-card {
   background: #ffffff;
-  padding: 16px;
-  border-radius: 8px;
-  border: 1px solid #e2e8f0;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  padding: 1.2rem 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border: 1px solid #eaeaea;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 1.2rem;
+  margin-bottom: 2rem;
 }
 
-.filtro-tiempo label {
+.input-group {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 200px;
+}
+
+.input-group label {
   font-weight: 600;
-  color: #475569;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 0.4rem;
 }
 
 .input-control {
-  padding: 8px 12px;
-  border: 1px solid #cbd5e1;
-  border-radius: 6px;
+  padding: 0.6rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
   font-size: 0.95rem;
   outline: none;
   background-color: #fff;
@@ -41,35 +52,55 @@
 }
 
 .input-control:focus {
-  border-color: #3b82f6;
+  border-color: #2e7d32;
+  box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.15);
 }
 
-/* Grilla de gráficos */
+.btn-filtrar {
+  background-color: #2e7d32;
+  color: white;
+  border: none;
+  padding: 0.65rem 1.5rem;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  height: 41px;
+}
+
+.btn-filtrar:hover {
+  background-color: #1b5e20;
+}
+
+/* Grilla de gráficos responsive */
 .graficos-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  gap: 20px;
+  gap: 1.5rem;
+}
+
+
+.card-grafico h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #444;
+  margin-bottom: 1rem;
 }
 
 .card-grafico {
   background: #ffffff;
-  border: 1px solid #e2e8f0;
-  border-radius: 8px;
-  padding: 20px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border: 1px solid #eaeaea;
+  display: flex;
+  flex-direction: column;
+  height: 400px; /* Dale un poquito más de altura si hace falta */
+  position: relative;
 }
 
-.card-grafico h3 {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: #334155;
-  margin-top: 0;
-  margin-bottom: 16px;
-  text-align: center;
-}
-
-/* Ajuste para los canvas de Chart.js */
-canvas {
-  max-width: 100% !important;
-  height: auto !important;
+.card-grafico canvas {
+  width: 100% !important;
+  height: 100% !important;
+  max-height: 320px; /* Evita que se deforme verticalmente */
 }
