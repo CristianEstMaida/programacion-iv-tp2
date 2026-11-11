@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { CapitalizePipe } from '../../pipes/capitalize.pipe';
+import { UsuarioService } from '../../services/usuario.service';
 
 @Component({
   imports: [CommonModule, FormsModule, CapitalizePipe],
@@ -15,8 +16,10 @@ export class MiPerfilComponent implements OnInit {
   usuario: any = {};
   ultimasPublicaciones: any[] = [];
   cargando: boolean = true;
+  mensajeExito: string = '';
+  mensajeError: string = '';
 
-  constructor(private http: HttpClient, private cdr: ChangeDetectorRef) {}
+  constructor(private http: HttpClient, private cdr: ChangeDetectorRef, private usuarioService: UsuarioService) {}
 
   ngOnInit(): void {
     this.cargarPerfil();
@@ -86,15 +89,27 @@ export class MiPerfilComponent implements OnInit {
   }
 
   actualizarPerfil() {
-    // Lógica para enviar los cambios del formulario al backend con PUT
-    const token = localStorage.getItem('token');
-    if (!token) return;
+    if (!this.usuario || !this.usuario._id) return;
 
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    
-    this.http.put(`${environment.apiUrl}/usuarios/${this.usuario._id}`, this.usuario, { headers }).subscribe({
-      next: () => alert('Perfil actualizado correctamente'),
-      error: (err) => console.error('Error al actualizar', err)
+    this.usuarioService.actualizarPerfil(this.usuario._id, this.usuario).subscribe({
+      next: (res) => {
+        console.log('¡Backend respondió OK!', res);
+        this.mensajeExito = '¡Perfil actualizado correctamente!';
+        this.mensajeError = '';
+
+        this.cdr.detectChanges();
+        // Hace desaparecer el mensaje de éxito automáticamente a los 4 segundos
+        setTimeout(() => {
+          this.mensajeExito = '';
+          this.cdr.detectChanges();
+        }, 4000);
+      },
+      error: (err) => {
+        console.error('Error al actualizar', err);
+        this.mensajeError = 'Hubo un error al actualizar el perfil.';
+        this.mensajeExito = '';
+        this.cdr.detectChanges();
+      }
     });
   }
 }
