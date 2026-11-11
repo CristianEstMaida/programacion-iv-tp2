@@ -1,11 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ChangeDetectorRef, Component, HostListener, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { PublicacionesService } from '../../services/publicaciones.service';
 import { FormsModule } from '@angular/forms';
 import { PublicacionCardComponent } from '../publicacion-card/publicacion-card';
-
 
 @Component({
   selector: 'app-publicaciones',
@@ -18,14 +16,12 @@ export class PublicacionesComponent implements OnInit {
 
   publicaciones: any[] = [];
   usuarioLogueadoId: string = '';
-  //usuarioNombre: string = '';
   rolUsuario: string = '';
 
   // Controladores del Modal
   isModalOpen: boolean = false;
   nuevoTitulo: string = '';
   nuevaDescripcion: string = '';
-  //nuevaImagenUrl: string = '';
   archivoSeleccionado: File | null = null;
 
   // Variables de control para la paginación / scroll infinito
@@ -51,7 +47,8 @@ export class PublicacionesComponent implements OnInit {
 
   constructor(
     private publicacionesService: PublicacionesService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -92,7 +89,7 @@ export class PublicacionesComponent implements OnInit {
   }
 
   trackByPublicacionId(index: number, post: any): string {
-   return post._id; // 👈 Esto le dice a Angular exactamente qué elemento es cuál, evitando que se mezclen
+   return post._id; // Esto le dice a Angular exactamente qué elemento es cuál, evitando que se mezclen
   }
 
   cambiarOrden() {
@@ -207,13 +204,18 @@ export class PublicacionesComponent implements OnInit {
       next: (res) => {
         console.log('Publicación creada con éxito:', res);
         this.publicaciones.unshift(res); // Agrega la nueva publicación al inicio de la lista
-        this.cargarPublicaciones(); // Recarga la lista para mostrar la nueva
+        //this.cargarPublicaciones(); // Recarga la lista para mostrar la nueva
         this.cerrarModal();         // Cierra y limpia el modal
         this.archivoSeleccionado = null; // Limpiamos el archivo
       },
       error: (err) => {
         console.error('Error al crear la publicación:', err);
-        alert('No se pudo crear la publicación');
+        this.snackBar.open('No se pudo crear la publicación. Intente nuevamente.', 'Cerrar', {
+          duration: 4000,
+          horizontalPosition: 'end',
+          verticalPosition: 'bottom',
+          panelClass: ['error-snackbar'] // Opcional para darle color rojo
+        });
       }
     });
   }
@@ -321,11 +323,6 @@ export class PublicacionesComponent implements OnInit {
     });
   }
 
-  // 5. Ver comentarios (Placeholder para cuando abras la sección de comentarios)
-  // verComentarios(post: any) {
-  //   console.log('Ver comentarios de la publicación:', post._id);
-  // }
-  
   // 1. Cuando hacen clic en "Comentarios" en la card, abrimos el detalle y cargamos los primeros comentarios
   verComentarios(post: any) {
     this.publicacionSeleccionada = post;
