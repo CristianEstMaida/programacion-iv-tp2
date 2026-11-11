@@ -126,7 +126,11 @@ export class MiPerfilComponent implements OnInit {
         this.mensajeError = '';
 
         // Actualizamos los datos locales con la respuesta del backend (que ya trae la nueva URL de Cloudinary)
-        this.usuario = { ...this.usuario, ...res };
+        this.usuario = { 
+          ...this.usuario, 
+          ...res,
+          fechaNacimiento: res.fechaNacimiento ? res.fechaNacimiento.substring(0, 10) : this.usuario.fechaNacimiento
+        };
         this.selectedFile = null; // Limpiamos el archivo temporal
 
         this.cdr.detectChanges();
