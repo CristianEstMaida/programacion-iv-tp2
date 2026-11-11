@@ -1,10 +1,10 @@
-
-<div class="app-layout" *ngIf="mostrarNavbar">
-  <!-- Barra Lateral (Sidebar) -->
-  <aside class="sidebar">
+<!-- Contenedor principal que cambia de estilo según si hay navbar o no -->
+<div class="app-layout" [class.fullscreen-layout]="!mostrarNavbar">
+  
+  <!-- Barra Lateral (Sidebar): Se muestra u oculta limpiamente con *ngIf -->
+  <aside class="sidebar" *ngIf="mostrarNavbar">
     <div class="sidebar-brand">
       <div class="logo-icon">
-        <!-- Ícono SVG minimalista de un tractor -->
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M3 4h9l3 3h4v5"></path>
           <path d="M15 15h4a2 2 0 0 1 2 2v1a2 2 0 0 1-2 2h-4"></path>
@@ -13,9 +13,7 @@
           <path d="M5 9h6"></path>
         </svg>
       </div>
-      <!-- <span class="brand-logo">🚜</span> -->
       <span class="brand-title">AgroRed</span>
-      <!-- <span class="brand-badge">PRO</span> -->
     </div>
     
     <nav class="sidebar-nav">
@@ -42,15 +40,13 @@
     </div>
   </aside>
 
-  <!-- Contenido Principal -->
-  <main class="main-content" >
+  <!-- Contenido Principal: UN ÚNICO ROUTER-OUTLET PARA TODO -->
+  <main class="main-content">
     <router-outlet></router-outlet>
   </main>
 </div>
-<!-- 2. Si SÍ estamos en login, registro o loading, se muestra ÚNICAMENTE este router-outlet de pantalla completa -->
-<div *ngIf="!mostrarNavbar" class="full-screen-container">
-  <router-outlet></router-outlet>
-</div>
+
+<!-- Modal de Expiración Global -->
 <div class="modal-overlay" *ngIf="mostrarModalExpiracion">
   <div class="modal-content">
     <h3>⚠️ Tu sesión está por expirar</h3>
