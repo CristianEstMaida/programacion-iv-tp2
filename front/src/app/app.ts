@@ -200,5 +200,6 @@ export class App implements OnInit, OnDestroy{
 
   logout() {
     this.cerrarSesionPorExpiracion();
+    this.router.navigate(['/login']);
   }
 }
