@@ -4,6 +4,7 @@ import { UpdateUsuarioDto } from './dto/update-usuario.dto.js';
 import { InjectModel } from '@nestjs/mongoose';
 import { Usuario, UsuarioDocument } from './schemas/usuario.schema.js';
 import { Model } from 'mongoose';
+import { CloudinaryService } from '../cloudinary/cloudinary.service.js';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { LoginDto } from '../autenticacion/dto/login.dto.js';
@@ -11,7 +12,8 @@ import { LoginDto } from '../autenticacion/dto/login.dto.js';
 @Injectable()
 export class UsuariosService {
   constructor(
-    @InjectModel(Usuario.name) private usuarioModel: Model<UsuarioDocument>
+    @InjectModel(Usuario.name) private usuarioModel: Model<UsuarioDocument>,
+    private readonly cloudinaryService: CloudinaryService,
   ) {}
 
   async registrar(createUsuarioDto: CreateUsuarioDto, imagenPath?: string): Promise<any> {
@@ -72,7 +74,14 @@ export class UsuariosService {
     return usuario;
   }
 
-  async update(id: string, updateUsuarioDto: UpdateUsuarioDto) {
+  async update(id: string, updateUsuarioDto: UpdateUsuarioDto, file?: Express.Multer.File) {
+    // Si el usuario subió una nueva imagen al editar su perfil
+    if (file) {
+      const uploadResult: any = await this.cloudinaryService.uploadImage(file);
+      // Asignamos la URL segura de Cloudinary al DTO que se va a guardar
+      updateUsuarioDto.imagenPerfil = uploadResult.secure_url;
+    }
+
     const usuarioActualizado = await this.usuarioModel
       .findByIdAndUpdate(id, updateUsuarioDto, { new: true })
       .select('-password');
@@ -80,6 +89,7 @@ export class UsuariosService {
     if (!usuarioActualizado) {
       throw new NotFoundException('Usuario no encontrado para actualizar');
     }
+    
     return usuarioActualizado;
   }
 

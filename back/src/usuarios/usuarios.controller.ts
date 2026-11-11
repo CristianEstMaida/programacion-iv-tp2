@@ -56,10 +56,26 @@ export class UsuariosController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUsuarioDto: UpdateUsuarioDto) {
-    return this.usuariosService.update(id, updateUsuarioDto);
+  @HttpCode(HttpStatus.OK)
+  @UseInterceptors(
+    FileInterceptor('imagenPerfil', { // Debe coincidir con el campo que mandas desde Angular
+      limits: { fileSize: 2 * 1024 * 1024 },
+      fileFilter: (req, file, callback) => {
+        if (!file.mimetype.match(/\/(jpg|jpeg|png|webp)$/)) {
+          return callback(new BadRequestException('Solo se permiten imágenes (jpg, jpeg, png, webp)'), false);
+        }
+        callback(null, true);
+      },
+    }),
+  )
+  async update(
+    @Param('id') id: string,
+    @Body() updateUsuarioDto: UpdateUsuarioDto,
+    @UploadedFile() file?: Express.Multer.File,
+  ) {
+    // Le pasamos el ID, el DTO y el archivo opcional al servicio unificado
+    return await this.usuariosService.update(id, updateUsuarioDto, file);
   }
-
   // Baja lógica (Solo Admin)
   @UseGuards(JwtAuthGuard, AdminGuard)
   @Delete(':id')

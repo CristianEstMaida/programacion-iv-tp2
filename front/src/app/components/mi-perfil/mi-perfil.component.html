@@ -1,4 +1,4 @@
-<div class="perfil-container" *ngIf="usuario">
+<div class="perfil-container" *ngIf="usuario; else cargando">
   <div class="perfil-card">
     <!-- Mensajes de Alerta (Éxito / Error) -->
     <div *ngIf="mensajeExito" class="alert-success">
@@ -11,12 +11,18 @@
     
     <!-- Avatar -->
     <div class="avatar-section" style="text-align: center; margin-bottom: 20px;">
-      <ng-container *ngIf="usuario.imagenPerfil; else sinImagen">
-        <img [src]="usuario.imagenPerfil" alt="Foto de perfil" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover;">
-      </ng-container>
+      <!-- 1. Cambiamos a usuario.imagenPerfil -->
+      <!-- 2. Pasamos el link directo de Cloudinary sin el prefijo del backend -->
+      <img *ngIf="usuario?.imagenPerfil && !imagenRota; else sinImagen" 
+          [src]="getSafeImageUrl(usuario.imagenPerfil)"
+          (error)="imagenRota = true"
+          alt="Foto de perfil" 
+          class="profile-avatar"
+          style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover;">
+          
       <ng-template #sinImagen>
         <div class="avatar-inicial" style="width: 80px; height: 80px; border-radius: 50%; background: #e8f5e9; color: #2e7d32; border: 2px solid #2e7d32; display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: bold; margin: 0 auto; text-transform: uppercase;">
-          {{ usuario.nombre?.charAt(0).toUpperCase() }}{{ usuario.apellido?.charAt(0).toUpperCase() }}
+          {{ usuario?.nombre?.charAt(0).toUpperCase() }}{{ usuario?.apellido?.charAt(0).toUpperCase() }}
         </div>
       </ng-template>
     </div>
@@ -37,6 +43,12 @@
 
     <!-- Formulario -->
     <form (ngSubmit)="actualizarPerfil()">
+
+      <div class="form-group">
+        <label>Cambiar foto de perfil:</label>
+        <input type="file" (change)="onFileSelected($event)" accept="image/*">
+      </div>
+
       <div class="form-group">
         <label>Nombre:</label>
         <input type="text" [(ngModel)]="usuario.nombre" name="nombre">
@@ -61,7 +73,7 @@
         <label>Descripción breve:</label>
         <textarea [(ngModel)]="usuario.descripcion" name="descripcion"></textarea>
       </div>
-
+      
       <button type="submit" class="submit-btn" style="margin-top: 15px;">Guardar Cambios</button>
     </form>
   </div>
@@ -83,3 +95,9 @@
     </div>
   </div>
 </div>
+<!-- Template de respaldo por si tarda medio segundo en cargar -->
+<ng-template #cargando>
+  <div style="text-align: center; color: #666; font-size: 14px; margin: 20px 0;">
+    Cargando perfil...
+  </div>
+</ng-template>
