@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef, Component, HostListener, OnInit } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { PublicacionesService } from '../../services/publicaciones.service';
 import { FormsModule } from '@angular/forms';
 import { PublicacionCardComponent } from '../publicacion-card/publicacion-card';
@@ -44,11 +43,11 @@ export class PublicacionesComponent implements OnInit {
   comentarioEnEdicionId: string | null = null;
   textoEditado: string = '';
 
+  errorMessage: string | null = null;
 
   constructor(
     private publicacionesService: PublicacionesService,
     private cdr: ChangeDetectorRef,
-    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -170,7 +169,7 @@ export class PublicacionesComponent implements OnInit {
     this.mostrarModalConfirmacion = false;
     this.nuevoTitulo = '';
     this.nuevaDescripcion = '';
-    //this.nuevaImagenUrl = '';
+    this.errorMessage = null;
     this.cdr.detectChanges();
   }
 
@@ -199,6 +198,7 @@ export class PublicacionesComponent implements OnInit {
       formData.append('imagen', this.archivoSeleccionado);
     }
 
+    this.errorMessage = null;
     // 3. Enviamos el FormData al servicio
     this.publicacionesService.crearPublicacion(formData).subscribe({
       next: (res) => {
@@ -210,12 +210,7 @@ export class PublicacionesComponent implements OnInit {
       },
       error: (err) => {
         console.error('Error al crear la publicación:', err);
-        this.snackBar.open('No se pudo crear la publicación. Intente nuevamente.', 'Cerrar', {
-          duration: 4000,
-          horizontalPosition: 'end',
-          verticalPosition: 'bottom',
-          panelClass: ['error-snackbar'] // Opcional para darle color rojo
-        });
+        this.errorMessage = 'No se pudo crear la publicación. Verificá los campos e intentá nuevamente.';
       }
     });
   }

@@ -97,6 +97,10 @@
       <h3>Crear nueva publicación</h3>
       <button class="close-btn" (click)="cerrarModal()">✕</button>
     </div>
+    
+    <div *ngIf="errorMessage" class="alert alert-danger" style="color: #721c24; background-color: #f8d7da; border: 1px solid #f5c6cb; padding: 10px; border-radius: 4px; margin-bottom: 15px;">
+      {{ errorMessage }}
+    </div>
 
     <div class="modal-body">
       <div class="form-group">
