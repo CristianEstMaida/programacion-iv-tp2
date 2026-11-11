@@ -179,7 +179,9 @@ export class App implements OnInit, OnDestroy{
     this.mostrarModalExpiracion = false;
     this.cargando = false;
     this.cdr.detectChanges();
-    this.router.navigate(['/login']);
+    // Omitimos el router.navigate aquí para dejar que el Interceptor HTTP 
+    // sea el que detecte el 401 del backend y redirija de forma oficial.
+    //this.router.navigate(['/login']);
   }
 
   private limpiarTimers() {
