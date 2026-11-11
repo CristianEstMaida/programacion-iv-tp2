@@ -219,41 +219,57 @@ export class PublicacionesComponent implements OnInit {
   }
   // 2. Dar o quitar Me Gusta
   manejarToggleLike(post: any) {
+    if (!post.likes) post.likes = [];
+
+    // 1. GUARDAMOS EL ESTADO ANTERIOR (por si falla y hay que revertir)
+    const estadoAnterior = post.likedByMe;
+
+    // 2. CAMBIO OPTIMISTA INMEDIATO (La vista se actualiza en el primer clic)
+    post.likedByMe = !estadoAnterior;
+
     if (post.likedByMe) {
-      this.publicacionesService.quitarMegusta(post._id).subscribe({
-        next: () => {
-          post.likedByMe = false;
-          post.likesCount = Math.max(0, (post.likesCount || post.likes.length) - 1);
-          post.likes = post.likes.filter((id: string) => id !== this.usuarioLogueadoId);
-
-          // Si está ordenado por likes, reordenamos la lista localmente de inmediato
-          if (this.ordenSeleccionado === 'likes') {
-            this.publicaciones.sort((a, b) => b.likesCount - a.likesCount);
-          }
-          this.cdr.detectChanges();
-        },
-        error: (err) => console.error('Error al quitar like', err)
-      });
+      post.likesCount = (post.likesCount || post.likes.length) + 1;
+      if (!post.likes.includes(String(this.usuarioLogueadoId))) {
+        post.likes.push(String(this.usuarioLogueadoId));
+      }
     } else {
-      this.publicacionesService.darMegusta(post._id).subscribe({
-        next: () => {
-          post.likedByMe = true;
-          post.likesCount = (post.likesCount || post.likes.length) + 1;
-          if (!post.likes) post.likes = [];
-          if (!post.likes.includes(this.usuarioLogueadoId)) {
-            post.likes.push(String(this.usuarioLogueadoId));
-          }
-
-          // Si está ordenado por likes, reordenamos la lista localmente de inmediato
-          if (this.ordenSeleccionado === 'likes') {
-            this.publicaciones.sort((a, b) => b.likesCount - a.likesCount);
-          }
-
-          this.cdr.detectChanges();
-        },
-        error: (err) => console.error('Error al dar like', err)
-      });
+      post.likesCount = Math.max(0, (post.likesCount || post.likes.length) - 1);
+      post.likes = post.likes.filter((id: string) => String(id) !== String(this.usuarioLogueadoId));
     }
+
+    // Si está ordenado por likes, reordenamos y rompemos referencia del array
+    if (this.ordenSeleccionado === 'likes') {
+      this.publicaciones.sort((a, b) => b.likesCount - a.likesCount);
+      this.publicaciones = [...this.publicaciones];
+    }
+
+    // Forzamos el redibujado de la vista del padre al instante
+    this.cdr.detectChanges();
+
+    // 3. PETICIÓN AL BACKEND EN SEGUNDO PLANO
+    const peticion$ = estadoAnterior 
+      ? this.publicacionesService.quitarMegusta(post._id) 
+      : this.publicacionesService.darMegusta(post._id);
+
+    peticion$.subscribe({
+      next: () => {
+        // Éxito: el backend ya confirmó, la vista ya se había actualizado sola.
+      },
+      error: (err) => {
+        console.error('Error al procesar el like', err);
+        
+        // SI FALLA EL BACKEND: Revertimos los cambios visuales
+        post.likedByMe = estadoAnterior;
+        if (estadoAnterior) {
+          post.likesCount++;
+          post.likes.push(String(this.usuarioLogueadoId));
+        } else {
+          post.likesCount = Math.max(0, post.likesCount - 1);
+          post.likes = post.likes.filter((id: string) => String(id) !== String(this.usuarioLogueadoId));
+        }
+        this.cdr.detectChanges();
+      }
+    });
   }
 
   // 3. Validar si la publicación pertenece al usuario logueado para mostrar el botón de eliminar

@@ -38,7 +38,7 @@ export class PublicacionCardComponent {
   // 2. Acciones que disparan los eventos hacia el componente principal
   toggleMeGusta() {
     this.onToggleLike.emit(this.publicacion);
-    this.cdr.detectChanges();
+    //this.cdr.detectChanges();
   }
 
   // prepararEliminacion() {
