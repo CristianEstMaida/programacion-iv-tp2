@@ -61,11 +61,10 @@ export class PublicacionesService {
 
   // Obtener comentarios de una publicación con paginación (limit y offset)
   obtenerComentarios(publicacionId: string, page: number, limit: number): Observable<any> {
-    const offset = (page - 1) * limit;
+
     const params = new HttpParams()
-      .set('publicacion', publicacionId)
+      .set('page', page.toString())
       .set('limit', limit.toString())
-      .set('offset', offset.toString());
 
     return this.http.get<any>(`${this.apiUrl}/${publicacionId}/comentarios`, { params });
   }

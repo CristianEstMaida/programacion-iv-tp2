@@ -83,6 +83,7 @@ export class PublicacionDetalleComponent implements OnInit {
     if (reiniciar) {
       this.page = 1;
       this.comentarios = [];
+      this.hayMasComentarios = true;
     }
 
     this.publicacionesService.obtenerComentarios(postId, this.page, this.limit).subscribe({
@@ -95,11 +96,17 @@ export class PublicacionDetalleComponent implements OnInit {
         if (reiniciar) {
           this.comentarios = ordenados;
         } else {
-          this.comentarios = [...this.comentarios, ...ordenados];
+          // Filtro de seguridad: Evitamos duplicados comparando los _id
+          const idsExistentes = new Set(this.comentarios.map(c => c._id || c.id));
+          const unicosNuevos = ordenados.filter((c: any) => !idsExistentes.has(c._id || c.id));
+          
+          this.comentarios = [...this.comentarios, ...unicosNuevos];
         }
 
         if (ordenados.length < this.limit || (res.totalPages && this.page >= res.totalPages)) {
           this.hayMasComentarios = false;
+        } else {
+          this.hayMasComentarios = true;
         }
         this.cdr.detectChanges();
       },
@@ -121,6 +128,7 @@ export class PublicacionDetalleComponent implements OnInit {
     this.publicacionesService.crearComentario(postId, { mensaje: this.nuevoComentarioTexto }).subscribe({
       next: () => {
         this.nuevoComentarioTexto = '';
+        this.page = 1;
         this.cargarComentarios(postId, true); // Recarga desde la página 1 para ver el nuevo arriba
       },
       error: (err) => console.error('Error al crear comentario', err)

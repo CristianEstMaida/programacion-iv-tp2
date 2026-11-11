@@ -37,7 +37,7 @@
         rows="2"
         class="form-control">
       </textarea>
-      <button class="btn btn-success mt-2" (click)="agregarComentario()">Comentar</button>
+      <button class="btn-success" (click)="agregarComentario()">Comentar</button>
     </div>
 
     <!-- Listado de comentarios -->
@@ -51,13 +51,13 @@
       </div>
 
       <!-- Botón de paginación "Cargar más" -->
-      <div class="text-center mt-3" *ngIf="hayMasComentarios">
-        <button class="btn btn-outline-secondary" (click)="cargarMasComentarios()">Cargar más comentarios</button>
+      <div class="text-center" *ngIf="hayMasComentarios">
+        <button class="btn-outline-secondary" (click)="cargarMasComentarios()">Cargar más comentarios</button>
       </div>
     </div>
 
     <ng-template #sinComentarios>
-      <p class="text-muted mt-3">No hay comentarios aún. ¡Sé el primero en comentar!</p>
+      <p class="text-muted">No hay comentarios aún. ¡Sé el primero en comentar!</p>
     </ng-template>
   </div>
 </div>

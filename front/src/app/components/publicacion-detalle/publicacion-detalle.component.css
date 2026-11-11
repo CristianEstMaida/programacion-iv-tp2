@@ -1,23 +1,183 @@
+/* Contenedor general del detalle con fondo claro */
 .detalle-container {
+  max-width: 800px;
+  margin: 30px auto;
   padding: 20px;
-  max-width: 900px; /* Limitamos el ancho máximo de la pantalla de detalle */
-  margin: 0 auto;
+  color: #212529; /* Texto oscuro legible */
 }
 
+/* Tarjeta principal del detalle (Fondo blanco) */
+.detalle-card {
+  background-color: #ffffff;
+  border: 1px solid #dee2e6;
+  border-radius: 12px;
+  padding: 25px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  margin-bottom: 30px;
+}
+
+.detalle-card h1 {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 15px;
+  color: #212529;
+}
+
+/* Información del autor y fecha */
+.autor-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
+  color: #6c757d;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #e9ecef;
+  padding-bottom: 10px;
+}
+
+.autor-info strong {
+  color: #343a40;
+}
+
+.fecha {
+  font-style: italic;
+}
+
+/* Contenedor de la imagen grande */
 .imagen-grande-container {
   width: 100%;
-  max-height: 450px; /* 👈 Aquí limitamos la altura para que no sea gigante */
+  max-height: 450px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
   overflow: hidden;
   display: flex;
   justify-content: center;
-  background-color: #f8f9fa;
-  border-radius: 8px;
-  margin: 20px 0;
+  align-items: center;
+  margin-bottom: 20px;
 }
 
 .imagen-grande {
   width: 100%;
   height: 100%;
   max-height: 450px;
-  object-fit: contain; /* 👈 Hace que la imagen se adapte sin deformarse ni estirarse de más */
+  object-fit: contain; /* Muestra la foto entera sin recortarla ni deformarla */
+}
+
+/* Descripción completa */
+.descripcion-completa {
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: #495057;
+  word-break: break-word;
+}
+
+/* --- SECCIÓN DE COMENTARIOS --- */
+.comentarios-section {
+  background-color: #ffffff;
+  border: 1px solid #dee2e6;
+  border-radius: 12px;
+  padding: 25px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.comentarios-section h3 {
+  font-size: 1.4rem;
+  margin-bottom: 20px;
+  color: #212529;
+  border-bottom: 2px solid #2d6a4f; /* Toque verde distintivo */
+  padding-bottom: 8px;
+}
+
+/* Formulario de comentarios */
+.nuevo-comentario-form textarea.form-control {
+  width: 100%;
+  background-color: #fff;
+  border: 1px solid #ced4da;
+  color: #212529;
+  border-radius: 8px;
+  padding: 12px;
+  resize: vertical;
+  font-size: 0.95rem;
+}
+
+.nuevo-comentario-form textarea.form-control:focus {
+  background-color: #fff;
+  color: #212529;
+  border-color: #2d6a4f;
+  box-shadow: 0 0 0 0.2rem rgba(45, 106, 79, 0.25);
+  outline: none;
+}
+
+/* Botón Verde Éxito unificado */
+.btn-success {
+  background-color: #2d6a4f !important;
+  border-color: #2d6a4f !important;
+  color: #fff !important;
+  font-weight: 600;
+  padding: 8px 16px;
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
+}
+
+.btn-success:hover {
+  background-color: #1b4332 !important;
+  border-color: #1b4332 !important;
+}
+
+/* Tarjetas individuales de comentarios */
+.lista-comentarios {
+  margin-top: 20px;
+}
+
+.comentario-card {
+  background-color: #f8f9fa; /* Fondo gris muy suave para diferenciar cada comentario */
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 12px;
+}
+
+.comentario-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  font-size: 0.85rem;
+}
+
+.comentario-header strong {
+  color: #343a40;
+}
+
+.comentario-header .fecha {
+  color: #6c757d;
+}
+
+.comentario-card p {
+  margin: 0;
+  color: #495057;
+  font-size: 0.95rem;
+}
+
+/* Botón secundario para "Cargar más" */
+.btn-outline-secondary {
+  background-color: transparent;
+  border: 1px solid #6c757d;
+  color: #6c757d;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.btn-outline-secondary:hover {
+  background-color: #6c757d;
+  color: #fff;
+}
+
+/* Mensaje de carga / sin comentarios */
+.loading, .text-muted {
+  color: #6c757d !important;
+  text-align: center;
+  font-style: italic;
 }
