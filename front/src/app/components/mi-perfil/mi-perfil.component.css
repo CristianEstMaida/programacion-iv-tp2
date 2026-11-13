@@ -1,49 +1,53 @@
-/* Contenedor principal centrado */
+/* Contenedor principal ensanchado para aprovechar pantallas grandes */
 .perfil-container {
-  max-width: 650px;
-  margin: 40px auto;
+  max-width: 1100px;
+  margin: 30px auto;
   padding: 0 20px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Tarjeta principal (Idéntica estética al Login y al Muro) */
+/* Estructura en Grid de Dos Columnas */
+.perfil-grid-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Dos columnas iguales */
+  gap: 25px;
+  align-items: start;
+}
+
+/* Responsividade: Si la pantalla es chica (móviles/tablets), baja a una sola columna */
+@media (max-width: 850px) {
+  .perfil-grid-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Tarjeta principal unificada */
 .perfil-card {
   background-color: #ffffff;
   border-radius: 16px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.04);
-  padding: 30px;
+  padding: 25px;
   border: 1px solid #f3f4f6;
+  box-sizing: border-box;
 }
 
 .perfil-card h2 {
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 700;
   color: #111827;
   margin-top: 0;
   margin-bottom: 20px;
   border-bottom: 1px solid #f3f4f6;
-  padding-bottom: 15px;
+  padding-bottom: 12px;
 }
 
 /* Sección del Avatar */
-/* Contenedor y centrado del avatar */
 .avatar-section {
   display: flex;
   justify-content: center;
-  margin-bottom: 25px;
+  margin-bottom: 20px;
 }
 
-/* Si hay imagen de perfil cargada */
-.avatar-img {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 3px solid #4f46e5;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-}
-
-/* Si NO hay imagen, muestra un círculo con la inicial con los mismos estilos */
 .avatar-inicial {
   width: 80px;
   height: 80px;
@@ -59,27 +63,24 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
 }
 
-.avatar {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 3px solid #4f46e5;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-}
-
 .info-texto {
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   color: #4a5568;
-  margin: 2px 0;
+  margin: 6px 0;
 }
 
-/* Grupos de formularios limpios */
+.usuario-nombre {
+  font-size: 1.25rem;
+  color: #111827;
+  margin-bottom: 10px;
+}
+
+/* Grupos de formularios */
 .form-group {
   display: flex;
   flex-direction: column;
   gap: 6px;
-  margin-bottom: 18px;
+  margin-bottom: 15px;
 }
 
 .form-group label {
@@ -87,7 +88,7 @@
   font-size: 0.85rem;
   font-weight: 600;
   color: #374151;
-  margin-bottom: 6px;
+  margin-bottom: 4px;
 }
 
 .form-group input, 
@@ -112,24 +113,20 @@
   background-color: #ffffff;
 }
 
-/* Campo desactivado (como el username) */
 .form-group input:disabled {
   background-color: #f3f4f6;
   color: #9ca3af;
   cursor: not-allowed;
 }
 
-
-
 .form-group textarea {
   resize: vertical;
-  min-height: 80px;
+  min-height: 70px;
 }
 
-/* Botón de envío unificado */
 .submit-btn {
   width: 100%;
-  background-color: #4f46e5;
+  background-color: #1e5631; /* Verde institucional AgroRed */
   color: white;
   border: none;
   padding: 12px;
@@ -137,16 +134,15 @@
   font-weight: 600;
   font-size: 15px;
   cursor: pointer;
-  box-shadow: 0 4px 6px rgba(79, 70, 229, 0.2);
+  box-shadow: 0 4px 6px rgba(30, 86, 49, 0.2);
   transition: background-color 0.2s;
-  margin-top: 10px;
 }
 
 .submit-btn:hover {
-  background-color: #4338ca;
+  background-color: #143d22; /* Un verde un poquito más oscuro para el hover */
 }
 
-/* Alerta de Éxito */
+/* Alertas */
 .alert-success {
   background-color: #e8f5e9;
   color: #2e7d32;
@@ -157,10 +153,8 @@
   font-weight: 500;
   margin-bottom: 1.5rem;
   text-align: center;
-  animation: fadeIn 0.3s ease-in-out;
 }
 
-/* Alerta de Error */
 .alert-error {
   background-color: #ffebee;
   color: #c62828;
@@ -171,10 +165,4 @@
   font-weight: 500;
   margin-bottom: 1.5rem;
   text-align: center;
-  animation: fadeIn 0.3s ease-in-out;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-5px); }
-  to { opacity: 1; transform: translateY(0); }
 }

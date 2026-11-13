@@ -1,103 +1,118 @@
 <div class="perfil-container" *ngIf="usuario; else cargando">
-  <div class="perfil-card">
-    <!-- Mensajes de Alerta (Éxito / Error) -->
-    <div *ngIf="mensajeExito" class="alert-success">
-      {{ mensajeExito }}
-    </div>
-    <div *ngIf="mensajeError" class="alert-error">
-      {{ mensajeError }}
-    </div>
-    <h2>Mi Perfil</h2>
-    
-    <!-- Avatar -->
-    <div class="avatar-section" style="text-align: center; margin-bottom: 20px;">
-      <!-- 1. Cambiamos a usuario.imagenPerfil -->
-      <!-- 2. Pasamos el link directo de Cloudinary sin el prefijo del backend -->
-      <img *ngIf="usuario?.imagenPerfil && !imagenRota; else sinImagen" 
-          [src]="getSafeImageUrl(usuario.imagenPerfil)"
-          (error)="imagenRota = true"
-          alt="Foto de perfil" 
-          class="profile-avatar"
-          style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover;">
-          
-      <ng-template #sinImagen>
-        <div class="avatar-inicial" style="width: 80px; height: 80px; border-radius: 50%; background: #e8f5e9; color: #2e7d32; border: 2px solid #2e7d32; display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: bold; margin: 0 auto; text-transform: uppercase;">
-          {{ usuario?.nombre?.charAt(0).toUpperCase() }}{{ usuario?.apellido?.charAt(0).toUpperCase() }}
-        </div>
-      </ng-template>
-    </div>
-
-    <!-- Datos -->
-    <div class="card-usuario" style="text-align: center; margin-bottom: 20px;">
-      <h3 class="usuario-nombre">{{ usuario.nombre }} {{ usuario.apellido }}</h3>
-      <p class="info-texto"><strong>Usuario:</strong> @{{ usuario.username }}</p>
-      <p class="info-texto"><strong>Correo:</strong> {{ usuario.correo || usuario.email }}</p>
-      <p class="info-texto"><strong>Fecha de Nacimiento:</strong> {{ usuario.fechaNacimiento | date:'dd/MM/yyyy' }}</p>
-      <p class="info-texto"><strong>Descripción:</strong> {{ usuario.descripcion || 'Sin descripción' }}</p>
-    </div>
-
-    <hr style="border: 0; border-top: 1px solid #eaeaea; margin: 2rem 0;">
-
-    <!-- SECCIÓN 2: Formulario de Edición -->
-    <h3>Editar Información</h3>
-
-    <!-- Formulario -->
-    <form (ngSubmit)="actualizarPerfil()">
-
-      <div class="form-group">
-        <label>Cambiar foto de perfil:</label>
-        <input type="file" (change)="onFileSelected($event)" accept="image/*">
-      </div>
-
-      <div class="form-group">
-        <label>Nombre:</label>
-        <input type="text" [(ngModel)]="usuario.nombre" name="nombre">
-      </div>
-
-      <div class="form-group">
-        <label>Apellido:</label>
-        <input type="text" [(ngModel)]="usuario.apellido" name="apellido">
-      </div>
-
-      <div class="form-group">
-        <label>Nombre de Usuario:</label>
-        <input type="text" [(ngModel)]="usuario.username" name="username" disabled>
-      </div>
-
-      <div class="form-group">
-        <label for="fechaNacimiento">Fecha de Nacimiento:</label>
-        <input type="date" id="fechaNacimiento" name="fechaNacimiento" [(ngModel)]="usuario.fechaNacimiento" class="form-input">
-      </div>
-
-      <div class="form-group">
-        <label>Descripción breve:</label>
-        <textarea [(ngModel)]="usuario.descripcion" name="descripcion"></textarea>
-      </div>
-      
-      <button type="submit" class="submit-btn" style="margin-top: 15px;">Guardar Cambios</button>
-    </form>
+  
+  <!-- Mensajes Globales de Alerta -->
+  <div *ngIf="mensajeExito" class="alert-success">
+    {{ mensajeExito }}
+  </div>
+  <div *ngIf="mensajeError" class="alert-error">
+    {{ mensajeError }}
   </div>
 
-  <!-- Mis últimas 3 publicaciones (Requisito del Sprint 2) -->
-  <div class="mis-publicaciones-seccion" style="margin-top: 30px; padding: 20px;">
-    <h3>Mis Últimas Publicaciones</h3>
+  <!-- GRID DE DOS COLUMNAS -->
+  <div class="perfil-grid-layout">
     
-    <!-- Mensaje si está vacío -->
-    <div *ngIf="!ultimasPublicaciones || ultimasPublicaciones.length === 0" class="no-posts">
-      <p>No tienes publicaciones todavía.</p>
+    <!-- COLUMNA IZQUIERDA: Información del Usuario y Últimas Publicaciones -->
+    <div class="perfil-left-column">
+      
+      <!-- Tarjeta de Presentación -->
+      <div class="perfil-card">
+        <h2>Mi Perfil</h2>
+        
+        <div class="avatar-section">
+          <img *ngIf="usuario?.imagenPerfil && !imagenRota; else sinImagen" 
+               [src]="getSafeImageUrl(usuario.imagenPerfil)"
+               (error)="imagenRota = true"
+               alt="Foto de perfil" 
+               class="profile-avatar"
+               style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover;">
+               
+          <ng-template #sinImagen>
+            <div class="avatar-inicial">
+              {{ usuario?.nombre?.charAt(0).toUpperCase() }}{{ usuario?.apellido?.charAt(0).toUpperCase() }}
+            </div>
+          </ng-template>
+        </div>
+
+        <div class="card-usuario" style="text-align: center;">
+          <h3 class="usuario-nombre">{{ usuario.nombre }} {{ usuario.apellido }}</h3>
+          <p class="info-texto"><strong>Usuario:</strong> @{{ usuario.username }}</p>
+          <p class="info-texto"><strong>Correo:</strong> {{ usuario.correo || usuario.email }}</p>
+          <p class="info-texto"><strong>Fecha de Nacimiento:</strong> {{ usuario.fechaNacimiento | date:'dd/MM/yyyy' }}</p>
+          <p class="info-texto"><strong>Descripción:</strong> {{ usuario.descripcion || 'Sin descripción' }}</p>
+        </div>
+      </div>
+
+      <!-- Mis últimas 3 publicaciones -->
+      <div class="mis-publicaciones-seccion perfil-card" style="margin-top: 20px;">
+        <h3>Mis Últimas Publicaciones</h3>
+        
+        <div *ngIf="!ultimasPublicaciones || ultimasPublicaciones.length === 0" class="no-posts">
+          <p style="color: #666; font-size: 0.9rem;">No tienes publicaciones todavía.</p>
+        </div>
+
+        <div *ngFor="let post of ultimasPublicaciones" class="post-mini-card" style="border: 1px solid #e0e0e0; padding: 12px; margin-bottom: 12px; border-radius: 8px; background: #ffffff;">
+          <h4 style="margin: 0 0 4px 0; color: #333; font-size: 0.95rem;">{{ post.titulo }}</h4>
+          <p style="color: #666; margin: 4px 0; font-size: 0.85rem;">{{ post.descripcion }}</p>
+          <small style="color: #888; font-size: 0.75rem;">{{ post.createdAt | date:'short' }} | ❤️ Likes: {{ post.likesCount }}</small>
+        </div>
+      </div>
+
     </div>
 
-    <!-- Listado de publicaciones -->
-    <div *ngFor="let post of ultimasPublicaciones" class="post-mini-card" style="border: 1px solid #e0e0e0; padding: 15px; margin-bottom: 15px; border-radius: 8px; background: #ffffff;">
-      <h4 style="margin: 0 0 5px 0; color: #333;">{{ post.titulo }}</h4>
-      <p style="color: #666; margin: 5px 0;">{{ post.descripcion }}</p>
-      <small style="color: #666;">{{ post.createdAt | date:'short' }} | ❤️ Likes: {{ post.likesCount }}</small>
+    <!-- COLUMNA DERECHA: Formulario de Edición -->
+    <div class="perfil-right-column">
+      <div class="perfil-card">
+        <h2>Editar Información</h2>
+
+        <form (ngSubmit)="actualizarPerfil()">
+          <div class="form-group">
+            <label>Cambiar foto de perfil:</label>
+            
+            <!-- Input de archivo oculto -->
+            <input #fileInputPerfil type="file" (change)="onFileSelected($event)" accept="image/*" style="display: none;">
+            
+            <!-- Botón personalizado que simula el clic -->
+            <button type="button" class="btn-subir-imagen" (click)="fileInputPerfil.click()">
+              📁 Seleccionar Imagen de Perfil
+            </button>
+          </div>
+
+          <div class="form-group">
+            <label>Nombre:</label>
+            <input type="text" [(ngModel)]="usuario.nombre" name="nombre">
+          </div>
+
+          <div class="form-group">
+            <label>Apellido:</label>
+            <input type="text" [(ngModel)]="usuario.apellido" name="apellido">
+          </div>
+
+          <div class="form-group">
+            <label>Nombre de Usuario:</label>
+            <input type="text" [(ngModel)]="usuario.username" name="username" disabled>
+          </div>
+
+          <div class="form-group">
+            <label for="fechaNacimiento">Fecha de Nacimiento:</label>
+            <input type="date" id="fechaNacimiento" name="fechaNacimiento" [(ngModel)]="usuario.fechaNacimiento" class="form-input">
+          </div>
+
+          <div class="form-group">
+            <label>Descripción breve:</label>
+            <textarea [(ngModel)]="usuario.descripcion" name="descripcion"></textarea>
+          </div>
+          
+          <button type="submit" class="submit-btn" style="margin-top: 15px;">Guardar Cambios</button>
+        </form>
+      </div>
     </div>
+
   </div>
 </div>
-<!-- Template de respaldo por si tarda medio segundo en cargar -->
+
+<!-- Template de carga -->
 <ng-template #cargando>
-  <div style="text-align: center; color: #666; font-size: 14px; margin: 20px 0;">
+  <div style="text-align: center; color: #666; font-size: 14px; margin: 40px 0;">
     Cargando perfil...
   </div>
 </ng-template>

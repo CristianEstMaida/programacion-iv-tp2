@@ -6,12 +6,12 @@
   color: #333;
 }
 
-.estadisticas-container h2 {
+/* .estadisticas-container h2 {
   font-size: 1.8rem;
   font-weight: 700;
   margin-bottom: 1.5rem;
   color: #1a1a1a;
-}
+} */
 
 /* Tarjeta de filtros de fecha */
 .filtro-fechas-card {
