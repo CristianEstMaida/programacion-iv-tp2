@@ -443,7 +443,7 @@ body {
 }
 
 /* Contenedor estándar para Login, Registro, MiPerfil y Publicaciones */
-.container, .auth-container, .profile-container, .publicaciones-container {
+.container, .profile-container, .publicaciones-container {
   max-width: 800px;
   margin: 40px auto;
   background: var(--card-bg);
@@ -498,4 +498,102 @@ input:focus, textarea:focus {
   align-items: center;
   z-index: 9999; /* Asegura que quede por encima de todo */
   backdrop-filter: blur(2px); /* Efeoto sutil de desenfoque opcional */
+}
+
+
+/* Estilos globales unificados para Login y Registro */
+/* Contenedor unificado para las tarjetas de autenticación */
+/* Definición unificada para .card en styles.css global */
+/* --- TARJETAS DE AUTENTICACIÓN UNIFICADAS (Login y Registro) --- */
+.card {
+  background-color: #ffffff;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  border-radius: 1rem;
+  padding: 2.5rem;
+  width: 100%;
+  max-width: 540px;
+  margin: 0 auto;
+}
+
+/* Inputs con ícono dentro de auth (para que no afecte a otros inputs sin ícono de la app) */
+.input-container input,
+.input-container select,
+.input-container .select-input {
+  width: 100%;
+  padding: 0.75rem 1rem 0.75rem 2.75rem;
+  background-color: #f8f9ff;
+  border: 1px solid #cce3d4;
+  color: #0b1c30;
+  font-size: 14px;
+  border-radius: 0.75rem;
+  outline: none;
+}
+
+.input-container input:focus,
+.input-container select:focus,
+.input-container .select-input:focus {
+  background-color: #ffffff;
+  border-color: #1e5631;
+  box-shadow: 0 0 0 2px rgba(30, 86, 49, 0.15);
+}
+
+/* Botón principal de envío unificado (Login / Registro) */
+.submit-btn {
+  width: 100%;
+  margin-top: 0.5rem;
+  padding: 0.875rem 1.5rem;
+  border-radius: 0.75rem;
+  background-color: #1e5631;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.submit-btn:hover {
+  background-color: #143d22;
+}
+
+.submit-btn:disabled {
+  background-color: #88a893;
+  color: #ffffff;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* Enlaces de alternancia (¿No tienes cuenta? / ¿Ya tienes cuenta?) */
+.switch-link a, 
+.register-link a {
+  color: #1e5631;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.switch-link a:hover, 
+.register-link a:hover {
+  color: #143d22;
+  text-decoration: underline;
+}
+
+/* --- ESTILOS PARA INPUT DE ARCHIVO (Imagen de Perfil) --- */
+.file-input {
+  width: 100%;
+  padding: 0.6rem 1rem 0.6rem 2.75rem !important;
+  background-color: #f8f9ff;
+  border: 1px solid #cce3d4; /* El borde verde suave unificado */
+  color: #0b1c30;
+  font-size: 14px;
+  border-radius: 0.75rem;   /* Mismo radio de 12px que el resto */
+  outline: none;
+}
+
+.file-input:focus {
+  background-color: #ffffff;
+  border-color: #1e5631;    /* Borde verde institucional al enfocar */
+  box-shadow: 0 0 0 2px rgba(30, 86, 49, 0.15);
 }
