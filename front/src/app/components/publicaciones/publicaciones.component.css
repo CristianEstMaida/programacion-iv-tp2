@@ -1,14 +1,13 @@
 /* --- ESTILOS EXCLUSIVOS DEL MURO DE PUBLICACIONES --- */
 
 .muro-container {
-  max-width: 680px;
+  max-width: 820px; /* Lo subimos un poco para ganar espacio sin perder lectura */
   margin: 0 auto;
-  padding: 24px 16px;
+  padding: 24px 20px;
   font-family: inherit;
   color: #191919;
   min-height: 100vh;
 }
-
 /* Header del Muro */
 .muro-header {
   background: #ffffff;

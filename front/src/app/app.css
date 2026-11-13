@@ -9,11 +9,10 @@
 .modal-content {
   background-color: #ffffff;
   padding: 24px 30px;
-  border-radius: 12px;
+  border-radius: 1rem;
   width: 90%;
   max-width: 420px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-  border-top: 5px solid #2c5e3a; /* Mantiene la paleta verde corporativa de AgroRed */
   text-align: center;
 }
 
