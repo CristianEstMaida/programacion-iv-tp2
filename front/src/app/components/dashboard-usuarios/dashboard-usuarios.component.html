@@ -1,151 +1,151 @@
 <div class="container">
-  <h2>Panel de Gestión de Usuarios (Administrador)</h2>
+    <h2>Panel de Gestión de Usuarios (Administrador)</h2>
 
-  <!-- 1. Barra de acciones superior limpia: Solo el botón para desplegar el formulario -->
-  <div class="action-bar" style="margin-bottom: 20px;" *ngIf="!mostrarFormulario">
-    <button class="btn-custom btn-activar" (click)="mostrarFormulario = true">
-      + Registrar Nuevo Usuario
-    </button>
-  </div>
-
-  <!-- 2. FORMULARIO (Solo aparece cuando haces clic en registrar) -->
-  <div class="card form-card" *ngIf="mostrarFormulario" appFadeIn style="margin-bottom: 25px;">
-    
-    <!-- Cabecera interna del formulario con su propio botón de cerrar/cancelar -->
-    <!-- <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-      <h3 style="margin: 0;">Crear Nuevo Usuario</h3>
-      <button type="button" class="btn-custom" style="background: #e0e0e0; color: #333; padding: 6px 12px; font-size: 14px;" (click)="mostrarFormulario = false">
-        ✕ Cancelar
+    <!-- 1. Barra de acciones superior limpia: Solo el botón para desplegar el formulario -->
+    <div class="action-bar" *ngIf="!mostrarFormulario">
+      <button class="btn-custom btn-activar" (click)="mostrarFormulario = true">
+        + Registrar Nuevo Usuario
       </button>
-    </div> -->
-
-    <form (ngSubmit)="crearUsuario()" class="custom-form">
-      <div class="form-group">
-        <label>Nombre</label>
-        <input type="text" class="input-control" [(ngModel)]="nuevoUsuario.nombre" name="nombre" required>
-      </div>
-
-      <div class="form-group">
-        <label>Apellido</label>
-        <input type="text" class="input-control" [(ngModel)]="nuevoUsuario.apellido" name="apellido" required>
-      </div>
-
-      <div class="form-group">
-        <label>Correo Electrónico (Email)</label>
-        <input type="email" class="input-control" [(ngModel)]="nuevoUsuario.email" name="email" required>
-      </div>
-
-      <div class="form-group">
-        <label>Nombre de Usuario (Único)</label>
-        <input type="text" class="input-control" [(ngModel)]="nuevoUsuario.username" name="username" required>
-      </div>
-
-      <div class="form-group">
-        <label>Contraseña (Mín. 8 caracteres, 1 mayúscula, 1 número)</label>
-        <input type="password" class="input-control" [(ngModel)]="nuevoUsuario.password" name="password" required>
-      </div>
-
-      <div class="form-group">
-        <label>Repetir Contraseña</label>
-        <input type="password" class="input-control" [(ngModel)]="nuevoUsuario.repetirPassword" name="repetirPassword" required>
-      </div>
-
-      <div class="form-group">
-        <label>Fecha de Nacimiento</label>
-        <input type="date" class="input-control" [(ngModel)]="nuevoUsuario.fechaNacimiento" name="fechaNacimiento" required>
-      </div>
-
-      <div class="form-group">
-        <label>Descripción Breve</label>
-        <input type="text" class="input-control" [(ngModel)]="nuevoUsuario.descripcion" name="descripcion">
-      </div>
-
-      <div class="form-group">
-        <label>Foto de Perfil (Opcional)</label>
-        <input type="file" class="input-control" (change)="onFileSelected($event)" accept="image/*">
-      </div>
-
-      <!-- RADIO BUTTONS -->
-      <div class="form-group">
-        <label class="label-block">Perfil / Rol:</label>
-        <div class="radio-group">
-          <label class="radio-label">
-            <input type="radio" name="perfil" value="usuario" [(ngModel)]="nuevoUsuario.perfil">
-            Usuario
-          </label>
-          <label class="radio-label">
-            <input type="radio" name="perfil" value="administrador" [(ngModel)]="nuevoUsuario.perfil">
-            Administrador
-          </label>
-        </div>
-      </div>
-
-      <!-- CAJA DE ERRORES -->
-      <div class="alert-error" *ngIf="erroresFormulario.length > 0">
-        <p class="alert-title">Por favor corrige los siguientes errores:</p>
-        <ul>
-            <li *ngFor="let error of erroresFormulario">{{ error }}</li>
-        </ul>
-      </div>
-
-      <!-- Botones inferiores de acción del formulario -->
-      <div style="display: flex; gap: 10px; margin-top: 15px;">
-        <button type="submit" class="btn-custom btn-activar">Guardar Usuario</button>
-        <button type="button" class="btn-custom" style="background: #e0e0e0; color: #333;" (click)="mostrarFormulario = false">Cancelar</button>
-      </div>
-    </form>
-  </div>
-
-  <!-- 3. BLOQUE DE LA TABLA CON TÍTULO CLARO -->
-  <div class="card" appFadeIn>
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-      <h3 style="margin: 0; color: #333; font-size: 18px;">Listado de Usuarios Registrados</h3>
-      <span style="background: #e8f5e9; color: #2e7d32; padding: 4px 10px; border-radius: 12px; font-size: 12px; font-weight: bold;">
-        Total: {{ usuarios.length }}
-      </span>
     </div>
 
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Nombre y Apellido</th>
-          <th>Email</th>
-          <th>Perfil / Rol</th>
-          <th>Estado</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let u of usuarios" appHover="#f8fafc">
-          <td>{{ u.nombre | capitalize }} {{ u.apellido | capitalize }}</td>
-          <td>{{ u.email }}</td>
-          
-          <td>
-            <span class="badge" [appRolStyle]="u.perfil">
-              {{ u.perfil | capitalize }}
-            </span>
-          </td>
+    <!-- 2. FORMULARIO (Solo aparece cuando haces clic en registrar) -->
+    <div class="form-card" *ngIf="mostrarFormulario" appFadeIn>
 
-          <td>
-            <span [class.text-activo]="u.activo" [class.text-inactivo]="!u.activo">
-              {{ u.activo ? 'Activo' : 'Inactivo' }}
-            </span>
-          </td>
 
-          <td>
-            <button *ngIf="u.activo" class="btn-custom btn-baja" (click)="darDeBaja(u._id)">
-              Dar de baja
+      <form (ngSubmit)="crearUsuario()" class="custom-form">
+        <div class="form-group">
+          <label>Nombre</label>
+          <input type="text" class="input-control" [(ngModel)]="nuevoUsuario.nombre" name="nombre" required>
+        </div>
+
+        <div class="form-group">
+          <label>Apellido</label>
+          <input type="text" class="input-control" [(ngModel)]="nuevoUsuario.apellido" name="apellido" required>
+        </div>
+
+        <div class="form-group">
+          <label>Correo Electrónico (Email)</label>
+          <input type="email" class="input-control" [(ngModel)]="nuevoUsuario.email" name="email" required>
+        </div>
+
+        <div class="form-group">
+          <label>Nombre de Usuario (Único)</label>
+          <input type="text" class="input-control" [(ngModel)]="nuevoUsuario.username" name="username" required>
+        </div>
+
+        <div class="form-group">
+          <label>Contraseña (Mín. 8 caracteres, 1 mayúscula, 1 número)</label>
+          <input type="password" class="input-control" [(ngModel)]="nuevoUsuario.password" name="password" required>
+        </div>
+
+        <div class="form-group">
+          <label>Repetir Contraseña</label>
+          <input type="password" class="input-control" [(ngModel)]="nuevoUsuario.repetirPassword" name="repetirPassword" required>
+        </div>
+
+        <div class="form-group">
+          <label>Fecha de Nacimiento</label>
+          <input type="date" class="input-control" [(ngModel)]="nuevoUsuario.fechaNacimiento" name="fechaNacimiento" required>
+        </div>
+
+        <div class="form-group">
+          <label>Descripción Breve</label>
+          <input type="text" class="input-control" [(ngModel)]="nuevoUsuario.descripcion" name="descripcion">
+        </div>
+
+        <!-- Foto de Perfil (Opcional) -->
+        <div class="form-group">
+          <label>Foto de Perfil (Opcional)</label>
+          <div class="input-container">
+            <!-- Input nativo oculto -->
+            <input type="file" #fileInputAdmin style="display: none;" (change)="onFileSelected($event)" accept="image/*">
+            <!-- Botón estilizado globalmente -->
+            <button type="button" class="btn-subir-imagen" (click)="fileInputAdmin.click()">
+              📁 Seleccionar Imagen
             </button>
-            <button *ngIf="!u.activo" class="btn-custom btn-activar" (click)="activarUsuario(u._id)">
-              Activar
-            </button>
-          </td>
-        </tr>
+          </div>
+        </div>
 
-        <tr *ngIf="!usuarios || usuarios.length === 0">
-          <td colspan="5" class="empty-message">No hay usuarios registrados.</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+        <!-- RADIO BUTTONS -->
+        <div class="form-group">
+          <label class="label-block">Perfil / Rol:</label>
+          <div class="radio-group">
+            <label class="radio-label">
+              <input type="radio" name="perfil" value="usuario" [(ngModel)]="nuevoUsuario.perfil">
+              Usuario
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="perfil" value="administrador" [(ngModel)]="nuevoUsuario.perfil">
+              Administrador
+            </label>
+          </div>
+        </div>
+
+        <!-- CAJA DE ERRORES -->
+        <div class="alert-error" *ngIf="erroresFormulario.length > 0">
+          <p class="alert-title">Por favor corrige los siguientes errores:</p>
+          <ul>
+              <li *ngFor="let error of erroresFormulario">{{ error }}</li>
+          </ul>
+        </div>
+
+        <!-- Botones inferiores de acción del formulario -->
+        <div style="display: flex; gap: 10px; margin-top: 20px;">
+          <button type="submit" class="btn-primary">Guardar Usuario</button>
+          <button type="button" class="btn-secondary" (click)="mostrarFormulario = false">Cancelar</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- 3. BLOQUE DE LA TABLA CON TÍTULO CLARO -->
+    <div style="margin-top: 35px;" appFadeIn>
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+        <h3 style="margin: 0; color: #1e293b; font-size: 1.2rem; font-weight: 600;">Listado de Usuarios Registrados</h3>
+        <span style="background: #e8f5e9; color: #2e7d32; padding: 4px 10px; border-radius: 12px; font-size: 12px; font-weight: bold;">
+          Total: {{ usuarios.length }}
+        </span>
+      </div>
+
+      <table class="table usuarios-table">
+        <thead>
+          <tr>
+            <th>Nombre y Apellido</th>
+            <th>Email</th>
+            <th>Perfil / Rol</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let u of usuarios" appHover="#f8fafc">
+            <td>{{ u.nombre | capitalize }} {{ u.apellido | capitalize }}</td>
+            <td>{{ u.email }}</td>
+            
+            <td>
+              <span class="badge" [appRolStyle]="u.perfil">
+                {{ u.perfil | capitalize }}
+              </span>
+            </td>
+
+            <td>
+              <span [class.text-activo]="u.activo" [class.text-inactivo]="!u.activo">
+                {{ u.activo ? 'Activo' : 'Inactivo' }}
+              </span>
+            </td>
+
+            <td>
+              <button *ngIf="u.activo" class="btn-custom btn-baja" (click)="darDeBaja(u._id)">
+                Dar de baja
+              </button>
+              <button *ngIf="!u.activo" class="btn-custom btn-activar" (click)="activarUsuario(u._id)">
+                Activar
+              </button>
+            </td>
+          </tr>
+
+          <tr *ngIf="!usuarios || usuarios.length === 0">
+            <td colspan="5" class="empty-message">No hay usuarios registrados.</td>
+          </tr>
+        </tbody>
+      </table>
 </div>

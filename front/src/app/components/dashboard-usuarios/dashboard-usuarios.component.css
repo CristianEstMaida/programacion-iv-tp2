@@ -1,217 +1,5 @@
-/* Contenedor principal de la vista */
-.container {
-  max-width: 1200px;
-  margin: 40px auto;
-  padding: 0 20px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: #2c3e50;
-}
+/* --- ESTILOS EXCLUSIVOS DE ESTA VISTA (Propios) --- */
 
-.container h2 {
-  font-size: 1.8rem;
-  font-weight: 600;
-  margin-bottom: 24px;
-  color: #1e293b;
-  border-bottom: 2px solid #e2e8f0;
-  padding-bottom: 12px;
-}
-
-/* Tarjeta contenedora con sombra suave */
-.card {
-  background: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
-  padding: 24px;
-  overflow-x: auto; /* Permite scroll horizontal en pantallas chicas */
-  border: 1px solid #f1f5f9;
-}
-
-/* Estilos de la tabla */
-.table {
-  width: 100%;
-  border-collapse: collapse;
-  text-align: left;
-  font-size: 0.95rem;
-}
-
-.table th {
-  background-color: #f8fafc;
-  color: #475569;
-  font-weight: 600;
-  padding: 14px 16px;
-  border-bottom: 2px solid #e2e8f0;
-  text-transform: uppercase;
-  font-size: 0.8rem;
-  letter-spacing: 0.05em;
-}
-
-.table td {
-  padding: 14px 16px;
-  border-bottom: 1px solid #f1f5f9;
-  color: #334155;
-}
-
-/* Efecto hover sutil en las filas */
-.table tbody tr {
-  transition: background-color 0.2s ease;
-}
-
-.table tbody tr:hover {
-  background-color: #f8fafc;
-}
-
-/* Alineación vertical centrada para las celdas */
-.align-middle {
-  vertical-align: middle;
-}
-
-/* Badges / Etiquetas de Roles y Estados */
-.badge {
-  display: inline-block;
-  padding: 6px 12px;
-  font-size: 0.85rem;
-  font-weight: 500;
-  border-radius: 20px;
-  text-align: center;
-}
-
-/* Estilos para textos de estado */
-.text-success {
-  color: #16a34a;
-}
-
-.text-danger {
-  color: #dc2626;
-}
-
-.fw-bold {
-  font-weight: 600;
-}
-
-/* Botones de acción personalizados */
-.btn {
-  padding: 8px 14px;
-  font-size: 0.875rem;
-  font-weight: 500;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-}
-
-.btn:active {
-  transform: scale(0.98);
-}
-
-.btn-danger {
-  background-color: #fee2e2;
-  color: #b91c1c;
-}
-
-.btn-danger:hover {
-  background-color: #f87171;
-  color: #ffffff;
-}
-
-.btn-success {
-  background-color: #dcfce7;
-  color: #15803d;
-}
-
-.btn-success:hover {
-  background-color: #4ade80;
-  color: #ffffff;
-}
-
-.dashboard-container {
-  padding: 2rem;
-  max-width: 1200px;
-  margin: 0 auto;
-  font-family: inherit;
-}
-
-.dashboard-container h2 {
-  margin-bottom: 1.5rem;
-  color: #333;
-}
-
-.usuarios-table {
-  width: 100%;
-  border-collapse: collapse;
-  background-color: #ffffff;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-  border-radius: 8px;
-  overflow: hidden;
-}
-
-.usuarios-table th, 
-.usuarios-table td {
-  padding: 12px 16px;
-  text-align: left;
-  border-bottom: 1px solid #eaeaea;
-}
-
-.usuarios-table th {
-  background-color: #f8f9fa;
-  font-weight: 600;
-  color: #555;
-  font-size: 0.85rem;
-  letter-spacing: 0.05em;
-}
-
-.usuarios-table tr:hover {
-  background-color: #f9fbfd;
-}
-
-/* Estados */
-.text-activo {
-  color: #2e7d32;
-  font-weight: 500;
-}
-
-.text-inactivo {
-  color: #c62828;
-  font-weight: 500;
-}
-
-/* Botones personalizados */
-.btn-custom {
-  padding: 6px 12px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 0.85rem;
-  font-weight: 500;
-  transition: opacity 0.2s;
-}
-
-.btn-custom:hover {
-  opacity: 0.85;
-}
-
-.btn-activar {
-  background-color: #2e7d32;
-  color: white;
-}
-
-.btn-baja {
-  background-color: #c62828;
-  color: white;
-}
-
-.empty-message {
-  text-align: center;
-  color: #777;
-  padding: 2rem !important;
-}
-
-/* Contenedor del botón superior */
-.action-bar {
-  margin-bottom: 20px;
-}
-
-/* Tarjeta contenedora del formulario */
 .form-card {
   margin-bottom: 25px;
   padding: 20px;
@@ -226,7 +14,6 @@
   font-size: 1.25rem;
 }
 
-/* Estructura de los campos del formulario */
 .custom-form .form-group {
   margin-bottom: 15px;
 }
@@ -238,24 +25,6 @@
   color: #475569;
 }
 
-/* Inputs nativos */
-.input-control {
-  width: 100%;
-  padding: 10px 12px;
-  border: 1px solid #cbd5e1;
-  border-radius: 6px;
-  font-size: 0.95rem;
-  outline: none;
-  transition: border-color 0.2s;
-  box-sizing: border-box; /* Evita que se salgan del contenedor */
-}
-
-.input-control:focus {
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-}
-
-/* Estilos específicos para los Radio Buttons con CSS nativo */
 .label-block {
   margin-bottom: 8px;
 }
@@ -279,10 +48,9 @@
   cursor: pointer;
   width: 16px;
   height: 16px;
-  accent-color: #2563eb; /* Color moderno para el radio button */
+  accent-color: #1e5631; /* Unificado con el verde institucional */
 }
 
-/* Caja de alerta de errores */
 .alert-error {
   background-color: #fef2f2;
   border: 1px solid #fecaca;
@@ -308,4 +76,10 @@
 
 .alert-error li {
   margin-bottom: 4px;
+}
+
+.empty-message {
+  text-align: center;
+  color: #777;
+  padding: 2rem !important;
 }
