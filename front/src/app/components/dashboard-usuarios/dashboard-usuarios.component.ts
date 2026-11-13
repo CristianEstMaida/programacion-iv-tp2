@@ -1,7 +1,6 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { FiltroActivosPipe } from '../../pipes/filtro-activos.pipe';
+import { HttpClient } from '@angular/common/http';
 import { CapitalizePipe } from '../../pipes/capitalize.pipe';
 import { RolStyleDirective } from '../../directives/rol-style.directive';
 import { HoverDirective } from '../../directives/hover.directive';
@@ -14,7 +13,6 @@ import { environment } from '../../../environments/environment.prod';
   standalone: true,
   imports: [
     CommonModule, 
-    FiltroActivosPipe, 
     CapitalizePipe, 
     RolStyleDirective,
     HoverDirective,

@@ -3,12 +3,11 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
-import { CapitalizePipe } from '../../pipes/capitalize.pipe';
 import { UsuarioService } from '../../services/usuario.service';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 @Component({
-  imports: [CommonModule, FormsModule, CapitalizePipe],
+  imports: [CommonModule, FormsModule],
   selector: 'app-mi-perfil',
   templateUrl: './mi-perfil.component.html',
   styleUrls: ['./mi-perfil.component.css']
