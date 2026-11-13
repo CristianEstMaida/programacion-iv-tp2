@@ -139,9 +139,30 @@
         <div class="form-group">
           <label><span>Imagen de Perfil</span></label>
           <div class="input-container">
-            <span class="material-symbols-outlined">image</span>
-            <input type="file" (change)="onFileSelected($event)" class="file-input"/>
+            
+            <!-- Input nativo oculto pero funcional -->
+            <input 
+              type="file" 
+              #fileInputRegister 
+              style="display: none;" 
+              (change)="onFileSelected($event)" 
+              accept="image/*"
+            />
+
+            <!-- Botón estilizado globalmente que activa el input al hacer clic -->
+            <button 
+              type="button" 
+              class="btn-subir-imagen" 
+              (click)="fileInputRegister.click()">
+              📁 Seleccionar Imagen de Perfil
+            </button>
+
           </div>
+          
+          <!-- Opcional para mostrar que se cargó bien -->
+          <small *ngIf="archivoSeleccionado" class="text-success" style="margin-top: 4px; display: block;">
+            Archivo seleccionado correctamente.
+          </small>
         </div>
 
         <button class="submit-btn" type="submit" [disabled]="registerForm.invalid">

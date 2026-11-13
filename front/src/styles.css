@@ -610,3 +610,32 @@ input:focus, textarea:focus {
 .action-btn span {
   color: #ffffff !important;
 }
+
+/* --- ESTILO GLOBAL PARA BOTONES DE CARGA DE ARCHIVOS --- */
+.btn-subir-imagen,
+.file-upload-btn,
+input[type="file"] + button {
+  background-color: #ffffff !important;
+  color: #1e5631 !important;
+  border: 1px solid #1e5631 !important;
+  padding: 0.75rem 1rem !important;
+  border-radius: 0.75rem !important;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  box-sizing: border-box;
+  transition: all 0.2s;
+}
+
+.btn-subir-imagen:hover,
+.file-upload-btn:hover,
+input[type="file"] + button:hover {
+  background-color: #f4f6f3 !important;
+  border-color: #143d22 !important;
+}

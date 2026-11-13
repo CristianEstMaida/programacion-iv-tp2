@@ -455,24 +455,6 @@
   box-shadow: 0 0 0 2px rgba(30, 86, 49, 0.15);
 }
 
-.btn-subir-imagen {
-  background-color: #f1f5f9 !important;
-  color: #1e5631 !important;
-  border: 1px dashed #94a3b8 !important;
-  padding: 0.65rem 1rem !important;
-  border-radius: 0.75rem !important;
-  font-size: 0.875rem;
-  font-weight: 600;
-  cursor: pointer;
-  text-align: center;
-  transition: all 0.2s;
-}
-
-.btn-subir-imagen:hover {
-  background-color: #e2e8f0 !important;
-  border-color: #1e5631 !important;
-}
-
 .text-success {
   color: #1e5631;
   font-weight: 600;
