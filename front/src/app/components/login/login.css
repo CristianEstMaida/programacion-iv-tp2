@@ -47,7 +47,7 @@ main {
   width: 3rem;
   height: 3rem;
   border-radius: 0.75rem;
-  background-color: #3f51b5;
+  background-color: #1e5631;
   color: #ffffff;
   display: flex;
   align-items: center;
@@ -100,7 +100,7 @@ input {
   width: 100%;
   padding: 0.75rem 1rem 0.75rem 2.75rem;
   background-color: #f8f9ff;
-  border: 1px solid #d3e4fe;
+  border: 1px solid #cce3d4;;
   color: #0b1c30;
   font-size: 14px;
   border-radius: 0.75rem;
@@ -109,8 +109,8 @@ input {
 
 input:focus {
   background-color: #ffffff;
-  border-color: #3f51b5;
-  box-shadow: 0 0 0 2px rgba(63, 81, 181, 0.2);
+  border-color: #1e5631;
+  box-shadow: 0 0 0 2px rgba(30, 86, 49, 0.15);
 }
 
 .submit-btn {
@@ -131,8 +131,9 @@ input:focus {
 }
 
 .submit-btn:hover {
-  background-color: #24389c;
+  background-color: #143d22;
 }
+
 
 .switch-link {
   text-align: center;
@@ -141,12 +142,14 @@ input:focus {
 }
 
 .switch-link a {
-  color: #3f51b5;
+  color: #1e5631;
   text-decoration: none;
   font-weight: 600;
+  transition: color 0.2s ease;
 }
 
 .switch-link a:hover {
+  color: #143d22;
   text-decoration: underline;
 }
 
@@ -190,7 +193,24 @@ input:focus {
 }
 
 .submit-btn:disabled {
-  background-color: #a5b4fc; /* Un azul más claro y opaco */
+  background-color: #88a893; /* Verde suave desaturado */
+  color: #ffffff;
   cursor: not-allowed;     /* Cambia el cursor a prohibido */
   opacity: 0.7;
 }
+
+.sidebar-brand {
+  display: flex;
+  flex-direction: column; /* Pone el logo arriba y el título abajo */
+  align-items: center;    /* Centra todo horizontalmente */
+  gap: 12px;              /* ¡Acá está la magia! Separa prolijamente el logo del título */
+  margin-bottom: 24px;    /* Espacio antes de que empiecen los inputs del formulario */
+}
+
+.sidebar-brand h1 {
+  font-size: 24px;        /* Ajustá el tamaño del título si hace falta */
+  font-weight: 700;
+  color: #111827;         /* Un gris oscuro elegante en lugar de negro puro */
+  margin: 0;              /* Le saca márgenes por defecto que a veces molestan */
+}
+

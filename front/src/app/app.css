@@ -110,3 +110,18 @@
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+
+.sidebar-brand {
+  display: flex;
+  flex-direction: column; /* Pone el logo arriba y el título abajo */
+  align-items: center;    /* Centra todo horizontalmente */
+  gap: 12px;              /* ¡Acá está la magia! Separa prolijamente el logo del título */
+  margin-bottom: 24px;    /* Espacio antes de que empiecen los inputs del formulario */
+}
+
+.sidebar-brand h1 {
+  font-size: 24px;        /* Ajustá el tamaño del título si hace falta */
+  font-weight: 700;
+  color: #111827;         /* Un gris oscuro elegante en lugar de negro puro */
+  margin: 0;              /* Le saca márgenes por defecto que a veces molestan */
+}
