@@ -15,6 +15,7 @@ import { NgZone } from '@angular/core';
 export class Register {
   registerForm: FormGroup;
   selectedFile: File | null = null;
+  archivoSeleccionado: boolean = false;
   mostrarModal: boolean = false;
   mostrarModalError: boolean = false;
   errorMessage: string = '';
@@ -82,6 +83,10 @@ export class Register {
     const file = event.target.files[0];
     if (file) {
       this.selectedFile = file;
+      this.archivoSeleccionado = true;
+    } else {
+      this.selectedFile = null;
+      this.archivoSeleccionado = false;
     }
   }
 
