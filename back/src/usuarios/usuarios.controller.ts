@@ -12,7 +12,7 @@ import { AdminGuard } from '../guards/jwt-auth/admin.guard.js';
 export class UsuariosController {
   constructor(
     private readonly usuariosService: UsuariosService,
-    private readonly cloudinaryService: CloudinaryService, // 👈 Inyectamos Cloudinary
+    private readonly cloudinaryService: CloudinaryService, // Inyectamos Cloudinary
   ) {}
 
   @Post('registro')
