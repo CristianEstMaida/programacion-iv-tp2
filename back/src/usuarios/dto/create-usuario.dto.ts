@@ -42,7 +42,7 @@ export class CreateUsuarioDto {
   imagenPerfil?: string;
 
   @IsString()
-  @IsOptional() // O @IsNotEmpty() si el parcial exige que sea obligatorio elegirlo
+  @IsOptional() // O @IsNotEmpty() si quieres que sea obligatorio
   @IsIn(['usuario', 'administrador'], { message: 'Perfil no válido' }) // Opcional: restringe los roles permitidos
   perfil?: string;
 }
