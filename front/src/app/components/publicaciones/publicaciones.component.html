@@ -27,7 +27,7 @@
       <p>No hay publicaciones todavía. ¡Sé el primero en compartir algo!</p>
     </div>
     <app-publicacion-card 
-      *ngFor="let post of publicaciones; trackBy: trackByPublicacionId" 
+      *ngFor="let post of publicaciones| filtroActivos; trackBy: trackByPublicacionId" 
       [publicacion]="post"
       [usuarioLogueadoId]="usuarioLogueadoId"
       [rolUsuario]="rolUsuario"

@@ -3,11 +3,12 @@ import { ChangeDetectorRef, Component, HostListener, OnInit } from '@angular/cor
 import { PublicacionesService } from '../../services/publicaciones.service';
 import { FormsModule } from '@angular/forms';
 import { PublicacionCardComponent } from '../publicacion-card/publicacion-card';
+import { FiltroActivosPipe } from '../../pipes/filtro-activos.pipe';
 
 @Component({
   selector: 'app-publicaciones',
   standalone: true,
-  imports: [CommonModule, FormsModule, PublicacionCardComponent],
+  imports: [CommonModule, FormsModule, PublicacionCardComponent, FiltroActivosPipe],
   templateUrl: './publicaciones.component.html',
   styleUrls: ['./publicaciones.component.css']
 })
