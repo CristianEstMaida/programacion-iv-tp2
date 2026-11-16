@@ -35,56 +35,6 @@
       (onDelete)="prepararEliminacion($event)"
       (onVerComentarios)="verComentarios($event)">
     ></app-publicacion-card>
-    <!-- Tarjeta de Publicación -->
-    <!-- <div class="post-card" *ngFor="let post of publicaciones; trackBy: trackByPublicacionId"> 
-      
-      <div class="post-header">
-        <div class="author-info">
-          <div class="avatar-placeholder">
-            {{ post.usuario?.nombre ? post.usuario.nombre.charAt(0).toUpperCase() : 'U' }}
-          </div>
-          <div>
-            <h4 class="author-name">
-              {{ post.usuario?.nombre || 'Usuario' }} {{ post.usuario?.apellido || '' }}
-            </h4>
-            <span class="fecha">{{ post.createdAt | date:'dd/MM/yyyy HH:mm' }}</span>
-          </div>
-        </div>
-
-        
-        <button *ngIf="puedeEliminar(post)" class="btn-delete" (click)="prepararEliminacion(post._id)" title="Eliminar publicación">
-          🗑️
-        </button>
-      </div>
-
-      
-      <div class="post-body">
-        <h3 class="post-title">{{ post.titulo }}</h3>
-        <p class="post-text">{{ post.descripcion }}</p>
-        
-      
-        <div *ngIf="post.imagenUrl" class="post-image-container">
-          <img [src]="post.imagenUrl" alt="Imagen de publicación" class="post-image">
-        </div>
-      </div>
-
-      
-      <div class="post-actions">
-        <button 
-          class="action-btn" 
-          [class.liked]="post.likedByMe" 
-          (click)="toggleMeGusta(post)">
-          <span *ngIf="post.likedByMe">❤️ Ya no me gusta</span>
-          <span *ngIf="!post.likedByMe">🤍 Me gusta</span>
-          ({{ (post.likesCount ?? post.likes?.length) || 0 }})
-        </button>
-        
-        <button class="action-btn" (click)="toggleComentarios(post)">
-          💬 <span>Comentarios</span>
-        </button>
-      </div>
-
-    </div> -->
   </div>
 </div>
 
