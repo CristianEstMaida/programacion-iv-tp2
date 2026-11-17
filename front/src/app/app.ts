@@ -109,18 +109,18 @@ export class App implements OnInit, OnDestroy{
 
     const expiration = localStorage.getItem('token_expiration');
     if (!expiration) {
-      console.warn("⚠️ No hay 'token_expiration' en el localStorage");
+      console.warn("No hay 'token_expiration' en el localStorage");
       return;
     }
 
     const tiempoRestante = Number(expiration) - Date.now();
-    console.log(`⏱️ Tiempo restante calculado para el token: ${tiempoRestante} ms`);
+    console.log(`Tiempo restante calculado para el token: ${tiempoRestante} ms`);
 
     this.limpiarTimers();
 
     if (tiempoRestante <= 0) {
       // Si el token ya venció por completo, chau sesión
-      console.warn("❌ El token ya expiró según el localStorage.");
+      console.warn("El token ya expiró según el localStorage.");
       this.cerrarSesionPorExpiracion();
       return;
     }
@@ -131,7 +131,7 @@ export class App implements OnInit, OnDestroy{
 
     // Programa el temporizador exacto
     this.expirationTimer = setTimeout(() => {
-      console.log("📢 ¡Disparando modal de expiración!");
+      console.log("¡Disparando modal de expiración!");
       this.mostrarModalExpiracion = true;
 
       // 2. FORZAS la actualización de la vista aquí mismo

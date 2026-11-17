@@ -15,6 +15,7 @@ export class UsuariosController {
     private readonly cloudinaryService: CloudinaryService, // Inyectamos Cloudinary
   ) {}
 
+  @UseGuards(JwtAuthGuard, AdminGuard) 
   @Post('registro')
   @HttpCode(HttpStatus.CREATED)
   @UseInterceptors(
@@ -43,18 +44,23 @@ export class UsuariosController {
     // Le pasamos la URL de Cloudinary al servicio en lugar del nombre de archivo local
     return await this.usuariosService.registrar(createUsuarioDto, imagenUrl);
   }
-
+  
+  // Solo admin puede listar usuarios
+  @UseGuards(JwtAuthGuard, AdminGuard)
   @Get()
   findAll() {
     return this.usuariosService.findAll();
   }
 
+  // Ver perfil propio (Cualquier usuario logueado)
   @UseGuards(JwtAuthGuard)
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.usuariosService.findOne(id);
   }
 
+  // Editar perfil propio (Cualquier usuario logueado)
+  @UseGuards(JwtAuthGuard)
   @Patch(':id')
   @HttpCode(HttpStatus.OK)
   @UseInterceptors(

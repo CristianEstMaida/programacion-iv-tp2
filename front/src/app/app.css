@@ -4,6 +4,9 @@
 
 /* Fondo oscuro semitransparente que cubre toda la pantalla */
 
+.modal-overlay.modal-sesion {
+  z-index: 9999;
+}
 
 /* Caja contenedora del modal */
 .modal-content {

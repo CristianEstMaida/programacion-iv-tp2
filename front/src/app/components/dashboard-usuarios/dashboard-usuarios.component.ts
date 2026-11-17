@@ -126,7 +126,7 @@ export class DashboardUsuariosComponent implements OnInit {
     }
 
     // Usamos tu variable de entorno en lugar de la URL quemada
-    const urlRegistro = `${environment.apiUrl}/autenticacion/registro`; 
+    const urlRegistro = `${environment.apiUrl}/usuarios/registro`; 
 
     this.http.post(urlRegistro, formData).subscribe({
       next: (res) => {
