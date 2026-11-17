@@ -109,7 +109,9 @@
 }
 
 .action-btn {
-  flex: 1;
+  display: inline-flex;
+  width: auto;                  /* Evita que ocupe todo el ancho */
+  flex: initial !important;
   background: transparent;
   border: none;
   padding: 8px;
