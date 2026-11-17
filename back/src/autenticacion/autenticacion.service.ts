@@ -58,8 +58,8 @@ export class AutenticacionService {
       // 4. Comprobar que el usuario esté habilitado (activo: true)
       if (!usuario.activo) {
         throw new UnauthorizedException({
-          message: 'Cuenta desactivada',
-          motivo: 'Tu cuenta se encuentra desactivada. Contactá con el administrador.'
+          message: 'Tu cuenta se encuentra desactivada. Contactá con el administrador.',
+          motivo: 'Cuenta desactivada. No podés iniciar sesión hasta que tu cuenta sea reactivada por un administrador.'
         });
       }
   
