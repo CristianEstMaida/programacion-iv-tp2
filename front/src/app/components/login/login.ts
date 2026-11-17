@@ -29,18 +29,26 @@ export class Login implements OnInit {
   }
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
-      if (params['expirada'] === 'true') {
-        this.sesionExpirada = true;
-        // Captura el mensaje del interceptor o usa el predeterminado
-        this.mensajeAlerta = params['mensaje'] || 'Tu sesión ha expirado. Por favor, volvé a iniciar sesión.';
-        
-        setTimeout(() => {
-          this.sesionExpirada = false;
-        }, 4000);
+  this.route.queryParams.subscribe(params => {
+    if (params['expirada'] === 'true') {
+      this.sesionExpirada = true;
+      
+      const mensajeRecibido = params['mensaje'];
+
+      // Si el mensaje está vacío, es undefined, o es el "Unauthorized" del backend, ponemos el texto en español por defecto
+      if (!mensajeRecibido || mensajeRecibido.includes('Unauthorized')) {
+        this.mensajeAlerta = 'Tu sesión ha expirado. Por favor, volvé a iniciar sesión.';
+      } else {
+        // Si el backend mandó un motivo real y copado (ej: cuenta desactivada), lo respetamos
+        this.mensajeAlerta = mensajeRecibido;
       }
-    });
-  }
+      
+      setTimeout(() => {
+        this.sesionExpirada = false;
+      }, 4000);
+    }
+  });
+}
   // Método para rellenar rápido para pruebas
   cargarDatosPrueba(tipo: 'usuario' | 'admin') {
     if (tipo === 'usuario') {
