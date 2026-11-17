@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Comentario } from './schemas/comentario.schema.js'; // O tu entidad/modelo correspondiente
@@ -27,7 +27,7 @@ export class ComentariosService {
 
     const comentarios = await this.comentarioModel
       .find({ publicacion: publicacionId })
-      .sort({ fecha: -1 }) // 👈 Ordena por los más recientes primero (-1 descendente)
+      .sort({ fecha: -1 }) // Ordena por los más recientes primero (-1 descendente)
       .skip(skip)
       .limit(limit)
       .populate('usuario', 'nombre apellido') // Opcional: para traer datos del usuario si lo necesitas
@@ -44,19 +44,34 @@ export class ComentariosService {
   }
 
   // 3. PUT: Modifica el mensaje y agrega el atributo modificado: true
-  async actualizar(comentarioId: string, mensaje: string) {
+  async actualizar(comentarioId: string, mensaje: string, usuarioIdAutenticado: string) {
+    // Primero buscamos el comentario
+    const comentario = await this.comentarioModel.findById(comentarioId);
+
+    if (!comentario) {
+      throw new NotFoundException({
+        message: 'Comentario no encontrado',
+        motivo: 'El comentario que intenta modificar ya no existe o fue eliminado.'
+      });
+    }
+
+    // Opcional pero recomendado: Validar si el usuario es el dueño del comentario
+    if (usuarioIdAutenticado && comentario.usuario.toString() !== usuarioIdAutenticado) {
+      throw new ForbiddenException({
+        message: 'Acceso denegado',
+        motivo: 'No tenés permisos para modificar un comentario que no te pertenece.'
+      });
+    }
+
+    // Si pasa las validaciones, actualizamos
     const comentarioActualizado = await this.comentarioModel.findByIdAndUpdate(
       comentarioId,
       {
         mensaje,
         modificado: true, // Requerimiento obligatorio de la consigna
       },
-      { new: true }, // Retorna el documento ya actualizado
+      { new: true },
     );
-
-    if (!comentarioActualizado) {
-      throw new NotFoundException('Comentario no encontrado');
-    }
 
     return comentarioActualizado;
   }

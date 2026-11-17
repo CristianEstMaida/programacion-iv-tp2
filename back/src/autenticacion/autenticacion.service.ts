@@ -39,19 +39,28 @@ export class AutenticacionService {
       });
   
       // 3. Rechazar credenciales incorrectas si no existe el usuario
-      if (!usuario) {
-        throw new UnauthorizedException('Credenciales inválidas');
+     if (!usuario) {
+        throw new UnauthorizedException({
+          message: 'Credenciales inválidas',
+          motivo: 'Credenciales inválidas. Por favor, verifique sus datos.'
+        });
       }
   
       // 2. Comprobar la contraseña con bcrypt.compare()
       const esPasswordValida = await bcrypt.compare(password, usuario.password);
       if (!esPasswordValida) {
-        throw new UnauthorizedException('Credenciales inválidas');
+        throw new UnauthorizedException({
+          message: 'Credenciales inválidas',
+          motivo: 'Credenciales inválidas. Por favor, verifique sus datos.'
+        });
       }
   
       // 4. Comprobar que el usuario esté habilitado (activo: true)
       if (!usuario.activo) {
-        throw new UnauthorizedException('Tu cuenta se encuentra desactivada. Contactá con el administrador.');
+        throw new UnauthorizedException({
+          message: 'Cuenta desactivada',
+          motivo: 'Tu cuenta se encuentra desactivada. Contactá con el administrador.'
+        });
       }
   
       // 5. Generar un JWT con los datos mínimos necesarios (payload)

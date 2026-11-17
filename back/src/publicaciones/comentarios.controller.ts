@@ -36,8 +36,11 @@ export class ComentariosController {
   async modificarComentario(
     @Param('id') id: string,
     @Body() body: { mensaje: string },
+    @Req() req: any,
   ) {
-    return this.comentariosService.actualizar(id, body.mensaje);
+    // 1. Extraemos el ID del usuario que viene inyectado en el token
+    const usuarioIdAutenticado = req.user.sub || req.user.id;
+    return this.comentariosService.actualizar(id, body.mensaje, usuarioIdAutenticado);
   }
 }
 
