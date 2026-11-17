@@ -1,6 +1,6 @@
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { PassportStrategy } from '@nestjs/passport';
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
@@ -21,5 +21,16 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       identificador: payload.identificador,
       perfil: payload.perfil,
     };
+  }
+
+  handleRequest(err: any, user: any, info: any) {
+    // Si hubo un error, no hay usuario, o el token expiró/es inválido
+    if (err || !user) {
+      if (info && info.name === 'TokenExpiredError') {
+        throw new UnauthorizedException('La sesión ha expirado. Por favor, vuelva a iniciar sesión.');
+      }
+      throw new UnauthorizedException('Acceso no autorizado. Token inválido o ausente.');
+    }
+    return user;
   }
 }
