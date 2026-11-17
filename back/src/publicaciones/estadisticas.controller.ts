@@ -4,12 +4,13 @@ import { AdminGuard } from '../guards/jwt-auth/admin.guard.js';
 import { PublicacionesService } from './publicaciones.service.js';
 
 @Controller('publicaciones/estadisticas')
-@UseGuards(JwtAuthGuard, AdminGuard) //  ¡Protege todo el controlador para que solo entren los admin!
+ //  ¡Protege todo el controlador para que solo entren los admin!
 export class EstadisticasController {
   constructor(private readonly publicacionesService: PublicacionesService) {}
 
  // 1. Cantidad de publicaciones por usuario en un lapso de tiempo
   @Get('publicaciones-por-usuario')
+  @UseGuards(JwtAuthGuard, AdminGuard)
   async getPublicacionesPorUsuario(
     @Query('inicio') inicio: string,
     @Query('fin') fin: string,
@@ -19,6 +20,7 @@ export class EstadisticasController {
 
   // 2. Cantidad total de comentarios realizados en un lapso de tiempo
   @Get('total-comentarios')
+  @UseGuards(JwtAuthGuard, AdminGuard)
   async getTotalComentarios(
     @Query('inicio') inicio: string,
     @Query('fin') fin: string,
@@ -28,6 +30,7 @@ export class EstadisticasController {
 
   // 3. Cantidad de comentarios en cada publicación en un lapso de tiempo
   @Get('comentarios-por-publicacion')
+  @UseGuards(JwtAuthGuard, AdminGuard)
   async getComentariosPorPublicacion(
     @Query('inicio') inicio: string,
     @Query('fin') fin: string,
