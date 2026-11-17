@@ -30,12 +30,12 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   // 2. Manejamos la petición y atrapamos errores globales como el 401
   return next(clonedReq).pipe(
     catchError((error: HttpErrorResponse) => {
-      if (error.status === 401) {
+      if (error.status === 401 && !router.url.includes('/login')) {
         // Token vencido o rechazo del backend: limpiamos y mandamos al login
         localStorage.removeItem('access_token');
         localStorage.removeItem('token_expiration');
         localStorage.removeItem('rol');
-        router.navigate(['/login']);
+        router.navigate(['/login'], { queryParams: { expirada: 'true' } });
       }
       return throwError(() => error);
     })

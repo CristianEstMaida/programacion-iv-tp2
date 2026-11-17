@@ -32,6 +32,14 @@
         </div>
       </div>
 
+      <!-- Acá va la alerta de sesión expirada -->
+      @if (sesionExpirada) {
+        <div class="alerta-expirada" role="alert" appFadeIn>
+          <span class="material-symbols-outlined">schedule</span>
+          <span>Tu sesión ha expirado. Por favor, volvé a iniciar sesión.</span>
+        </div>
+      }
+
       <!-- Vinculamos el FormGroup -->
       <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
         

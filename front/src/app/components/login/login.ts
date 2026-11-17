@@ -1,20 +1,22 @@
-import { Component, signal } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Auth } from '../../services/auth.service';
-import { Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { FadeInDirective } from '../../directives/fade-in.directive';
 
 @Component({
-  imports: [CommonModule, ReactiveFormsModule, RouterLink],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink, FadeInDirective],
   selector: 'app-login',
   styleUrl: './login.css',
   templateUrl: './login.html',
 })
-export class Login {
-loginForm: FormGroup;
-errorMessage = signal('');
+export class Login implements OnInit {
+  loginForm: FormGroup;
+  errorMessage = signal('');
+  sesionExpirada = false;
 
-  constructor(private fb: FormBuilder, private authService: Auth, private router: Router) {
+  constructor(private fb: FormBuilder, private authService: Auth, private router: Router, private route: ActivatedRoute) {
     this.loginForm = this.fb.group({
       identificador: ['', [Validators.required]],
       // Expresión regular: Mínimo 8 caracteres, al menos una mayúscula y un número
@@ -23,6 +25,17 @@ errorMessage = signal('');
         Validators.maxLength(64),
         Validators.pattern(/^(?=.*[A-Z])(?=.*\d).{8,}$/)
       ]]
+    });
+  }
+
+  ngOnInit() {
+    this.route.queryParams.subscribe(params => {
+      if (params['expirada'] === 'true') {
+        this.sesionExpirada = true;
+        setTimeout(() => {
+          this.sesionExpirada = false;
+        }, 4000); // Desaparece a los 4 segundos
+      }
     });
   }
 
@@ -54,14 +67,18 @@ errorMessage = signal('');
           const expirationTime = tokenData.exp * 1000; // Convertir a milisegundos
           localStorage.setItem('token_expiration', expirationTime.toString());
 
-          // this.router.navigate(['/publicaciones']);
-          // Usamos window.location.href en lugar de router.navigate para forzar 
+          // Uso window.location.href en lugar de router.navigate para forzar 
           // la recarga limpia y que el App Component inicie el temporizador al instante.
           window.location.href = '/publicaciones';
         },
         error: (err) => {
           console.log('Entró al bloque de error:', err);
-          this.errorMessage.set('Credenciales incorrectas');
+          // Toma el mensaje exacto del backend; si es un array (por ValidationPipe), toma el primero
+          const mensajeBackend = Array.isArray(err.error?.message)
+            ? err.error.message[0]
+            : err.error?.message;
+
+          this.errorMessage.set(mensajeBackend || 'Credenciales incorrectas');
         }
       });
     }

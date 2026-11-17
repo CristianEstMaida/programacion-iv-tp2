@@ -51,7 +51,7 @@ export class AutenticacionService {
   
       // 4. Comprobar que el usuario esté habilitado (activo: true)
       if (!usuario.activo) {
-        throw new ForbiddenException('Tu cuenta se encuentra desactivada');
+        throw new UnauthorizedException('Tu cuenta se encuentra desactivada. Contactá con el administrador.');
       }
   
       // 5. Generar un JWT con los datos mínimos necesarios (payload)
