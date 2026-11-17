@@ -27,7 +27,7 @@
       <p>No hay publicaciones todavía. ¡Sé el primero en compartir algo!</p>
     </div>
     <app-publicacion-card 
-      *ngFor="let post of publicaciones| filtroActivos; trackBy: trackByPublicacionId" 
+      *ngFor="let post of publicaciones; trackBy: trackByPublicacionId" 
       [publicacion]="post"
       [usuarioLogueadoId]="usuarioLogueadoId"
       [rolUsuario]="rolUsuario"
@@ -120,14 +120,14 @@
 </div>
 
 <!-- MODAL / VISTA DE DETALLE DE PUBLICACIÓN Y COMENTARIOS -->
-<div class="modal-overlay" *ngIf="publicacionSeleccionada">
+<!-- <div class="modal-overlay" *ngIf="publicacionSeleccionada"> 
   <div class="modal-content detalle-container">
     
-    <!-- Botón para cerrar la vista de comentarios -->
+  
     <button class="btn-cerrar-modal" (click)="cerrarDetalleComentarios()">✕</button>
 
-    <!-- Vista grande de la publicación -->
-    <div class="card-publicacion-grande">
+
+     <div class="card-publicacion-grande"> 
       <h2>{{ publicacionSeleccionada.titulo }}</h2>
       <p>{{ publicacionSeleccionada.descripcion }}</p>
       <div *ngIf="publicacionSeleccionada.imagenUrl" class="post-image-container">
@@ -138,32 +138,31 @@
 
     <hr>
 
-    <!-- Sección de Comentarios -->
-    <div class="comentarios-seccion">
+     <div class="comentarios-seccion">
       <h3>Comentarios</h3>
 
-      <!-- Escribir nuevo comentario (POST) -->
+      
       <div class="nuevo-comentario">
         <textarea [(ngModel)]="nuevoComentarioTexto" placeholder="Escribe un comentario..." rows="2"></textarea>
         <button (click)="agregarComentario()" class="btn-primary">Comentar</button>
       </div>
 
-      <!-- Lista de comentarios ordenados uno debajo del otro -->
-      <div class="lista-comentarios">
+    
+       <div class="lista-comentarios">
         <div *ngFor="let c of comentarios" class="comentario-item">
           <div class="comentario-header">
             <strong>{{ c.usuario?.nombre || c.usuarioId?.nombre || 'Usuario' }}</strong>
             <span class="fecha">{{ c.fecha | date:'short' }}</span>
           </div>
 
-          <!-- Vista normal del comentario -->
+
           <div *ngIf="comentarioEnEdicionId !== (c._id || c.id)">
             <p>{{ c.mensaje }}</p>
             
-            <!-- Anuncio obligatorio de que fue editado (Requerimiento) -->
+
             <span *ngIf="c.modificado" class="badge-editado">(Editado)</span>
 
-            <!-- Botón editar (Solo si el comentario es del usuario logueado) -->
+
             <button *ngIf="esComentarioPropio(c)" 
                     (click)="iniciarEdicion(c)" 
                     class="btn-link">
@@ -171,7 +170,6 @@
             </button>
           </div>
 
-          <!-- Modo edición activo (PUT) -->
           <div *ngIf="comentarioEnEdicionId === (c._id || c.id)" class="modo-edicion">
             <textarea [(ngModel)]="textoEditado" rows="2"></textarea>
             <div class="botones-edicion">
@@ -182,12 +180,12 @@
         </div>
       </div>
 
-      <!-- Botón "Cargar más" para la paginación -->
+
       <div class="paginacion-box" *ngIf="hasMore">
         <button (click)="cargarMasComentarios()" class="btn-cargar-mas">Cargar más</button>
       </div>
       <p *ngIf="!hasMore && comentarios.length > 0" class="fin-texto">No hay más comentarios.</p>
-    </div>
-
-  </div>
-</div>
+    </div>  -->
+<!-- 
+  </div> -->
+<!-- </div> -->

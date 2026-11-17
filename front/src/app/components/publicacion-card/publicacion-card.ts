@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { TruncatePipe } from '../../pipes/truncate.pipe';
 import { CapitalizePipe } from '../../pipes/capitalize.pipe';
+import { FormatoNumeroPipe } from '../../pipes/formatoNumero.pipe';
 
 @Component({
   selector: 'app-publicacion-card',
   standalone: true,
-  imports: [CommonModule, RouterModule, TruncatePipe, CapitalizePipe],
+  imports: [CommonModule, RouterModule, TruncatePipe, CapitalizePipe, FormatoNumeroPipe],
   templateUrl: './publicacion-card.html',
   styleUrls: ['./publicacion-card.css']
 })

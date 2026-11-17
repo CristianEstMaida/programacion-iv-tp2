@@ -53,11 +53,11 @@
       (click)="toggleMeGusta()">
       <span *ngIf="publicacion.likedByMe">❤️ Ya no me gusta</span>
       <span *ngIf="!publicacion.likedByMe">🤍 Me gusta</span>
-      ({{ (publicacion.likesCount ?? publicacion.likes?.length) || 0 }})
+      ({{ ((publicacion.likesCount ?? publicacion.likes?.length) || 0) | formatoNumero }})
     </button>
     
-    <button class="action-btn" (click)="verComentarios()">
+    <!-- <button class="action-btn" (click)="verComentarios()">
       💬 <span>Comentarios</span>
-    </button>
+    </button> -->
   </div>
 </div>

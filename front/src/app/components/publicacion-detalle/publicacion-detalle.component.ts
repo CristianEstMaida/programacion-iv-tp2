@@ -26,6 +26,7 @@ export class PublicacionDetalleComponent implements OnInit {
   nuevoComentarioTexto: string = '';
   comentarioEnEdicionId: string | null = null;
   textoEditado: string = '';
+  
 
   constructor(
     private route: ActivatedRoute,
@@ -164,4 +165,6 @@ export class PublicacionDetalleComponent implements OnInit {
       error: (err) => console.error('Error al editar comentario', err)
     });
   }
+
+  
 }

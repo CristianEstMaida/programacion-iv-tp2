@@ -47,7 +47,26 @@
           <strong>{{ com.usuario?.nombre || 'Usuario' }} {{ com.usuario?.apellido || '' }}</strong>
           <span class="fecha">{{ com.createdAt | date:'dd/MM/yyyy HH:mm' }}</span>
         </div>
-        <p>{{ com.mensaje || com.texto }}</p>
+        <!-- Si NO se está editando, muestra el texto normal -->
+        <div *ngIf="comentarioEnEdicionId !== (com.id || com._id)">
+          <p>{{ com.mensaje || com.texto }}</p>
+          <span *ngIf="com.editado" class="text-muted small">(Editado)</span>
+          
+     
+          <button *ngIf="esComentarioPropio(com)" class="btn-sm btn-outline" (click)="iniciarEdicion(com)">
+            Editar
+          </button>
+        </div>
+
+        <!-- Si SE está editando, muestra el textarea y botones de acción -->
+        <div *ngIf="comentarioEnEdicionId === (com.id || com._id)" class="edit-container">
+          <textarea [(ngModel)]="textoEditado" class="form-control"></textarea>
+          <div class="edit-actions">
+            <button class="btn-primary" (click)="guardarEdicion(com)">Guardar</button>
+            <button class="btn-secondary" (click)="cancelarEdicion()">Cancelar</button>
+          </div>
+        </div>
+        <!-- <p>{{ com.mensaje || com.texto }}</p> -->
       </div>
 
       <!-- Botón de paginación "Cargar más" -->
