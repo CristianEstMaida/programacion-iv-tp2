@@ -1,5 +1,5 @@
 
-.alerta-expirada {
+.error-alert, .alerta-expirada {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -10,10 +10,13 @@
   border-left: 4px solid #d97706;
   border-radius: 8px;
   padding: 10px 14px;
-  margin-top: 16px;
-  margin-bottom: 16px;
   font-size: 0.875rem;
   font-weight: 500;
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  word-break: break-word;
 }
 
 .alerta-expirada .material-symbols-outlined {

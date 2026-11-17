@@ -14,12 +14,17 @@ main {
   background-repeat: no-repeat;
   background-attachment: fixed;
   
-  /* Asegura que ocupe toda la pantalla y centre la tarjeta */
+  width: 100vw;         /* Ocupa todo el ancho de la ventana */
+  max-width: 100%;      /* Evita desbordes horizontales */
   min-height: 100vh;
-  width: 100%;
+  box-sizing: border-box;
+  
+  /* Mantenemos el centrado del contenido interno */
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+
   padding: 2rem 1rem;
 }
 
@@ -505,7 +510,7 @@ input:focus, textarea:focus {
 /* 2. El contenedor de la tarjeta o modal (.auth-container o .card) */
 .auth-container {
   width: 100%;
-  max-width: 440px; /* Ancho ideal para que no quede achicado */
+  max-width: 540px; /* Ancho ideal para que no quede achicado */
 }
 
 /* Estilos globales unificados para Login y Registro */
