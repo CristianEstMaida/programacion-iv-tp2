@@ -48,7 +48,7 @@
           <span class="fecha">{{ com.createdAt | date:'dd/MM/yyyy HH:mm' }}</span>
         </div>
         <!-- Si NO se está editando, muestra el texto normal -->
-        <div *ngIf="comentarioEnEdicionId !== (com.id || com._id)">
+        <div class="comentario-body" *ngIf="comentarioEnEdicionId !== (com.id || com._id)">
           <p>{{ com.mensaje || com.texto }}</p>
           <span *ngIf="com.editado" class="text-muted small">(Editado)</span>
           

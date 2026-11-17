@@ -181,3 +181,34 @@
   text-align: center;
   font-style: italic;
 }
+
+/* Contenedor general de la edición para separar del textarea y de los bordes */
+.edit-container {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px; /* Separa el textarea de la botonera */
+}
+
+/* Estilo y separación entre los botones Guardar y Cancelar */
+.edit-actions {
+  display: flex;
+  gap: 10px; /* Espacio limpio entre el botón Guardar y Cancelar */
+  margin-top: 4px;
+}
+
+.edit-container textarea {
+  width: 100%;
+  margin-top: 8px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  resize: vertical;
+}
+
+.comentario-body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px; /* Separa el párrafo del botón "Editar" */
+  margin-top: 6px;
+}
