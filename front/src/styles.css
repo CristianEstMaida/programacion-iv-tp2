@@ -6,6 +6,24 @@
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+main {
+  /* Fondo con la imagen del tractor + capa oscura para contraste */
+  background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)), url('https://plus.unsplash.com/premium_photo-1664301163726-78773dc77bfd?q=80&w=1074&auto=format&fit=crop');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  
+  /* Asegura que ocupe toda la pantalla y centre la tarjeta */
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+}
+
+
 body {
   background-color: #f4f6f8; /* Un gris clarísimo muy profesional tipo dashboard */
   color: #333333;
@@ -484,6 +502,11 @@ input:focus, textarea:focus {
   backdrop-filter: blur(2px); /* Efeoto sutil de desenfoque opcional */
 }
 
+/* 2. El contenedor de la tarjeta o modal (.auth-container o .card) */
+.auth-container {
+  width: 100%;
+  max-width: 440px; /* Ancho ideal para que no quede achicado */
+}
 
 /* Estilos globales unificados para Login y Registro */
 /* Contenedor unificado para las tarjetas de autenticación */
@@ -491,9 +514,10 @@ input:focus, textarea:focus {
 /* --- TARJETAS DE AUTENTICACIÓN UNIFICADAS (Login y Registro) --- */
 .card {
   background-color: #ffffff;
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-  border-radius: 1rem;
   padding: 2.5rem;
+  border-radius: 1.5rem;
+  /* 👈 Una sombra difuminada y elegante para que despegue del fondo del tractor */
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
   width: 100%;
   max-width: 540px;
   margin: 0 auto;
