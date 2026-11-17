@@ -13,8 +13,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate(payload: any) {
-    // 🔍 ESTO ES LO CLAVE: Lo que retornes acá se guarda en req.user
-    // Si tu token guarda el ID en 'sub', 'id' o '_id', mapealo acá:
+    // ESTO ES LO CLAVE: Lo que retorne acá se guarda en req.user
     console.log("¡ENTRÓ A LA ESTRATEGIA JWT! Payload:", payload);
     return { 
       id: payload.sub,
