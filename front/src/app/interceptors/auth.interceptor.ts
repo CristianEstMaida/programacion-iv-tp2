@@ -35,7 +35,16 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
         localStorage.removeItem('access_token');
         localStorage.removeItem('token_expiration');
         localStorage.removeItem('rol');
-        router.navigate(['/login'], { queryParams: { expirada: 'true' } });
+
+        const errorBody = error.error as { message?: string; motivo?: string } | null;
+        const mensajeServidor = errorBody?.motivo || errorBody?.message || 'Tu sesión ha expirado. Por favor, volvé a iniciar sesión.';
+
+        router.navigate(['/login'], { 
+          queryParams: { 
+            expirada: 'true', 
+            mensaje: mensajeServidor 
+          } 
+        });
       }
       return throwError(() => error);
     })

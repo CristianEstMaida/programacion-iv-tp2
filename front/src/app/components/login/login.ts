@@ -15,7 +15,7 @@ export class Login implements OnInit {
   loginForm: FormGroup;
   errorMessage = signal('');
   sesionExpirada = false;
-
+  mensajeAlerta: string = '';
   constructor(private fb: FormBuilder, private authService: Auth, private router: Router, private route: ActivatedRoute) {
     this.loginForm = this.fb.group({
       identificador: ['', [Validators.required]],
@@ -28,17 +28,19 @@ export class Login implements OnInit {
     });
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
       if (params['expirada'] === 'true') {
         this.sesionExpirada = true;
+        // Captura el mensaje del interceptor o usa el predeterminado
+        this.mensajeAlerta = params['mensaje'] || 'Tu sesión ha expirado. Por favor, volvé a iniciar sesión.';
+        
         setTimeout(() => {
           this.sesionExpirada = false;
-        }, 4000); // Desaparece a los 4 segundos
+        }, 4000);
       }
     });
   }
-
   // Método para rellenar rápido para pruebas
   cargarDatosPrueba(tipo: 'usuario' | 'admin') {
     if (tipo === 'usuario') {
