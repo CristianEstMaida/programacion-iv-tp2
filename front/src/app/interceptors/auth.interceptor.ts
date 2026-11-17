@@ -37,7 +37,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
         localStorage.removeItem('rol');
 
         const errorBody = error.error as { message?: string; motivo?: string } | null;
-        const mensajeServidor = errorBody?.motivo || errorBody?.message || 'Tu sesión ha expirado. Por favor, volvé a iniciar sesión.';
+        const mensajeServidor = errorBody?.message || errorBody?.motivo || 'Tu sesión ha expirado. Por favor, volvé a iniciar sesión.';
 
         router.navigate(['/login'], { 
           queryParams: { 
