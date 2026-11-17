@@ -757,6 +757,7 @@ input[type="file"] + button:hover {
   font-weight: 600 !important;
   cursor: pointer;
   transition: background-color 0.2s;
+  white-space: nowrap;
 }
 
 .btn-primary:hover {
