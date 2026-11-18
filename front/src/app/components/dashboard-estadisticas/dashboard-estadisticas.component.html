@@ -6,18 +6,21 @@
     </div>
   </div>
 
+  <!-- Mensaje de error personalizado -->
+  <div class="alert-error" *ngIf="mensajeError">
+    ⚠️ {{ mensajeError }}
+  </div>
   <!-- Filtros de Rango de Fechas (Desde / Hasta) -->
   <div class="filtro-fechas-card">
     <div class="input-group">
       <label for="desde">Desde:</label>
-      <input type="date" id="desde" [(ngModel)]="fechaDesde" class="input-control">
+      <input type="date" id="desde" [(ngModel)]="fechaDesde" (ngModelChange)="mensajeError = ''" [max]="getFechaHoy()" class="input-control">
     </div>
 
     <div class="input-group">
       <label for="hasta">Hasta:</label>
-      <input type="date" id="hasta" [(ngModel)]="fechaHasta" class="input-control">
+      <input type="date" id="hasta" [(ngModel)]="fechaHasta" (ngModelChange)="mensajeError = ''" [max]="getFechaHoy()" class="input-control">
     </div>
-
     <button class="btn-filtrar" (click)="actualizarFiltro()">Aplicar Filtro</button>
   </div>
 
@@ -25,17 +28,41 @@
   <div class="graficos-grid">
     <div class="card-grafico">
       <h3>Publicaciones por Usuario</h3>
-      <canvas #graficoPublicaciones></canvas>
+      
+      <div class="chart-scroll-container">
+        <div class="chart-inner-wrapper" [style.width.px]="anchoDinamicoPubli">
+          <canvas #graficoPublicaciones></canvas>
+        </div>
+      </div>
     </div>
 
     <div class="card-grafico">
       <h3>Cantidad de Comentarios en el Tiempo</h3>
-      <canvas #graficoComentariosTiempo></canvas>
+      <div *ngIf="tieneComentarios; else sinDatos" style="position: relative; height: 300px;">
+        <canvas #graficoComentariosTiempo></canvas>
+      </div>
+      <!-- Si no hay comentarios, mostramos un mensaje institucional prolijo -->
+      <ng-template #sinDatos>
+        <div class="empty-state">
+          <p>🌾 No se registraron comentarios en el rango de fechas seleccionado.</p>
+        </div>
+      </ng-template>
     </div>
 
     <div class="card-grafico">
       <h3>Comentarios en cada Publicación</h3>
-      <canvas #graficoComentariosPubli></canvas>
+      <!-- Si hay comentarios por pub, mostramos el gráfico de torta -->
+      <div *ngIf="tieneComentariosPubli; else sinDatosPubli" class="chart-scroll-container">
+        <div class="chart-inner-wrapper" [style.width.px]="anchoDinamicoGrafico">
+          <canvas #graficoComentariosPubli></canvas>
+        </div>
+      </div>
+      <!-- Si no hay datos, mostramos el estado vacío prolijo -->
+      <ng-template #sinDatosPubli>
+        <div class="empty-state">
+          <p>🌾 No hay interacciones registradas en este período.</p>
+        </div>
+      </ng-template>
     </div>
   </div>
 </div>

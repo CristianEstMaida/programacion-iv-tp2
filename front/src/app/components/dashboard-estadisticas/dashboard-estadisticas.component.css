@@ -104,3 +104,61 @@
   height: 100% !important;
   max-height: 320px; /* Evita que se deforme verticalmente */
 }
+
+.alert-error {
+  background-color: #fee2e2;
+  color: #dc2626;
+  border: 1px solid #f87171;
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.empty-state {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 250px;
+  color: #666;
+  font-size: 15px;
+  background-color: #fafafa;
+  border-radius: 8px;
+  margin-top: 10px;
+  border: 1px dashed #ccc;
+}
+
+.chart-scroll-container {
+  width: 100%;
+  overflow-x: auto; /* Activa el scroll horizontal cuando el contenido excede el ancho */
+  overflow-y: hidden;
+  padding-bottom: 8px; /* Espacio para que la barra de scroll no pegue con el borde */
+}
+
+.chart-inner-wrapper {
+  height: 300px; /* Altura fija para el gráfico */
+  position: relative;
+}
+
+/* Opcional: una barra de scroll sutil y prolija */
+.chart-scroll-container::-webkit-scrollbar {
+  height: 6px;
+}
+
+.chart-scroll-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.chart-scroll-container::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+
+.chart-scroll-container::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
