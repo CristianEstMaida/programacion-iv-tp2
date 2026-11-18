@@ -1,4 +1,4 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, signal } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Auth } from '../../services/auth.service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
@@ -16,7 +16,7 @@ export class Login implements OnInit {
   errorMessage = signal('');
   sesionExpirada = false;
   mensajeAlerta: string = '';
-  constructor(private fb: FormBuilder, private authService: Auth, private router: Router, private route: ActivatedRoute) {
+  constructor(private fb: FormBuilder, private authService: Auth, private router: Router, private route: ActivatedRoute, private cdr: ChangeDetectorRef) {
     this.loginForm = this.fb.group({
       identificador: ['', [Validators.required]],
       // Expresión regular: Mínimo 8 caracteres, al menos una mayúscula y un número
@@ -29,26 +29,28 @@ export class Login implements OnInit {
   }
 
   ngOnInit(): void {
-  this.route.queryParams.subscribe(params => {
-    if (params['expirada'] === 'true') {
-      this.sesionExpirada = true;
-      
-      const mensajeRecibido = params['mensaje'];
+    this.route.queryParams.subscribe(params => {
+      if (params['expirada'] === 'true') {
+        this.sesionExpirada = true;
+        
+        const mensajeRecibido = params['mensaje'];
 
-      // Si el mensaje está vacío, es undefined, o es el "Unauthorized" del backend, ponemos el texto en español por defecto
-      if (!mensajeRecibido || mensajeRecibido.includes('Unauthorized')) {
-        this.mensajeAlerta = 'Tu sesión ha expirado. Por favor, volvé a iniciar sesión.';
-      } else {
-        // Si el backend mandó un motivo real y copado (ej: cuenta desactivada), lo respetamos
-        this.mensajeAlerta = mensajeRecibido;
+        // Si el mensaje está vacío, es undefined, o es el "Unauthorized" del backend, ponemos el texto en español por defecto
+        if (!mensajeRecibido || mensajeRecibido.includes('Unauthorized')) {
+          this.mensajeAlerta = 'Tu sesión ha expirado. Por favor, volvé a iniciar sesión.';
+        } else {
+          // Si el backend mandó un motivo real y copado (ej: cuenta desactivada), lo respetamos
+          this.mensajeAlerta = mensajeRecibido;
+        }
+
+        this.cdr.detectChanges();
+        
+        setTimeout(() => {
+          this.sesionExpirada = false;
+        }, 4000);
       }
-      
-      setTimeout(() => {
-        this.sesionExpirada = false;
-      }, 4000);
-    }
-  });
-}
+    });
+  }
   // Método para rellenar rápido para pruebas
   cargarDatosPrueba(tipo: 'usuario' | 'admin') {
     if (tipo === 'usuario') {
