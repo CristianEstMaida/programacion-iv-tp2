@@ -17,7 +17,7 @@ import { UsuariosModule } from '../usuarios/usuarios.module.js';
     JwtModule.register({
       secret: 'MI_CLAVE_SECRETA_SUPER_SEGURA',
       // signOptions: { expiresIn: '15m' },
-      signOptions: { expiresIn: '20s' },
+      signOptions: { expiresIn: '60s' },
     }),
     UsuariosModule,
   ],
