@@ -125,23 +125,28 @@ export class App implements OnInit, OnDestroy{
       return;
     }
 
-    // Queremos que el aviso salte 5 segundos antes de que expire el token
-    const tiempoParaAviso = Math.floor(tiempoRestante / 2);
-    const tiempoRestanteParaLogout = tiempoRestante - tiempoParaAviso;
+    // Queremos que el aviso salte 30 segundos antes de que expire el token
+    const tiempoGracia = 30000; // 30 segundos en milisegundos
+    const tiempoParaAviso = tiempoRestante - tiempoGracia;
 
-    // Programa el temporizador exacto
+    // Protección por si el token ya dura menos de 30 segundos desde que cargó
+    if (tiempoParaAviso <= 0) {
+      this.mostrarModalExpiracion = true;
+      this.cdr.detectChanges();
+      return;
+    }
+
+    // Programa el temporizador para el aviso
     this.expirationTimer = setTimeout(() => {
       console.log("¡Disparando modal de expiración!");
       this.mostrarModalExpiracion = true;
-
-      // 2. FORZAS la actualización de la vista aquí mismo
       this.cdr.detectChanges();
 
-      // Si el usuario ignora o cancela el modal, corren los últimos 5 minutos hasta expirar por completo
+      // Temporizador para el cierre final tras los 30 segundos de gracia del modal
       this.finalLogoutTimer = setTimeout(() => {
-        console.log("🚪 Tiempo agotado tras el modal. Cerrando sesión...");
+        console.log("Tiempo agotado tras el modal. Cerrando sesión...");
         this.cerrarSesionPorExpiracion();
-      }, tiempoRestanteParaLogout);
+      }, tiempoGracia);
     }, tiempoParaAviso);
   
   }
