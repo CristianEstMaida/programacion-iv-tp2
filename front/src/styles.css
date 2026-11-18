@@ -8,7 +8,7 @@
 
 main {
   /* Fondo con la imagen del tractor + capa oscura para contraste */
-  background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)), url('https://plus.unsplash.com/premium_photo-1664301163726-78773dc77bfd?q=80&w=1074&auto=format&fit=crop');
+  background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)), url('./app/assets/images/tractor-fondo.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
