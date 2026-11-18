@@ -11,10 +11,12 @@ export class FormatoNumeroPipe implements PipeTransform {
     const numero = Number(value);
 
     if (numero >= 1_000_000) {
-      return (numero / 1_000_000).toFixed(1).replace(/\.0$/, '') + 'M';
+      // Usamos 2 decimales para millones o lo ajustás a gusto
+      return (numero / 1_000_000).toFixed(2).replace(/\.?0+$/, '') + 'M';
     }
     if (numero >= 1_000) {
-      return (numero / 1_000).toFixed(1).replace(/\.0$/, '') + 'k';
+      // Usamos 2 decimales (.toFixed(2)) para que 1001 se vea como "1k" o "1.01k"
+      return (numero / 1_000).toFixed(2).replace(/\.?0+$/, '') + 'k';
     }
     
     return numero.toString();
