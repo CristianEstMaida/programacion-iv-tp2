@@ -43,6 +43,18 @@ export class DashboardEstadisticasComponent implements OnInit, AfterViewInit {
     this.cargarEstadisticas();
   }
 
+  formatearFecha(fechaStr: string): string {
+    if (!fechaStr) return '';
+    // Si viene en formato "YYYY-MM-DD", lo pasa a "DD/MM/YYYY"
+    if (fechaStr.includes('-')) {
+      const partes = fechaStr.split('-');
+      if (partes.length === 3) {
+        return `${partes[2]}/${partes[1]}/${partes[0]}`;
+      }
+    }
+    return fechaStr; // Si ya venía con barras, lo devuelve tal cual
+  }
+
   // Establece un rango por defecto al cargar (ej: últimos 30 días)
   inicializarFechasPorDefecto() {
     const hoy = new Date();
@@ -121,9 +133,11 @@ export class DashboardEstadisticasComponent implements OnInit, AfterViewInit {
           // Evaluamos si hay comentarios reales
           this.tieneComentarios = total > 0;
           
-          const labels = [`${this.fechaDesde} al ${this.fechaHasta}`];
+          const rangoTexto = `${this.formatearFecha(this.fechaDesde)} al ${this.formatearFecha(this.fechaHasta)}`;
+          const labels = [rangoTexto];
           const valores = [total];
           this.actualizarGraficoComentarios(labels, valores);
+          this.cdr.detectChanges();
         },
         error: (err) => console.error('Error al cargar comentarios tiempo:', err)
       });
@@ -167,7 +181,8 @@ export class DashboardEstadisticasComponent implements OnInit, AfterViewInit {
           label: 'Publicaciones realizadas',
           data: valores,
           backgroundColor: '#2e7d32', // Manteniendo tu verde institucional
-          borderRadius: 4
+          borderRadius: 6,
+          maxBarThickness: 40
         }]
         },
         options: {
@@ -190,37 +205,128 @@ export class DashboardEstadisticasComponent implements OnInit, AfterViewInit {
           }
         }
     });
+    
   }
 
   actualizarGraficoComentarios(labels: string[], valores: number[]) {
     if (this.chartComentarios) this.chartComentarios.destroy();
+    // const ctx = this.graficoComentariosTiempoRef.nativeElement.getContext('2d');
+    // this.chartComentarios = new Chart(ctx, {
+    //   type: 'line',
+    //   data: {
+    //     labels: labels,
+    //     datasets: [{
+    //       label: 'Cantidad de comentarios',
+    //       data: valores,
+    //       borderColor: '#2e7d32',
+    //       backgroundColor: 'rgba(46, 125, 50, 0.1)',
+    //       fill: true,
+    //       tension: 0.1
+    //     }]
+    //   },
+    //   options: {
+    //     responsive: true,
+    //     maintainAspectRatio: false,
+    //     scales: {
+    //       y: {
+    //         beginAtZero: true, 
+    //         ticks: {
+    //           stepSize: 1 
+    //         }
+    //       }
+    //     }
+    //   }
+    // });
+    if (this.chartComentarios) this.chartComentarios.destroy();
+
+    // Mapeamos los datos a puntos {x, y} para el scatter
+    const datosScatter = valores.map((val, index) => ({
+      x: index + 1, // Posición cronológica en el eje X
+      y: val        // Cantidad de comentarios en ese punto del tiempo
+    }));
+
     const ctx = this.graficoComentariosTiempoRef.nativeElement.getContext('2d');
     this.chartComentarios = new Chart(ctx, {
-      type: 'line',
+      type: 'scatter', // Gráfico de dispersión (puntos distribuidos, ni línea ni barra)
       data: {
-        labels: labels,
         datasets: [{
-          label: 'Cantidad de comentarios',
-          data: valores,
-          borderColor: '#2e7d32',
-          backgroundColor: 'rgba(46, 125, 50, 0.1)',
-          fill: true,
-          tension: 0.1
+          label: 'Total Comentarios Acumulado en el Período',
+          data: datosScatter,
+          backgroundColor: '#2e7d32',
+          pointRadius: 10,
+          pointHoverRadius: 12
         }]
       },
       options: {
         responsive: true,
         maintainAspectRatio: false,
-        scales: {
-          y: {
-            beginAtZero: true, // Obliga a que la escala arranque en 0 limpio
-            ticks: {
-              stepSize: 1 // Salta de 1 en 1 para evitar decimales extraños
+        plugins: {
+          legend: { display: false },
+          // ACÁ ESTÁ LA CLAVE PARA PERSONALIZAR EL MENSAJE DEL TOOLTIP
+          tooltip: {
+            callbacks: {
+              title: () => 'Resumen del Lapso',
+              label: (context) => {
+                const valor = context.parsed.y;
+                const periodo = labels[0] || '';
+                return [
+                  ` Período: ${periodo}`,
+                  ` Total de comentarios: ${valor}`
+                ];
+              }
             }
+          }
+        },
+        scales: {
+          x: {
+            min: 0.5,
+            max: 1.5,
+            ticks: {
+              stepSize: 1,
+              callback: (value) => {
+                return Number(value) === 1 ? (labels[0] || '') : '';
+              }
+            }
+          },
+          y: {
+            beginAtZero: true,
+            ticks: { stepSize: 1 }
           }
         }
       }
     });
+    // const ctx = this.graficoComentariosTiempoRef.nativeElement.getContext('2d');
+    // this.chartComentarios = new Chart(ctx, {
+    //   type: 'bar', 
+    //   data: {
+    //     labels: labels,
+    //     datasets: [{
+    //       label: 'Cantidad de comentarios',
+    //       data: valores,
+    //       backgroundColor: '#2e7d32',
+    //       borderRadius: 4
+    //     }]
+    //   },
+    //   options: {
+    //     responsive: true,
+    //     maintainAspectRatio: false,
+    //     plugins: {
+    //       legend: { display: false }
+    //     },
+    //     scales: {
+    //       y: {
+    //         beginAtZero: true,
+    //         ticks: { stepSize: 1 }
+    //       },
+    //       x: {
+    //         ticks: {
+    //           maxRotation: 45,
+    //           minRotation: 0
+    //         }
+    //       }
+    //     }
+    //   }
+    // });
   }
 
   actualizarGraficoComentariosPubli(labels: string[], valores: number[]) {
@@ -229,22 +335,22 @@ export class DashboardEstadisticasComponent implements OnInit, AfterViewInit {
     
     const ctx = this.graficoComentariosPubliRef.nativeElement.getContext('2d');
     
-    // Creamos un degradado sutil para el área bajo la curva
+    
     const gradient = ctx.createLinearGradient(0, 0, 0, 300);
     gradient.addColorStop(0, 'rgba(46, 125, 50, 0.5)');
     gradient.addColorStop(1, 'rgba(46, 125, 50, 0.0)');
 
     this.chartComentariosPubli = new Chart(ctx, {
-      type: 'line', // Tipo línea pero convertido en gráfico de área con fill
+      type: 'line', 
       data: {
         labels: labels,
         datasets: [{
           label: 'Comentarios por Publicación',
           data: valores,
           borderColor: '#2e7d32',
-          backgroundColor: gradient, // Relleno degradado en tono verde institucional
-          fill: true, // Esto lo transforma en un gráfico de área
-          tension: 0.3, // Curva suave para que parezca una onda elegante
+          backgroundColor: gradient, 
+          fill: true, 
+          tension: 0.3, 
           pointBackgroundColor: '#1b5e20',
           pointRadius: 4
         }]
@@ -252,6 +358,12 @@ export class DashboardEstadisticasComponent implements OnInit, AfterViewInit {
       options: {
         responsive: true,
         maintainAspectRatio: false,
+        layout: {
+          padding: {
+            left: 15,  
+            right: 15 
+          }
+        },
         plugins: {
           legend: { display: false }
         },
