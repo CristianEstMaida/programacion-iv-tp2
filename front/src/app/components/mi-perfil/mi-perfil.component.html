@@ -94,7 +94,7 @@
 
           <div class="form-group">
             <label for="fechaNacimiento">Fecha de Nacimiento:</label>
-            <input type="date" id="fechaNacimiento" name="fechaNacimiento" [(ngModel)]="usuario.fechaNacimiento" class="form-input">
+            <input type="date" id="fechaNacimiento" name="fechaNacimiento" [(ngModel)]="usuario.fechaNacimiento" [max]="getFechaHoy()" class="form-input">
           </div>
 
           <div class="form-group">

@@ -27,6 +27,12 @@ export class MiPerfilComponent implements OnInit {
   ngOnInit(): void {
     this.cargarPerfil();
   }
+
+  getFechaHoy(): string {
+    const hoy = new Date();
+    return hoy.toISOString().split('T')[0];
+  }
+
   getSafeImageUrl(url: string): SafeUrl {
     return this.sanitizer.bypassSecurityTrustUrl(url);
   }
@@ -105,32 +111,48 @@ export class MiPerfilComponent implements OnInit {
   actualizarPerfil() {
     if (!this.usuario || !this.usuario._id) return;
 
-    // Creamos el FormData para empaquetar textos y archivos juntos
+    // Validación: La fecha de nacimiento no puede ser posterior a hoy
+    if (this.usuario.fechaNacimiento) {
+      const fechaNacimiento = new Date(this.usuario.fechaNacimiento);
+      const hoy = new Date();
+      // Limpiamos la hora para comparar solo fechas puras (año, mes, día)
+      hoy.setHours(0, 0, 0, 0);
+
+      if (fechaNacimiento > hoy) {
+        this.mensajeError = 'La fecha de nacimiento no puede ser posterior a la actual.';
+        this.mensajeExito = '';
+        this.cdr.detectChanges();
+        return; // Frena la ejecución y no envía nada al backend
+      }
+    }
+      
+
+    // Creo el FormData para empaquetar textos y archivos juntos
     const formData = new FormData();
     formData.append('nombre', this.usuario.nombre || '');
     formData.append('apellido', this.usuario.apellido || '');
     formData.append('descripcion', this.usuario.descripcion || '');
     formData.append('fechaNacimiento', this.usuario.fechaNacimiento || '');
     
-    // Si eligió una foto nueva, la adjuntamos con la clave 'imagenPerfil'
+    // Si eligió una foto nueva, la adjunto con la clave 'imagenPerfil'
     if (this.selectedFile) {
       formData.append('imagenPerfil', this.selectedFile);
     }
 
-    // Llamamos a tu servicio tal como lo hacías antes, pero pasándole el formData
+    // Llamo a mi servicio pasándole el formData
     this.usuarioService.actualizarPerfil(this.usuario._id, formData).subscribe({
       next: (res: any) => {
         console.log('¡Backend respondió OK!', res);
         this.mensajeExito = '¡Perfil actualizado correctamente!';
         this.mensajeError = '';
 
-        // Actualizamos los datos locales con la respuesta del backend (que ya trae la nueva URL de Cloudinary)
+        // Actualizo los datos locales con la respuesta del backend (que ya trae la nueva URL de Cloudinary)
         this.usuario = { 
           ...this.usuario, 
           ...res,
           fechaNacimiento: res.fechaNacimiento ? res.fechaNacimiento.substring(0, 10) : this.usuario.fechaNacimiento
         };
-        this.selectedFile = null; // Limpiamos el archivo temporal
+        this.selectedFile = null; // Limpio el archivo temporal
 
         this.cdr.detectChanges();
         
